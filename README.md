@@ -1,37 +1,25 @@
-# FrameOS Home Assistant Add-on
+# FrameOS Home Assistant Add-on Repository
 
-Run FrameOS as a Home Assistant add-on.
+This repository contains the FrameOS add-on for Home Assistant.
+
+## Add-ons Provided
+
+- **FrameOS**: Run FrameOS as a Home Assistant add-on.
 
 ## Installation
 
-1. **Add the Repository:**
+To install the FrameOS add-on:
 
-   - Go to **Settings > Add-ons > Add-on Store** in Home Assistant.
-   - Click on the **...** menu in the top right corner.
-   - Select **Repositories**.
-   - Add the URL of this repository: `https://github.com/FrameOS/frameos-home-assistant-addon`
+1. In Home Assistant, go to **Settings > Add-ons > Add-on Store**.
+2. Click the **...** button in the top right corner and select **Repositories**.
+3. Add this repository URL: `https://github.com/FrameOS/frameos-home-assistant-addon`.
+4. Find the **FrameOS** add-on in the store and click **Install**.
 
-2. **Install the Add-on:**
-
-   - Find **FrameOS** in the add-on store under **Your Repositories**.
-   - Click **Install**.
-
-3. **Start the Add-on:**
-
-   - After installation, click **Start**.
-   - Optionally, enable **Start on boot** and **Watchdog**.
-
-4. **Access FrameOS:**
-
-   - Click on **Open Web UI** to access the FrameOS interface.
-
-## Configuration
-
-No additional configuration is required at this time.
+For detailed instructions, see the add-on's [README](./frameos/README.md).
 
 ## Support
 
-If you encounter any issues, please open an issue on the [GitHub repository](https://github.com/FrameOS/frameos-home-assistant-addon/issues).
+If you encounter issues, please open an issue in this repository.
 
 ## License
 
