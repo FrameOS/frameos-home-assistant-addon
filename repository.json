@@ -8,7 +8,7 @@
     "issues": "https://github.com/FrameOS/frameos-home-assistant-addon/issues",
     "repository": "https://github.com/FrameOS/frameos-home-assistant-addon",
     "logo": "https://github.com/FrameOS/frameos-home-assistant-addon/raw/main/logo.png",
-    "version": "1.0.0",
+    "version": "0.0.173",
     "startup": "services",
     "update_stable": true,
     "addons": [
