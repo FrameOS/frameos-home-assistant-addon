@@ -1,5 +1,9 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:latest
-FROM $BUILD_FROM
+# Use Home Assistant's base image for the appropriate architecture
+ARG BUILD_FROM=ghcr.io/hassio-addons/base:amd64-11.0.0
+FROM ${BUILD_FROM}
+
+# Set environment variables
+ENV LANG C.UTF-8
 
 # Set the working directory
 WORKDIR /app
@@ -23,6 +27,9 @@ RUN apk add --no-cache \
 # Clone FrameOS repository
 RUN git clone --depth 1 https://github.com/FrameOS/frameos.git /app
 
+# Copy application code
+COPY . /app
+
 # Install Python dependencies
 WORKDIR /app/backend
 RUN python3 -m venv .venv && \
@@ -45,8 +52,8 @@ RUN nimble install -d -y && nimble build
 EXPOSE 8989
 
 # Copy the start script
-COPY start.sh /app/backend/docker-start.sh
-RUN chmod +x /app/backend/docker-start.sh
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
 
-# Start the services
-CMD [ "bash", "/app/backend/docker-start.sh" ]
+# Define entrypoint
+CMD [ "/app/start.sh" ]
