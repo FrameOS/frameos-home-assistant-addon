@@ -51,9 +51,5 @@ RUN nimble install -d -y && nimble build
 # Expose the required port
 EXPOSE 8989
 
-# Copy the start script
-COPY start.sh /app/start.sh
-RUN chmod +x /app/start.sh
-
 # Define entrypoint
-CMD [ "/app/start.sh" ]
+CMD [ "/app/backend/docker-start.sh" ]
