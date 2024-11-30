@@ -2,6 +2,7 @@
     "name": "FrameOS",
     "url": "https://github.com/FrameOS/frameos-home-assistant-addon",
     "slug": "frameos-addons",
+    "maintainer": "FrameOS",
     "description": "A collection of FrameOS add-ons for Home Assistant",
     "documentation": "https://github.com/FrameOS/frameos-home-assistant-addon#readme",
     "issues": "https://github.com/FrameOS/frameos-home-assistant-addon/issues",
