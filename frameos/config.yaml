@@ -43,4 +43,4 @@ schema:
   - str
   init_commands:
   - str
-image: ghcr.io/hassio-addons/vscode/{arch}
+image: frameos/frameos/{arch}
