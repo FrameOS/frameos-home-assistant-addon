@@ -1,5 +1,5 @@
 name: FrameOS
-version: 0.0.173
+version: main-77fa1723d93fb71cebc6b18bbaf2aaccc6f328e9
 slug: frameos
 description: Run FrameOS as a Home Assistant add-on
 url: https://github.com/FrameOS/frameos-home-assistant-addon
