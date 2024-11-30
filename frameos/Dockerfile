@@ -27,9 +27,6 @@ RUN apk add --no-cache \
 # Clone FrameOS repository
 RUN git clone --depth 1 https://github.com/FrameOS/frameos.git /app
 
-# Copy application code
-COPY . /app
-
 # Install Python dependencies
 WORKDIR /app/backend
 RUN python3 -m venv .venv && \
