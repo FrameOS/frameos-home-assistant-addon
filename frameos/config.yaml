@@ -43,4 +43,4 @@ schema:
   - str
   init_commands:
   - str
-image: frameos/frameos/{arch}
+image: frameos/frameos
