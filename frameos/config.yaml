@@ -1,5 +1,6 @@
 version: "main-b20e3783179148daaf75445f2d0c8060d0b2184c"
 name: FrameOS
+maintainer: FrameOS
 slug: frameos
 description: Run FrameOS as a Home Assistant add-on
 arch:
