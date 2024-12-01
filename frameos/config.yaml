@@ -33,4 +33,5 @@ environment:
   SECRET_KEY: "$secret_key"
   DATABASE_PATH: "/data/db"
 # webui: "http://[HOST]:8989"
-
+ports:
+  8989/tcp: 8989
