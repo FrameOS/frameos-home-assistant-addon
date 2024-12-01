@@ -11,23 +11,5 @@
   "version": "main-77fa1723d93fb71cebc6b18bbaf2aaccc6f328e9",
   "startup": "services",
   "update_stable": true,
-  "addons": [
-    {
-      "slug": "frameos",
-      "name": "FrameOS",
-      "description": "Run FrameOS as a Home Assistant add-on",
-      "version": "main-77fa1723d93fb71cebc6b18bbaf2aaccc6f328e9",
-      "url": "https://github.com/FrameOS/frameos-home-assistant-addon",
-      "arch": ["amd64", "armv7", "armhf", "aarch64"],
-      "startup": "services",
-      "boot": "auto",
-      "host_network": true,
-      "ports": {
-        "8989/tcp": 8989
-      },
-      "webui": "http://[HOST]:8989",
-      "options": {},
-      "schema": {}
-    }
-  ]
+  "addons": []
 }
