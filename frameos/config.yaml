@@ -27,9 +27,9 @@ options:
   secret_key: ""
 schema:
   secret_key: str
+environment:
+  RUNNING_AS_HA_ADDON: 1
+  SECRET_KEY: $secret_key
+  DATABASE_PATH: /data/db
 # webui: "http://[HOST]:8989"
 
-# environment:
-#   - RUNNING_AS_HA_ADDON=1
-#   - SECRET_KEY=$secret_key
-#   - DATABASE_PATH=/data/db
