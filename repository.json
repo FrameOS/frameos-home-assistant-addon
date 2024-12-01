@@ -1,6 +1,13 @@
 {
   "name": "FrameOS",
   "url": "https://github.com/FrameOS/frameos-home-assistant-addon",
+  "slug": "frameos-addons",
+  "maintainer": "FrameOS",
+  "description": "A collection of FrameOS add-ons for Home Assistant",
+  "repository": "https://github.com/FrameOS/frameos-home-assistant-addon",
+  "version": "main-b20e3783179148daaf75445f2d0c8060d0b2184c",
+  "startup": "services",
+  "update_stable": true,
   "addons": [
     {
       "slug": "frameos",
