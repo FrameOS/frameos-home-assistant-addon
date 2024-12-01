@@ -1,25 +1,48 @@
-# FrameOS Home Assistant Add-on Repository
+# FrameOS Home Assistant Add-on
 
-This repository contains the FrameOS add-on for Home Assistant.
-
-## Add-ons Provided
-
-- **FrameOS**: Run FrameOS as a Home Assistant add-on.
+Run FrameOS as a Home Assistant add-on.
 
 ## Installation
 
-To install the FrameOS add-on:
+1. **Add the Repository:**
 
-1. In Home Assistant, go to **Settings > Add-ons > Add-on Store**.
-2. Click the **...** button in the top right corner and select **Repositories**.
-3. Add this repository URL: `https://github.com/FrameOS/frameos-home-assistant-addon`.
-4. Find the **FrameOS** add-on in the store and click **Install**.
+   - Go to **Settings > Add-ons > Add-on Store** in Home Assistant.
+   - Click on the **...** menu in the top right corner.
+   - Select **Repositories**.
+   - Add the URL of this repository: `https://github.com/FrameOS/frameos-home-assistant-addon`
 
-For detailed instructions, see the add-on's [README](./frameos/README.md).
+2. **Install the Add-on:**
+
+   - Find **FrameOS** in the add-on store under **FrameOS Add-ons**.
+   - Click **Install**.
+
+3. **Configure the Add-on:**
+
+   - After installation, go to the add-on's **Configuration** tab.
+   - Set the `secret_key` option. This is required for security.
+     - You can use Home Assistant's secrets by setting `!secret frameos_secret_key`.
+     - Alternatively, enter a strong, random string.
+
+4. **Start the Add-on:**
+
+   - After configuring, click **Start**.
+   - Optionally, enable **Start on boot** and **Watchdog**.
+
+5. **Access FrameOS:**
+
+   - Click on **Open Web UI** to access the FrameOS interface.
+
+## Configuration Options
+
+- **`secret_key`** (required): The secret key used by FrameOS for session management and security. It should be a strong, random string.
+
+## Data Persistence
+
+The database is stored in the `/data/db` directory provided by Home Assistant to ensure data is not lost across restarts or updates.
 
 ## Support
 
-If you encounter issues, please open an issue in this repository.
+If you encounter any issues, please open an issue on the [GitHub repository](https://github.com/FrameOS/frameos-home-assistant-addon/issues).
 
 ## License
 
