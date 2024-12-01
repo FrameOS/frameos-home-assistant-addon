@@ -3,7 +3,7 @@ version: main-77fa1723d93fb71cebc6b18bbaf2aaccc6f328e9
 slug: frameos
 description: Run FrameOS as a Home Assistant add-on
 url: https://github.com/FrameOS/frameos-home-assistant-addon
-logo: https://avatars.githubusercontent.com/u/151029574?s=400
+logo: https://raw.githubusercontent.com/FrameOS/frameos-home-assistant-addon/refs/heads/main/logo.png
 ingress: true
 ingress_port: 8989
 ingress_stream: true

@@ -4,5 +4,5 @@
   "slug": "frameos-addons",
   "maintainer": "FrameOS",
   "description": "A collection of FrameOS add-ons for Home Assistant",
-  "logo": "https://avatars.githubusercontent.com/u/151029574?s=400"
+  "logo": "https://raw.githubusercontent.com/FrameOS/frameos-home-assistant-addon/refs/heads/main/logo.png"
 }
