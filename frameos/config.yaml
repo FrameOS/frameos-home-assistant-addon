@@ -5,7 +5,6 @@ image: frameos/frameos
 description: Run FrameOS as a Home Assistant add-on
 url: https://github.com/FrameOS/frameos-home-assistant-addon
 logo: https://raw.githubusercontent.com/FrameOS/frameos-home-assistant-addon/refs/heads/main/frameos/logo.png
-icon: https://raw.githubusercontent.com/FrameOS/frameos-home-assistant-addon/refs/heads/main/frameos/logo.png
 ingress: true
 ingress_port: 8989
 ingress_stream: true
@@ -28,7 +27,7 @@ options:
   secret_key: ""
 schema:
   secret_key: str
-webui: "http://[HOST]:8989"
+# webui: "http://[HOST]:8989"
 
 # environment:
 #   - RUNNING_AS_HA_ADDON=1
