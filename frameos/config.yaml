@@ -12,15 +12,13 @@ ingress_stream: true
 startup: services
 init: false
 arch:
-- aarch64
-- amd64
+  - aarch64
+  - amd64
 uart: true
 realtime: true
-# homeassistant_api: true
-host_network: true
 map:
-- type: data
-  read_only: false
+  - type: data
+    read_only: false
 services: []
 options:
   secret_key: ""
@@ -32,4 +30,4 @@ environment:
   SQLALCHEMY_DATABASE_URI: "sqlite:////data/frameos.db"
 ports:
   8989/tcp: 8989
-webui: "http://[HOST]:[PORT:8989]"
+webui: "[Ingress]"
