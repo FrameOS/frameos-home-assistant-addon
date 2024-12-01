@@ -21,17 +21,15 @@ host_network: true
 map:
 - type: data
   read_only: false
-- type: ssl
-  read_only: false
 services: []
 options:
   secret_key: ""
 schema:
-  secret_key: str
+  secret_key: str?
 environment:
   RUNNING_AS_HA_ADDON: "1"
   SECRET_KEY: "$secret_key"
-  DATABASE_PATH: "/data/db"
+  SQLALCHEMY_DATABASE_URI: "sqlite:////data/frameos.db"
 ports:
   8989/tcp: 8989
 # webui: "http://[HOST]:8989"
