@@ -2,13 +2,13 @@ name: FrameOS
 version: main-77fa1723d93fb71cebc6b18bbaf2aaccc6f328e9
 slug: frameos
 image: frameos/frameos
-description: Run FrameOS as a Home Assistant add-on
+description: Manage smart frames with FrameOS
 url: https://github.com/FrameOS/frameos-home-assistant-addon
 logo: https://raw.githubusercontent.com/FrameOS/frameos-home-assistant-addon/refs/heads/main/frameos/logo.png
 icon: mdi:image-frame
-ingress: true
-ingress_port: 8989
-ingress_stream: true
+# ingress: true
+# ingress_port: 8989
+# ingress_stream: true
 startup: services
 init: false
 arch:
@@ -16,7 +16,7 @@ arch:
 - amd64
 uart: true
 realtime: true
-homeassistant_api: true
+# homeassistant_api: true
 host_network: true
 map:
 - type: data
@@ -32,6 +32,6 @@ environment:
   RUNNING_AS_HA_ADDON: "1"
   SECRET_KEY: "$secret_key"
   DATABASE_PATH: "/data/db"
-# webui: "http://[HOST]:8989"
 ports:
   8989/tcp: 8989
+# webui: "http://[HOST]:8989"
