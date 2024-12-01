@@ -30,4 +30,4 @@ environment:
   SQLALCHEMY_DATABASE_URI: "sqlite:////data/frameos.db"
 ports:
   8989/tcp: 8989
-webui: "[Ingress]"
+webui: "http://[HOST]:[PORT:8989]"
