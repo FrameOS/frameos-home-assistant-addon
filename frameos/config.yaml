@@ -5,7 +5,7 @@ image: frameos/frameos
 description: Manage smart frames with FrameOS
 url: https://github.com/FrameOS/frameos-home-assistant-addon
 logo: https://raw.githubusercontent.com/FrameOS/frameos-home-assistant-addon/refs/heads/main/frameos/logo.png
-icon: mdi:image-frame
+panel_icon: mdi:image-frame
 ingress: true
 ingress_port: 8989
 ingress_entry: /
