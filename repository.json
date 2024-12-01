@@ -1,4 +1,35 @@
 {
-  "name": "FrameOS Add-ons",
-  "url": "https://github.com/FrameOS/frameos-home-assistant-addon"
+  "name": "FrameOS",
+  "url": "https://github.com/FrameOS/frameos-home-assistant-addon",
+  "addons": [
+    {
+      "slug": "frameos",
+      "name": "FrameOS",
+      "description": "Run FrameOS as a Home Assistant add-on",
+      "version": "main-b20e3783179148daaf75445f2d0c8060d0b2184c",
+      "url": "https://github.com/FrameOS/frameos-home-assistant-addon",
+      "arch": ["amd64", "armv7", "aarch64"],
+      "startup": "services",
+      "boot": "auto",
+      "host_network": true,
+      "ports": {
+        "8989/tcp": 8989
+      },
+      "webui": "http://[HOST]:8989",
+      "options": {
+        "secret_key": ""
+      },
+      "schema": {
+        "secret_key": "str"
+      },
+      "environment":[
+        "RUNNING_AS_HA_ADDON=1",
+        "SECRET_KEY=$secret_key",
+        "DATABASE_PATH=/data/db"
+      ],
+      "map": [
+        "data:rw"
+      ]
+    }
+  ]
 }
