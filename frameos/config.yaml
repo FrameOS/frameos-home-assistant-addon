@@ -1,14 +1,14 @@
 name: FrameOS
-version: main-22145e1e3440b88e000952382e3d018e788ced89
+version: latest
 slug: frameos
-image: frameos/frameos
+image: mariusandra/frameos-hassio-test
 description: Manage smart frames with FrameOS
 url: https://github.com/FrameOS/frameos-home-assistant-addon
 logo: https://raw.githubusercontent.com/FrameOS/frameos-home-assistant-addon/refs/heads/main/frameos/logo.png
 panel_icon: mdi:image-frame
-# ingress: true
-# ingress_port: 8989
-# ingress_entry: /
+ingress: true
+ingress_port: 8990
+ingress_entry: /
 # ingress_stream: true
 startup: services
 init: false
@@ -29,4 +29,5 @@ environment:
   SQLALCHEMY_DATABASE_URI: "sqlite:////data/frameos.db"
 ports:
   8989/tcp: 8989
-webui: "http://[HOST]:[PORT:8989]"
+  8990/tcp: 8990
+webui: "http://[HOST]:[PORT:8990]"
