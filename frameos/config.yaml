@@ -1,5 +1,5 @@
 name: FrameOS
-version: t28
+version: t29
 slug: frameos
 image: mariusandra/frameos-hassio-test
 description: Manage smart frames with FrameOS
