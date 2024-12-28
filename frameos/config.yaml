@@ -1,5 +1,5 @@
 name: FrameOS
-version: t8
+version: t9
 slug: frameos
 image: mariusandra/frameos-hassio-test
 description: Manage smart frames with FrameOS
@@ -24,4 +24,4 @@ ports:
   8990/tcp: null
 ports_description:
   8989/tcp: "FrameOS public API port for incoming logs"
-  8990/tcp: "FrameOS ingress port"
+  8990/tcp: "FrameOS ingress port, not exposed"
