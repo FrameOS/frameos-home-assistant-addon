@@ -1,5 +1,5 @@
 name: FrameOS
-version: t4
+version: t5
 slug: frameos
 image: mariusandra/frameos-hassio-test
 description: Manage smart frames with FrameOS
@@ -19,16 +19,8 @@ map:
   - type: data
     read_only: false
 services: []
-options:
-  secret_key: ""
-  redis_url: ""
-schema:
-  secret_key: str?
-  redis_url: str?
 environment:
   RUNNING_AS_HA_ADDON: "1"
-  SECRET_KEY: "$secret_key"
-  REDIS_URL: "$redis_url"
   SQLALCHEMY_DATABASE_URI: "sqlite:////data/frameos.db"
 ports:
   8989/tcp: 8989
