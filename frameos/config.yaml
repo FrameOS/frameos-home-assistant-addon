@@ -1,5 +1,5 @@
 name: FrameOS
-version: latest
+version: t2
 slug: frameos
 image: mariusandra/frameos-hassio-test
 description: Manage smart frames with FrameOS
@@ -29,5 +29,5 @@ environment:
   SQLALCHEMY_DATABASE_URI: "sqlite:////data/frameos.db"
 ports:
   8989/tcp: 8989
-  8990/tcp: 8990
+  # 8990/tcp: 8990
 webui: "http://[HOST]:[PORT:8990]"
