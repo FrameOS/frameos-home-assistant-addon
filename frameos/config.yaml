@@ -1,5 +1,5 @@
 name: FrameOS
-version: t6
+version: t7
 slug: frameos
 image: mariusandra/frameos-hassio-test
 description: Manage smart frames with FrameOS
@@ -8,8 +8,6 @@ logo: https://raw.githubusercontent.com/FrameOS/frameos-home-assistant-addon/ref
 panel_icon: mdi:image-frame
 ingress: true
 ingress_port: 8990
-ingress_entry: /
-# ingress_stream: true
 startup: services
 init: false
 arch:
@@ -24,5 +22,8 @@ environment:
   SQLALCHEMY_DATABASE_URI: "sqlite:////data/frameos.db"
 ports:
   8989/tcp: 8989
-  8990/tcp: 8990
-webui: "http://[HOST]:[PORT:8990]"
+  8990/tcp: null
+ports_description:
+  8989/tcp: "FrameOS public API for incoming logs"
+  8990/tcp: "FrameOS WebUI"
+# webui: "http://[HOST]:[PORT:8990]"
