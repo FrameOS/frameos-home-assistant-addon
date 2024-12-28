@@ -2,12 +2,6 @@
 
 Run FrameOS as a Home Assistant add-on.
 
-## Status
-
-This starts FrameOS on port 8989 on your Home Assistant machine.
-
-Ingress (automatic login, etc) is **not yet implemented**. You'll have to sign up manually. 
-
 ## Installation
 
 1. **Add the Repository:**

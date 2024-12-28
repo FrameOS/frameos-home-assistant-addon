@@ -16,25 +16,14 @@ Run FrameOS as a Home Assistant add-on.
    - Find **FrameOS** in the add-on store under **FrameOS Add-ons**.
    - Click **Install**.
 
-3. **Configure the Add-on:**
+3. **Start the Add-on:**
 
-   - After installation, go to the add-on's **Configuration** tab.
-   - Set the `secret_key` option. This is required for security.
-     - You can use Home Assistant's secrets by setting `!secret frameos_secret_key`.
-     - Alternatively, enter a strong, random string.
-
-4. **Start the Add-on:**
-
-   - After configuring, click **Start**.
+   - After installation, click **Start**.
    - Optionally, enable **Start on boot** and **Watchdog**.
 
-5. **Access FrameOS:**
+4. **Access FrameOS:**
 
    - Click on **Open Web UI** to access the FrameOS interface.
-
-## Configuration Options
-
-- **`secret_key`** (required): The secret key used by FrameOS for session management and security. It should be a strong, random string.
 
 ## Data Persistence
 
