@@ -1,5 +1,5 @@
 name: FrameOS
-version: t27
+version: t28
 slug: frameos
 image: mariusandra/frameos-hassio-test
 description: Manage smart frames with FrameOS
@@ -9,6 +9,7 @@ panel_icon: mdi:image-frame
 # host_network: true
 ingress: true
 ingress_port: 8990
+ingress_stream: true
 startup: services
 init: false
 arch:
