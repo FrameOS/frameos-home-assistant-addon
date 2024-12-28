@@ -1,5 +1,5 @@
 name: FrameOS
-version: t19
+version: t20
 slug: frameos
 image: mariusandra/frameos-hassio-test
 description: Manage smart frames with FrameOS
@@ -8,6 +8,7 @@ logo: https://raw.githubusercontent.com/FrameOS/frameos-home-assistant-addon/ref
 panel_icon: mdi:image-frame
 ingress: true
 ingress_port: 8990
+ingress_stream: true
 startup: services
 init: false
 arch:
