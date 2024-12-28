@@ -1,15 +1,14 @@
 name: FrameOS
-version: t26
+version: t27
 slug: frameos
 image: mariusandra/frameos-hassio-test
 description: Manage smart frames with FrameOS
 url: https://github.com/FrameOS/frameos-home-assistant-addon
 logo: https://raw.githubusercontent.com/FrameOS/frameos-home-assistant-addon/refs/heads/main/frameos/logo.png
 panel_icon: mdi:image-frame
-host_network: true
+# host_network: true
 ingress: true
 ingress_port: 8990
-# ingress_stream: true
 startup: services
 init: false
 arch:
