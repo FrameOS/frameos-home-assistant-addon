@@ -1,7 +1,7 @@
 name: FrameOS
-version: t32
+version: main-baadbedae8a5fda6bc5baa1a8f11ad845052bdcf
 slug: frameos
-image: mariusandra/frameos-hassio-test
+image: frameos/frameos
 description: Manage smart frames with FrameOS
 url: https://github.com/FrameOS/frameos-home-assistant-addon
 logo: https://raw.githubusercontent.com/FrameOS/frameos-home-assistant-addon/refs/heads/main/frameos/logo.png
