@@ -1,5 +1,5 @@
 name: FrameOS
-version: main-39cb19b
+version: main-dc59f55
 slug: frameos
 image: frameos/frameos
 description: Manage smart frames with FrameOS
