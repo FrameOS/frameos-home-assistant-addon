@@ -1,5 +1,5 @@
 name: FrameOS
-version: main-e8317af
+version: main-558fbec
 slug: frameos
 image: frameos/frameos
 description: Manage smart frames with FrameOS
