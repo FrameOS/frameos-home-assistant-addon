@@ -1,5 +1,5 @@
 name: FrameOS
-version: main-1d31cf6
+version: main-39eb4bf
 slug: frameos
 image: frameos/frameos
 description: Manage smart frames with FrameOS
