@@ -1,5 +1,5 @@
 name: FrameOS
-version: 2026.4.0
+version: 2026.4.1
 slug: frameos
 image: frameos/frameos
 description: Manage smart frames with FrameOS
