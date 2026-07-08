@@ -16,7 +16,9 @@ arch:
 map:
   - type: data
     read_only: false
-services: []
+homeassistant_api: true
+services:
+  - mqtt:want
 environment:
   DATABASE_URL: "sqlite:////data/frameos.db"
 ports:

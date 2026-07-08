@@ -25,9 +25,17 @@ Run FrameOS as a Home Assistant add-on.
 
    - Click on **Open Web UI** to access the FrameOS interface.
 
+## Home Assistant Integration
+
+FrameOS can share its frames with Home Assistant: frame devices with live image entities and
+status sensors (via MQTT discovery, using the Mosquitto broker add-on if installed), plus
+`frameos_event` events on the Home Assistant event bus for automations. Enable it in the
+FrameOS web UI under **Settings → Home Assistant**. Archived frames are not shared. See the
+Documentation tab for details.
+
 ## Data Persistence
 
-The database is stored in the `/data/db` directory provided by Home Assistant to ensure data is not lost across restarts or updates.
+The database is stored at `/data/frameos.db` in the persistent data volume provided by Home Assistant, so data is not lost across restarts or updates.
 
 ## Support
 
