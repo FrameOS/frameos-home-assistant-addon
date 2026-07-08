@@ -2,6 +2,28 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.7.3 (2026-07-08)
+
+### New features
+- Added a live browser preview for interpreted scenes, powered by a WebAssembly build of the FrameOS runtime and available from the scene UI.
+- Added backend/API support for live previews, including frame-specific preview settings and a guarded server-side fetch proxy for scene data apps that need device-like HTTP access.
+- Added Home Assistant sharing: FrameOS can publish non-archived frames via MQTT discovery with image, status, scene, and last-seen entities, plus a summary frame-count sensor.
+- Added Home Assistant event forwarding for meaningful frame events to the Home Assistant event bus and per-frame MQTT event topics.
+- Added Home Assistant settings support, including a backend endpoint to trigger an immediate sync when sharing is enabled.
+- System scene templates now include stable template IDs and versions so installed scenes can track their source and detect template updates.
+
+### Bug fixes
+- Home Assistant MQTT credentials and sync-only settings are no longer included in the frame configuration sent to devices; frame apps only receive the Home Assistant URL and access token when required.
+- Apps that are unavailable on embedded targets are now also blocked from the WebAssembly live-preview target, with clearer “not available on this build target” errors.
+- The live-preview HTTP proxy now rejects loopback, private, link-local, multicast, reserved, and unspecified hosts to reduce the risk of using the backend as an internal network probe.
+
+### Maintenance
+- Added a WebAssembly build pipeline for the FrameOS interpreted-scene runtime and includes the generated preview bundle in the frontend build.
+- Added an MQTT client dependency for the Home Assistant sync service.
+- Added backend tests for Home Assistant discovery payloads, sync behavior, settings notifications, template metadata, and Home Assistant setting filtering.
+- Updated visual snapshots for the scene, workspace, and settings UI changes.
+- Updated Docker build steps and release/deployment automation to build the new frontend/runtime assets and publish add-on metadata.
+
 ## 2026.7.2 (2026-07-06)
 
 ### New features
