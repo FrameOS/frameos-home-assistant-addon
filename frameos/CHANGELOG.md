@@ -2,6 +2,22 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.7.4 (2026-07-08)
+
+### New features
+- Home Assistant “Save & sync now” now returns real sync feedback, including how many frames were shared, which MQTT broker was used, warnings, and actionable error messages.
+- Home Assistant MQTT host is now optional for standalone setups: when MQTT credentials are provided without a host, FrameOS defaults to the Home Assistant URL hostname, falling back to `homeassistant.local`.
+- Home Assistant sync can now warn when frame events are reaching the Home Assistant event bus but no MQTT broker is configured, instead of treating that case as a full failure.
+
+### Bug fixes
+- Fixed the in-browser live preview in production builds by serving the `frameos-wasm` bundle from the backend.
+- Fixed live preview loading when FrameOS is accessed through Home Assistant ingress by resolving the WASM worker URL through the configured asset/base path.
+
+### Maintenance
+- Added backend tests for Home Assistant MQTT host resolution, sync request replies, missing-broker warnings, sync failures, and shared-frame reporting.
+- Updated settings UI visual snapshots after the Home Assistant settings changes.
+- Improved toast/working-message handling so longer success, warning, and error messages stay visible long enough to read.
+
 ## 2026.7.3 (2026-07-08)
 
 ### New features
