@@ -2,6 +2,29 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.7.5 (2026-07-15)
+
+### New features
+- Added an embeddable scene editor and live scene preview bundle, so FrameOS editing and WebAssembly previews can be embedded outside the main FrameOS UI.
+- Added published WebAssembly/runtime packages for browser-based FrameOS previews and embedded editor integrations.
+- Expanded JavaScript app runtime APIs with bounded HTTP requests, text/JSON fetch helpers, scoped settings access, asset file operations, asset image loading, and chunked stream support for larger workflows.
+
+### Bug fixes
+- Fixed Home Assistant MQTT sync in Docker deployments by including the required MQTT client dependency in the runtime image.
+- Fixed stale embedded firmware and OTA downloads by marking firmware responses as `no-store` and adding checksum-based download URLs.
+- Improved embedded/ESP32 runtime stability by avoiding large cached image buffers on-device and rendering error images in-place where needed.
+- Fixed several image/data apps so download and service errors render at the correct frame size instead of producing incorrectly sized error images.
+- Fixed gallery image downloads to show a FrameOS error image instead of failing the render when the download fails.
+- Fixed SVG render failures on embedded devices so errors are drawn safely into the current render buffer.
+- Fixed JavaScript/TypeScript transpilation regressions where object keys and values after template literal interpolations or comparisons could be stripped incorrectly.
+- Improved ESP32 OTA handling so devices acknowledge OTA requests before the scheduled reboot.
+
+### Maintenance
+- Added automated builds for the browser preview/editor packages as part of the release pipeline.
+- Updated the Docker build to install and build the new WebAssembly and editor package workspaces.
+- Added and expanded tests for embedded firmware APIs, OTA downloads, embedded image URLs, JavaScript runtime HTTP/assets/streams, and transpiler regressions.
+- Added generated built-in app metadata and smoke testing for the embedded editor bundle.
+
 ## 2026.7.4 (2026-07-08)
 
 ### New features
