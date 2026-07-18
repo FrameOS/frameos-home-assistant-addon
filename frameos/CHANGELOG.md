@@ -2,6 +2,20 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.7.6 (2026-07-18)
+
+### New features
+- Waveshare 13.3" E (`EPD_13in3e`) now uses hardware SPI on devices when available, with a software SPI fallback if SPI cannot be opened.
+- Deployment planning now treats Waveshare `EPD_13in3e` as a boot-configured SPI device in both backend driver setup and the UI’s deploy driver inference.
+
+### Bug fixes
+- Fixed `EPD_13in3e` boot configuration so SPI0 is enabled without kernel chip selects, while GPIO 7 and 8 remain available for the driver’s manual chip-select handling.
+- Fixed WebAssembly runtime builds to build QuickJS from source when the `quickjs/` directory contains a prebuilt copy.
+
+### Maintenance
+- Moved npm package publishing into a dedicated workflow using trusted publishing, with support for manually rerunning publishes without bumping versions.
+- Updated driver setup tests to cover the new Waveshare `EPD_13in3e` SPI boot configuration behavior.
+
 ## 2026.7.5 (2026-07-15)
 
 ### New features
