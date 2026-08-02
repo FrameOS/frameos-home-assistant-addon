@@ -2,6 +2,32 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.0 (2026-08-02)
+
+### New features
+- Added FrameOS Cloud linking for local backends using device-code approval, with cloud status, provider selection, feature scopes, and cloud sign-in controls in the UI and backend API.
+- Added cloud-managed frames: enroll frames with claim tokens, push interpreted scenes, update frame settings, collect logs, and provision devices through cloud APIs.
+- Added browser-based provisioning tools for cloud frames, including SD image building and ESP32 flashing/provisioning flows.
+- Added encrypted cloud backups for scenes and frame configuration, with local enable switches, restore support, recovery-code import/export, and a plain local tarball export path.
+- Added cloud store integration: publish templates/scenes to FrameOS Cloud, browse private cloud scenes, proxy private preview images, and auto-add a connected provider’s store repository.
+- Added FrameOS Cloud login and identity linking, including first-run setup from a cloud account and optional local-login fallback controls.
+- Unified frame management under `/frames`, consolidating frame workspace and management routes for operators.
+- Added Buildroot platform support for the 32-bit Raspberry Pi Zero W and expanded release image building to all enabled platforms with cached base images.
+
+### Bug fixes
+- Fixed Buildroot release image platform detection so backend import diagnostics no longer pollute the platform list consumed by the release workflow.
+- Fixed Buildroot hotspot behavior as part of the on-device upgrade and Buildroot image work.
+- Hardened cloud link and login redirects by validating origins, trusting forwarded headers only from trusted/local proxies, and binding login handoff state to the initiating browser.
+- Added revocable user sessions so logout or admin revocation invalidates issued cookies, bearer tokens, and WebSocket authentication.
+- Fixed ARMv6 cross-build support by adding prebuilt QuickJS handling for ARMv6/containerless targets.
+
+### Maintenance
+- Added a dedicated Cloud CI workflow covering cloud linting, type checks, tests, builds, and Postgres-backed integration tests for backend linking and frame hub.
+- Expanded FrameOS test sharding and CI caching for Nim packages, QuickJS, compiled assets, and visual regression runs.
+- Added extensive backend, cloud service, frame hub, ESP32, and UI tests for cloud linking, login, backups, store, security, and provisioning flows.
+- Refreshed Buildroot base image manifests, cross-toolchain image digests, prebuilt dependency metadata, and timezone data.
+- Added cloud deployment and database operation scripts, workspace/turbo configuration, and production bundle deployment support for the cloud monorepo.
+
 ## 2026.7.6 (2026-07-18)
 
 ### New features
