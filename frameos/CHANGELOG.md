@@ -2,6 +2,32 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.1 (2026-08-02)
+
+### New features
+- Cloud workspace: added richer frame management with installable scenes, readable frame logs (including full-log access), and clearer frame confirmation/status surfaces.
+- Cloud store: added browse APIs and UI for browsing scene repositories by FrameOS version, with scene title handling and store filters.
+- Cloud UI: shared the same theme styling between `/frames` and `/account`, and added a Frames header link for easier navigation.
+- ESP32 runtime/device: introduced one generic ESP32-S3 firmware image with all supported Waveshare panel drivers compiled in and runtime panel selection via setup/installer flows.
+- Cloud setup tools: expanded the ESP32 browser flasher and SD image builder with device/panel selection, Wi-Fi personalization, and enrollment watching.
+- Buildroot SD image setup: cloud personalization can now apply display device settings such as device, width, height, rotation, VCOM, and upload URL during first boot.
+
+### Bug fixes
+- Cloud workspace: fixed a crash on the home view when sorting frames that do not have a name or host.
+- Runtime/device: fixed managed cloud enrollment on RTC-less devices by ignoring bogus pre-NTP expiration timestamps instead of deleting valid pending enrollments.
+- Device web UI: private frames now redirect anonymous browser visits to the admin login page instead of showing a blank 401 response.
+- Deployment/install: Buildroot SD image generation now falls back to the remote base-image manifest when the checked-in manifest is missing a newly published platform.
+- Cloud deployment: `/frames` bundle filenames are now content-hashed and served with safer caching so browsers and Cloudflare do not keep using an older workspace bundle.
+- ESP32 runtime/device: fixed driver link collisions so multiple Waveshare grayscale drivers can coexist in the generic firmware.
+- Device connectivity: improved managed-device websocket reconnect behavior with real backoff and quieter console output.
+
+### Maintenance
+- Refreshed Buildroot base image manifests for Raspberry Pi Zero 2 W and Raspberry Pi Zero W.
+- Updated Buildroot base-image publishing to use faster 16-core runners and a warmer per-run download/compiler cache.
+- Added integration, shared-SPA, and visual regression coverage for the cloud workspace, store browsing, theme sync, ESP32 flasher, SD image builder, scene renaming, and frame sorting.
+- Updated cloud, deployment, FrameOS integration, and ESP32 documentation for the new cloud and installer flows.
+- Refactored device catalog generation so cloud setup UIs can use generated backend-backed device and ESP32 panel lists.
+
 ## 2026.8.0 (2026-08-02)
 
 ### New features
