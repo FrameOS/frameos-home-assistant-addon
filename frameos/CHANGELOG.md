@@ -2,6 +2,29 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.3 (2026-08-03)
+
+### New features
+- Cloud admin UI now shows how many frames belong to each user in the admin user list.
+- Cloud auth can send signup notifications when a new user joins, including Google signups and standard signup flows.
+- Runtime/device networking now supports an automatic fallback from NetworkManager to a wpa_supplicant/hostapd backend, allowing Buildroot images without `nmcli` to scan Wi-Fi, join networks, and start the setup hotspot.
+- Frame network config now accepts a `networkBackend` setting (`auto`, `networkManager`, or `supplicant`) for operators who need to pin the runtime networking backend.
+
+### Bug fixes
+- Raspberry Pi Zero W Buildroot images can now join Wi-Fi and raise the setup hotspot even though NetworkManager is unavailable on that platform.
+- Buildroot SD image records are now kept server-authoritative when saving frame settings, preventing stale client-side `sdImage` data from replacing newer backend build output.
+- Buildroot SD image metadata is still cleared when configuration changes make an existing image no longer match the frame, avoiding “ready” images that are no longer valid.
+- Buildroot image generation now fails clearly when Buildroot silently drops requested package symbols, helping prevent images from shipping without required networking tools.
+- Raspberry Pi Zero 2 W Buildroot builds now use a toolchain configuration that satisfies NetworkManager’s requirements instead of risking NetworkManager being silently omitted.
+- Buildroot base image setup no longer enables NetworkManager on platforms configured not to use it.
+- wpa_supplicant configuration is now persisted through the Buildroot state partition so saved Wi-Fi settings survive reboots and image upgrades.
+
+### Maintenance
+- Refreshed Buildroot base image metadata for Raspberry Pi Zero W and Raspberry Pi Zero 2 W.
+- Added runtime tests for network backend detection, supplicant Wi-Fi parsing/config generation, and portal behavior without NetworkManager.
+- Expanded backend tests around Buildroot SD image metadata preservation and invalidation.
+- Updated deployment documentation for the new signup notification configuration.
+
 ## 2026.8.2 (2026-08-03)
 
 ### New features
