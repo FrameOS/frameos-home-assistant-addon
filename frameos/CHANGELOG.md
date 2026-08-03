@@ -2,6 +2,30 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.4 (2026-08-03)
+
+### New features
+- The add-frame flow now lets operators choose the connection direction/method up front, including whether to use FrameOS Remote or SSH, with clearer guidance about what the frame will do after it connects.
+- Newly added, duplicated, or imported scenes can show their thumbnail before the frame is saved by copying covers from store, local, system template, or existing scene images.
+- Cloud store repositories now use a FrameOS-version-specific store index so users see store scenes intended for their installed FrameOS runtime.
+
+### Bug fixes
+- Fixed blank scene/store thumbnails caused by browser image restrictions, stale cached store data, and relative or missing repository image URLs.
+- Fixed repository refreshes so updated store/template metadata is actually saved and reflected in the scene picker.
+- Fixed cloud provider settings so revoked, expired, or otherwise dead cloud links can be repointed or reconnected without needing a disconnect that cannot succeed.
+- Improved cloud provider URL validation with clearer feedback when the URL is missing `http://` or `https://`.
+- Fixed cloud sessions being refreshed too aggressively, which could log users out repeatedly during normal use.
+- Fixed new Buildroot frames so “Use SSH” survives saving instead of being overwritten by default remote/agent settings.
+- Fixed remote deploy/restart “auto” transport so it can fall back to SSH when FrameOS Remote is enabled but not currently connected.
+- Fixed Raspberry Pi Zero W Buildroot Wi-Fi provisioning to understand the saved wpa_supplicant format used on the card.
+
+### Maintenance
+- Refreshed Buildroot base image manifests for Raspberry Pi Zero W and Raspberry Pi Zero 2 W.
+- Reworked release and build workflows to use Depot runners/caching where beneficial.
+- Reordered Docker build layers and ignored more local cache directories to make release image builds faster and less cache-sensitive.
+- Added and expanded backend/runtime tests for cloud links, repositories, scene image copying, Buildroot image setup, deployment transport, and network provisioning.
+- Reduced noisy SQLite journal-mode warnings in CI and command-line tooling.
+
 ## 2026.8.3 (2026-08-03)
 
 ### New features
