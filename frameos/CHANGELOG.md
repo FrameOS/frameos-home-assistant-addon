@@ -2,6 +2,29 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.2 (2026-08-03)
+
+### New features
+- Cloud-managed frames can now expose assets through the cloud workspace, including read-only asset listings, downloads, thumbnails/previews, and image/folder scene shortcuts.
+- Cloud frame scenes are now hydrated from cloud scene assignments, so workspace scene tiles and scene deploys work for cloud-managed frames without requiring local frame access.
+- Cloud frame APIs now include device events, current image previews, recent metrics, metrics history, and scene image endpoints for richer fleet dashboards.
+- ESP32 devices can now spill large HTTP image downloads to local storage and stream JPEG decoding from the spill file, reducing memory pressure for large remote images.
+
+### Bug fixes
+- Raspberry Pi Zero W / ARMv6 bootstrap now selects ARMv6 artifacts instead of ARMv7 `armhf` binaries, avoiding illegal-instruction crashes on Pi Zero W-class hardware.
+- 32-bit ARM runtime builds now require a fixed gzip dependency, preventing crashes during gzip decompression on ARMv6/ARMv7 devices.
+- Cloud frame active-scene badges now restore correctly after reloads by reading the device’s last reported state.
+- Cloud “Save & Deploy” now saves supported settings and then deploys scenes, including scene-only changes that previously looked like a failed save.
+- Cloud asset refresh now keeps polling while the device-side asset listing is still being fetched, instead of returning a stale or empty list.
+- Save failures for pending cloud frames are now surfaced to users with a clear message instead of failing silently.
+
+### Maintenance
+- Added database migrations and integration coverage for cloud frame assets, metrics, and scene images.
+- Expanded cloud workspace tests for scene hydration, scene deploys, asset controls, ESP32 controls, and workspace surfaces.
+- Updated CI to cancel superseded pull request runs and use faster cached Depot runners for Buildroot, cross-compilation, and ESP32 firmware builds.
+- Switched more release and cross-build jobs to prebuilt Nim/tooling caches to reduce build time.
+- Added documentation for cloud workspace gaps and ESP32 large-image spilling behavior.
+
 ## 2026.8.1 (2026-08-02)
 
 ### New features
