@@ -2,6 +2,27 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.5 (2026-08-05)
+
+### New features
+- The on-device setup portal now supports choosing how a frame is controlled: FrameOS Cloud, a self-hosted backend, or standalone mode.
+- The setup portal can accept a FrameOS Cloud claim token and provider URL, queue the enrollment securely, and preselect Cloud when a pending enrollment already exists.
+- Frame admin cloud linking now requests cloud-managed enrollment automatically when the frame is not controlled by a self-hosted backend.
+- The local cloud status API now reports whether a self-hosted backend is blocking cloud-managed mode.
+
+### Bug fixes
+- Generic release SD images no longer identify `localhost:8989` as a real backend control plane, allowing cloud enrollment to work on first boot.
+- The backend now preserves an explicitly empty `serverHost`, so release images can remain unclaimed instead of falling back to `localhost`.
+- Runtime cloud enrollment now treats loopback hosts such as `localhost`, `127.0.0.1`, and `::1` as placeholders rather than active backends.
+- Portal-submitted cloud claim tokens now nudge the cloud hub to retry enrollment promptly instead of waiting behind an old backoff.
+- Buildroot SD image customization now logs more patching steps, making long-running boot partition patch operations easier to diagnose.
+- Local build commands now run with stdin closed, preventing image/deployment commands from hanging while waiting for input.
+
+### Maintenance
+- Improved Buildroot SD image customization so remote build hosts patch only the needed image portions instead of transferring the full SD image for small edits.
+- Added coverage for Buildroot image patching, cloud enrollment, cloud API status behavior, and setup portal control-mode handling.
+- Updated FrameOS editor and WASM package metadata for this release.
+
 ## 2026.8.4 (2026-08-03)
 
 ### New features
