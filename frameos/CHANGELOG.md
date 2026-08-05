@@ -2,6 +2,30 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.6 (2026-08-05)
+
+### New features
+- Cloud settings now show synced storage usage and quota headroom for private scenes, backups, and frame logs.
+- Cloud workspace scene edits are now saved persistently as private cloud scene versions before being pushed to managed frames.
+- Cloud-managed frames now support asset writes from the Assets panel, including upload, folder creation, rename, and delete, through the cloud API and device hub.
+- Cloud frame scene images now use real cached thumbnails/previews instead of placeholder-only behavior.
+- Browser live preview can route external image/data requests through a same-origin preview proxy, including in cloud workspace mode.
+- Buildroot SD image generation can personalize prebuilt images in place with setup JSON, WiFi, hostname, SSH keys, and root password data for first boot.
+- The built-in System Info scene now shows network address/interface details and whether the frame is managed by FrameOS Cloud, a self-hosted backend, or standalone.
+
+### Bug fixes
+- Cloud scene-only Save & Deploy flows no longer fail just because there are no frame setting changes to push.
+- Cloud scene saves now clear cached scene JSON so the workspace reloads the newly saved scene content instead of stale data.
+- Cloud live preview no longer calls the self-hosted-only preview settings endpoint when running in cloud mode.
+- System Info no longer shows misleading backend/server details for cloud-managed or standalone frames, and avoids showing `0.0.0.0` as the frame URL when a real local IP is available.
+- First-boot setup blobs are ignored when still pristine placeholders, and personalized blobs are removed after use so secrets are not left on the boot partition.
+
+### Maintenance
+- Added a backend database migration and sync handling for cached cloud usage snapshots.
+- Added backend, cloud, frontend, and runtime tests for usage quotas, cloud asset caching/writes, scene images, hub asset verbs, and SD image setup-blob patching.
+- Refreshed Buildroot base image manifests for Raspberry Pi Zero W and Raspberry Pi Zero 2 W.
+- Updated cloud workspace, cloud frames, and cloud link documentation for the new workspace, asset, quota, and image-personalization behavior.
+
 ## 2026.8.5 (2026-08-05)
 
 ### New features
