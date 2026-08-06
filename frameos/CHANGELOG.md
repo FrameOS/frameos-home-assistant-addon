@@ -2,6 +2,29 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.8 (2026-08-06)
+
+### New features
+- Added ESP32-C3 embedded firmware support, including a generic ESP32-C3 release image for thin-client boards.
+- Added embedded board presets for TRMNL OG/BWRY, XTEINK X4, and Seeed reTerminal Sticky, with matching default panels, pins, flash/PSRAM settings, and render-mode behavior.
+- Added new e-paper panel drivers for the TRMNL BWRY 7.5" black/white/yellow/red panel (`EPD_7in5yr`) and the Seeed reTerminal Sticky 3.97" monochrome panel (`EPD_3in97`).
+- Added backend thin-client scene rendering for PSRAM-less ESP32 boards: embedded devices can fetch a server-rendered scene bitmap, with a diagnostic fallback if rendering is unavailable or fails.
+- Updated the FrameOS UI and cloud flasher device/panel lists so the new ESP32 boards and panels can be selected during setup and configuration.
+
+### Bug fixes
+- Fixed setup hotspot startup on supplicant-based images by keeping dnsmasq lease files under `/run/frameos`, avoiding failures on read-only root filesystems.
+- Improved hotspot resilience when dnsmasq cannot start, allowing the setup hotspot flow to continue instead of failing outright.
+- Fixed cloud frame connection handling with a WebSocket stall watchdog and explicit auth-timeout close behavior.
+- Improved cloud frame offline status reporting so the UI more accurately reflects when a frame is offline.
+
+### Maintenance
+- Updated Python and JavaScript dependencies, including security-related dependency updates.
+- Updated Docker/runtime packaging to include Node.js for backend thin-client rendering support.
+- Expanded embedded firmware tests for ESP32-C3 platform handling, firmware defaults, panel formats, and thin-client rendering.
+- Added network backend tests for dnsmasq lease-file handling and hotspot fallback behavior.
+- Added cloud flasher tests and refreshed generated device metadata.
+- Updated ESP32 build scripts, SDK config overlays, and documentation for image sizing and cloud/embedded frame behavior.
+
 ## 2026.8.7 (2026-08-06)
 
 ### New features
