@@ -2,6 +2,31 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.7 (2026-08-06)
+
+### New features
+- Buildroot SD images now write a bounded post-boot diagnostics snapshot to `/boot/frameos-postboot-2min.log`, making early boot, service, network, and FrameOS log details readable from the SD card on any computer.
+- Cloud account pages now include storage usage meters for installs/assets, including the updated 100 MB private-scene storage quota.
+- Added a Debian Trixie ARMv6 release target for Raspberry Pi Zero W / Pi 1 class devices.
+
+### Bug fixes
+- Runtime/device: the boot network check and boot hotspot now run before display driver initialization, so a bad or hanging display driver is less likely to leave a frame both blank and unreachable.
+- Runtime/device: ARMv6 devices now select ARMv6 release artifacts instead of ARMv7 `armhf` builds, avoiding illegal-instruction crashes on Raspberry Pi Zero W / Pi 1 hardware.
+- Runtime/device: setup no longer writes or reloads NetworkManager power-save config on Buildroot images that only have a NetworkManager mount point but no NetworkManager service.
+- UI/device: USB image refreshes now tolerate interleaved serial log lines and retry corrupted transfers instead of failing the preview update.
+- UI/device: large USB payload reads avoid repeated full-buffer parsing, reducing browser freezes during ESP32 image transfers.
+- Cloud frames: stalled management WebSocket connections are detected more reliably, authentication timeouts close with the intended code, and the UI now reports offline frames more honestly.
+- Cloud UI: cloud frame save diffs now only consider settings that can actually round-trip through the cloud API, preventing unsaveable “Pending save” states.
+- Cloud UI: ESP32 cloud frame settings now hide unsupported sections, avoiding edits to values the device cannot save through the cloud.
+- Cloud UI: asset listings are preserved while a refresh is still in progress or after a transient fetch failure, instead of briefly blanking the asset panel.
+- Deployment/cloud: production CSP and fleet WebSocket origin configuration no longer inherit development environment values.
+
+### Maintenance
+- Refreshed Buildroot base image manifests for Raspberry Pi Zero W and Raspberry Pi Zero 2 W.
+- Refreshed cross-toolchain image digests and prebuilt dependency manifests.
+- Added tests for post-boot diagnostics staging, ARMv6 target resolution, Buildroot image composition, USB/cloud UI behavior, and cloud frame integration paths.
+- Consolidated remaining project TODO tracking into `docs/todo.md` and added boot partition diagnostics documentation.
+
 ## 2026.8.6 (2026-08-05)
 
 ### New features
