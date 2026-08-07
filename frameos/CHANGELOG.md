@@ -2,6 +2,32 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.9 (2026-08-07)
+
+### New features
+
+- Added **Virtual frames**: create a backend-rendered frame with no hardware, then view it as a PNG image or auto-refreshing browser/kiosk page.
+- Added UI support for virtual frames, including configurable width/height, copyable view URLs, and color modes such as full color, black & white, grayscale, BWYR, 7-color, and Spectra 6.
+- Added backend/API support for virtual frame rendering, scene activation, render-now events, deploy/fast-deploy flows, and cached scene images.
+- Added **Raspberry Pi Pico W** and **Pico 2 W** embedded thin-client support, including generic UF2 firmware for Pico-based devices.
+- Added runtime/device support for the **Pimoroni Inky Frame** family, with Pico firmware that fetches backend-rendered frames over Wi-Fi.
+- Added UI platform choices for Pico W, Pico 2 W, and virtual frames, with thin-client labeling where rendering happens on the backend.
+- Thin-client server-side rendering can now perform scene HTTP requests through the same style of fetch bridge used by physical frames, while blocking cloud metadata addresses.
+
+### Bug fixes
+
+- Fixed TLS certificate generation for long frame hostnames by truncating certificate common names to the X.509 limit while keeping the full host in SANs.
+- Fixed backend frame HTTP certificate matching so connections can still validate certificates with truncated common names.
+- Fixed UI frame links for hostless frames, such as virtual frames, so invalid frame/admin/image URLs are not generated.
+- Fixed embedded flash-size validation to allow 2MB profiles needed by Pico W-style devices.
+
+### Maintenance
+
+- Added automated CI and release builds for Pico W and Pico 2 W UF2 firmware artifacts.
+- Added backend tests covering virtual frame authentication, image/page serving, deploy behavior, scene activation, and scene image caching.
+- Expanded embedded firmware tests for new platform defaults and flash-size behavior.
+- Updated the embedded render harness and backend render utility to support rendering unsaved scene previews for thin-client and virtual-frame flows.
+
 ## 2026.8.8 (2026-08-06)
 
 ### New features
