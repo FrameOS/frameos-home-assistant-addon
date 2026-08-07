@@ -2,6 +2,34 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.10 (2026-08-07)
+
+### New features
+- ESP32 frames can now use signed cloud OTA firmware updates, with firmware manifests, downloads, and device-side signature verification before switching boot slots.
+- Embedded ESP32 frames now have full asset management parity: list, upload, download, create folders, delete, rename, and thumbnails are proxied through the device HTTP API.
+- The deploy plan for embedded ESP32 frames now includes a full OTA deploy path alongside fast scene upload/reload.
+- ESP32 frames now poll live settings for frame name, interval, render mode, deep sleep, wake schedule, rotation, timezone offset, and scene schedule changes without requiring a firmware rebuild.
+- ESP32 frames now support on-device scene scheduling using the frame’s configured schedule.
+- The UI now includes USB provisioning for embedded frames from the workspace, plus ESP32-specific setup/control surfaces.
+- Restart and reboot actions now work for embedded frames through the device HTTP API instead of SSH.
+- Home Assistant settings are now included in the live embedded settings payload for frames that need service configuration.
+
+### Bug fixes
+- Fixed embedded frame rotation so scenes render at the correct rotated dimensions and are packed directly into panel orientation, reducing memory pressure on ESP32 boards.
+- Fixed calendar rendering on embedded frames to reuse the target canvas when possible, avoiding an extra full-frame image allocation.
+- Fixed repeated embedded service-settings fetches during renders by caching settings until the firmware detects a backend settings change.
+- Fixed unsafe concurrent ESP32 firmware builds by adding a global Redis-backed build lock for the shared ESP-IDF build directory.
+- Fixed stale firmware detection when an embedded frame’s chip platform changes.
+- Fixed embedded frame deploy controls so SSH/agent-only actions are rejected, while supported restart and reboot actions remain available.
+- Fixed ESP32 Play asset handling and metrics display issues.
+
+### Maintenance
+- Added extensive backend tests for embedded asset proxying, firmware state, deploy planning, and embedded restart/reboot behavior.
+- Added cloud firmware route and integration tests for frame firmware manifests and downloads.
+- Added CI coverage for ESP32 32MB firmware builds.
+- Added firmware signing tooling and release workflow checks to refuse publishing unsigned ESP32 firmware.
+- Updated ESP32 documentation and embedded firmware build notes.
+
 ## 2026.8.9 (2026-08-07)
 
 ### New features
