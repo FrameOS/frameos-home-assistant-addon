@@ -2,6 +2,26 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.11 (2026-08-08)
+
+### New features
+- Virtual frames now support the Assets panel: upload, list, download, create folders, rename, and delete assets stored on the backend.
+- Virtual frames now persist per-scene state between renders and can apply scene state from events, making interactive/control-style scenes behave more like hardware frames.
+- Virtual frame rendering can preload frame assets and write saved assets back to backend storage, subject to a configurable asset quota in frame settings.
+- ESP32 asset uploads now use chunked transfers with longer upload timeouts, improving reliability for large files and weak Wi-Fi links.
+
+### Bug fixes
+- ESP32 frames can now stream spilled PNG downloads from storage instead of buffering the full image in memory, improving reliability for large rendered images.
+- ESP32 runtime cadence handling was fixed so scene refresh intervals and `nextSleepDuration` overrides are applied after renders.
+- ESP32 fast deploy scene uploads now use the extended upload timeout, reducing failures when larger scene payloads are sent over slow connections.
+- ESP32 firmware builds now use separate build directories per platform and flash profile, avoiding stale build configuration when switching chip or flash-size targets.
+
+### Maintenance
+- Added backend tests for virtual frame assets, virtual scene state, embedded asset chunk uploads, embedded rendering markers, and ESP32 firmware build profile handling.
+- Updated ESP32 release automation to publish only the generic ESP32-S3 firmware artifact.
+- Refreshed ESP32 and WASM runtime glue for scene state, saved assets, and render metadata handling.
+- Updated FrameOS package metadata and lockfiles.
+
 ## 2026.8.10 (2026-08-07)
 
 ### New features
