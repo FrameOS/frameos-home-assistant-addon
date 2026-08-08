@@ -2,6 +2,30 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.12 (2026-08-08)
+
+### New features
+- Added cloud Settings support, including a cloud settings route/page and backend account settings API for FrameOS Cloud operators.
+- Added persistent schedules for cloud-managed frames, with new cloud API/database support so frame schedules survive restarts and reloads.
+- Added cloud-managed service settings APIs and device sync for third-party credentials, including Home Assistant, GitHub, Immich, and Unsplash settings.
+- Added per-frame service settings enablement/scope handling so operators can control whether a managed frame may fetch cloud-owned service credentials.
+- ESP32 asset listings now report SD card mount state through the backend/API, allowing the UI to distinguish an empty card from a missing/unmounted card.
+- ESP32 firmware/runtime now includes additional SD card probing and request logging to make device-side storage and HTTP issues easier to diagnose.
+
+### Bug fixes
+- Fixed ESP32 asset caching so an unmounted SD card no longer replaces a good cached listing with an empty one for the cache lifetime; reinserted cards are checked again immediately.
+- Fixed local image and JavaScript asset enumeration to skip common hidden/OS-junk files and folders such as `.DS_Store`, `._*`, `.thumbs`, `.frameos`, `@eaDir`, and partial downloads.
+- Fixed interpreted scene caching so results computed from failed/defaulted inputs are not written back into the node cache.
+- Improved interpreted JavaScript error reporting when upstream inputs fail, so logs identify which defaulted input caused the downstream error.
+- Improved cloud-managed service settings revocation behavior: a provider-side insufficient-scope response clears cloud-owned service credential groups instead of leaving stale keys on the frame.
+- Improved cloud frames routing/build handling in auth-web deployments, including fixes for serving the embedded frames app in cloud/dev-cloud environments.
+
+### Maintenance
+- Added database migrations for cloud frame schedules, account settings, frame settings, and service setting groups.
+- Added test coverage for cloud account settings, frame service settings, schedules, deploy dialog behavior, ESP32 frame controls, hidden-file filtering, SD probing, and interpreter defaulted-input behavior.
+- Updated cloud frame documentation to cover schedule persistence, service settings, scopes, and managed-frame behavior.
+- Refactored shared path filtering and embedded asset listing code to carry storage state consistently across backend and runtime components.
+
 ## 2026.8.11 (2026-08-08)
 
 ### New features
