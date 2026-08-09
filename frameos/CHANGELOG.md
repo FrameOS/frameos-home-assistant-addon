@@ -2,6 +2,30 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.13 (2026-08-09)
+
+### New features
+- Added a browser-based “Update over USB” flow for enrolled ESP32 cloud frames, using the published firmware image while preserving Wi‑Fi credentials and cloud enrollment.
+- Added cloud frame re-enrollment support so an existing cloud frame can be rebound instead of creating a new frame record.
+- Cloud-managed frame settings now show which service credential groups scenes request and allow operators to enable or disable delivery of those service settings, including Home Assistant-related credentials.
+- ESP32 frames now expose clearer scene catalog information while loading only the active scene into memory, helping frames with many scenes run within device limits.
+- Cloud ESP32 integrations now record reboot markers for better visibility around restarts, firmware updates, and reconnects.
+
+### Bug fixes
+- Fixed cloud OTA firmware updates for ESP32-S3 by serving the app image required by the OTA slot instead of the merged USB-flash image.
+- Fixed ESP32 firmware version reporting so devices report the real FrameOS app version instead of the ESP-IDF placeholder value.
+- Improved handling of ESP32 internal-RAM exhaustion so operators see a memory-specific warning instead of a misleading network-style failure.
+- Switched ESP32 embedded runtime allocations toward PSRAM first, reducing internal-RAM pressure that could break cloud TLS connections.
+- Clarified factory reset warnings for cloud-managed ESP32 frames so operators know it removes enrollment and does not bring the same frame row back online.
+- Service settings on embedded frames are now applied from the firmware settings sync path only, avoiding stale or inconsistent device-side credential fetching.
+
+### Maintenance
+- Updated release automation to publish separate ESP32 merged USB images and OTA app images, with signatures for each artifact.
+- Added database support for claim-token rebinding during cloud frame re-enrollment.
+- Regenerated embedded built-in app metadata after recent app source changes.
+- Expanded backend, integration, protocol, deployment dialog, and embedded flash image test coverage.
+- Updated cloud frame documentation and internal deployment notes.
+
 ## 2026.8.12 (2026-08-08)
 
 ### New features
