@@ -2,6 +2,27 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.15 (2026-08-10)
+
+### New features
+- The Logs panel can now load recent ESP32 device log history from the device’s in-memory log ring over USB, preserving the original timestamps and visually distinguishing replayed history from live USB output.
+- ESP32 device logs are now written directly to the USB serial console, making on-device diagnostics visible even when cloud log upload is unavailable.
+- ESP32 cloud session readiness now logs granted scopes through the normal FrameOS logging path, helping operators diagnose whether `telemetry:logs` was granted.
+
+### Bug fixes
+- Fixed ESP32 image rendering paths so cached full-frame image producers still decode into a canvas-sized target instead of native resolution, reducing out-of-memory failures in gallery/photo scenes.
+- Fixed full-frame placement handling for downloaded image producers so node placement such as `contain` is respected instead of silently falling back to the frame’s default scaling mode.
+- Fixed calendar rendering to use the interpreter’s decode/render target hint, avoiding unnecessary full-frame allocations on embedded devices.
+- Fixed scene cleanup to close JavaScript app runtimes when scenes are unloaded or switched, reducing memory loss during scene changes.
+- Fixed idle JavaScript interpreters on embedded devices so they are released after renders instead of holding memory between refreshes.
+- Fixed a QuickJS cleanup leak in the Nim-side function registry when JavaScript runtimes are closed.
+
+### Maintenance
+- Added regression tests for ESP32 serial log visibility and cloud session scope logging.
+- Added regression tests for decode-target behavior across cached and uncached image producers.
+- Added scene runtime cleanup tests covering JavaScript app runtime teardown and memory growth.
+- Updated generated embedded built-in app metadata and package metadata.
+
 ## 2026.8.14 (2026-08-10)
 
 ### New features
