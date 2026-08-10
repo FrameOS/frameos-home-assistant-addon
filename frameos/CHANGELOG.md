@@ -2,6 +2,31 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.14 (2026-08-10)
+
+### New features
+- ESP32 device logs now include GPIO button press events, making physical button activity visible when diagnosing scenes.
+- The USB flashing/logs UI now presents flash output in a more readable format for operators.
+- Buildroot/Pi upgrades now verify signed release archives before unpacking, improving deployment safety.
+- ESP32 firmware now includes additional USB console support for on-device troubleshooting and recovery.
+
+### Bug fixes
+- Cloud scene deployment state no longer incorrectly reports every scene as undeployed.
+- ESP32 GPIO buttons now dispatch scene-defined events correctly, so button-driven scenes work again.
+- ESP32 image-producing apps now respect the consuming node’s placement/scaling mode instead of cropping to the frame default.
+- Weather and other large JS-heavy scenes are much more reliable on 8 MB ESP32 devices through lower memory use, faster JS app loading, and tighter runtime cleanup.
+- Gradient SVG rendering now falls back to band-by-band rasterization when memory is tight, avoiding render failures on constrained devices.
+- The default font is loaded only when first needed, freeing ESP32 PSRAM at boot.
+- ESP32 release firmware now reports the correct FrameOS version instead of `0.0.0-unknown`.
+- Pi/backend asset routes were tightened so canonical asset paths are served consistently.
+
+### Maintenance
+- Cut app transpile time by avoiding unnecessary source maps, JSX transforms, and import rewrites for app sources.
+- Added and expanded tests for cloud deploy-state display, SVG banding, JS app source handling, firmware signing/upgrades, and SSH deployment.
+- Improved CI performance with ESP-IDF ccache, shared Nim/QuickJS caches, and cached SSH deploy target images.
+- Added memory probing and runtime diagnostics used to track ESP32 Weather scene PSRAM usage.
+- Updated ESP32 and cloud documentation/todo trackers and removed completed planning items.
+
 ## 2026.8.13 (2026-08-09)
 
 ### New features
