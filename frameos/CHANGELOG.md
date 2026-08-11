@@ -2,6 +2,31 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.16 (2026-08-11)
+
+### New features
+- Added a local-presence flow for enabling private LAN access: admins request a challenge, read a six-digit code shown on the frame, and submit it before `allowLocalNetworkAccess` can be changed.
+- Added admin API endpoints for private-network access status, challenge creation, and code verification.
+- Added configurable JavaScript runtime limits in `frame.json` via `js.executionTimeoutMs`, `js.memoryLimitMb`, `js.maxStackKb`, and `js.assetSandbox`.
+- Added optional per-scene asset sandboxing for JavaScript apps with `js.assetSandbox: "scene"`, isolating scene asset reads/writes into a scene-specific subtree.
+- Added an ESP32 private-network egress guard so provider-installed scene JavaScript cannot reach local LAN addresses unless local network access has been explicitly enabled.
+
+### Bug fixes
+- Scene JavaScript infinite loops are now interrupted with a clear “time budget” error instead of hanging the render thread.
+- JavaScript asset access now rejects symlink escapes from the assets folder while still allowing normal filenames that contain `..`.
+- Private LAN access can no longer be changed by bulk settings saves or stale cloud/admin payloads; it is stored as device-local state so unrelated deployments do not silently reset it.
+- Embedded frames now cap and evict idle scene JavaScript interpreters under memory pressure, reducing out-of-memory risk in deeply nested JS scenes.
+- The embedded web flasher now reports post-flash cloud status more accurately.
+- Image decoding now imports PNG support consistently so PNG header probing and file-backed decode paths remain available where expected.
+
+### Maintenance
+- Added host-run test coverage for the ESP32 private-network guard.
+- Added host-run test coverage for the ESP32 SD-card “provably empty” probe to protect against unsafe auto-format decisions.
+- Added tests for JavaScript resource limits, asset sandboxing, symlink handling, runtime cleanup, and local-presence access persistence.
+- Optimized the JavaScript transpiler to avoid unnecessary string allocations, improving transpilation performance on constrained devices.
+- Updated cloud-frame security documentation and added value-pipeline design notes.
+- Updated package metadata and environment lock data for this release.
+
 ## 2026.8.15 (2026-08-10)
 
 ### New features
