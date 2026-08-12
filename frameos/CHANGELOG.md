@@ -2,6 +2,29 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.17 (2026-08-12)
+
+### New features
+- Added a value-pipeline planner that lets compatible image-producing apps render or decode directly into the consumer’s requested target when it is safe, reducing intermediate images and memory use on devices, WASM previews, and compiled scenes.
+- Added disk-backed byte spooling for large text/URL payloads. `Download URL` can now stream large responses into a spool, and `iCal to Events JSON` can consume spooled calendar data without materializing the whole file in memory.
+- Added runtime logging for spooled URL downloads, including byte count, threshold, storage tier, and backing path when a payload spills to storage.
+- Added built-in app capability metadata for target-aware image outputs, target forwarding, requested bounds, opaque fills, and byte-iterable fields.
+- Added WebP image stream coverage, including lossy WebP and WebP with alpha.
+
+### Bug fixes
+- Fixed gallery image downloads so target-aware decoding uses the consumer’s requested placement/fit instead of falling back to the frame default.
+- Fixed compiled scene generation for byte-iterable app ports so scenes using apps such as `Download URL` and `iCal to Events JSON` continue to compile and run correctly.
+- Fixed target fusion rules to avoid unsafe cases such as dynamic placement, cached consumers, and blend modes that would change rendered output.
+- Fixed deployment reliability for precompiled FrameOS and Buildroot artifacts by retrying transient disconnects and 5xx responses while still failing fast on missing releases.
+- Fixed release downloads so each retry rewrites the destination from scratch, avoiding truncated partial artifacts after mid-stream disconnects.
+
+### Maintenance
+- Regenerated built-in app metadata and frontend type definitions for the new app capability declarations.
+- Expanded backend code generation for app capabilities, byte-iterable fields, and compiled-scene target negotiation.
+- Added extensive planner, spool, image stream, compiled scene, ESP32, and repository scene differential tests.
+- Updated the value pipeline documentation with the new planner, spooling, and disk-tier behavior.
+- Improved CI reliability by caching the Nim toolchain and retrying Nim setup in test, cloud, and publish workflows.
+
 ## 2026.8.16 (2026-08-11)
 
 ### New features
