@@ -2,6 +2,23 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.19 (2026-08-13)
+
+### New features
+- Added a backend firmware release endpoint for the self-hosted “Update over USB” flow, so browser flashing can list and stream stock ESP32 provisioning images through FrameOS.
+- Embedded ESP32 frames now receive the frame `scaling_mode` as both a firmware default and a live polled setting, supporting `contain`, `cover`, `stretch`, and `center`.
+- Existing scenes and templates using deprecated `legacy/*` apps are automatically migrated to modern render/data/logic nodes during upgrade, import, cloud backup restore, and frame sync, including Home Assistant sensor scenes.
+
+### Bug fixes
+- Scene previews, embedded previews, and store thumbnails are now made opaque, preventing transparent preview artifacts in browsers, embeds, and published scene images.
+- The cloud and self-hosted ESP32 browser flashers now share more of the same image handling, validation, and reset behavior, improving consistency when flashing over USB.
+- Invalid embedded scaling modes now safely fall back to `cover` instead of being sent to devices.
+
+### Maintenance
+- Removed the deprecated legacy app implementations from the runtime and app registry after adding the migration path for existing scenes.
+- Added database migration coverage and backend tests for legacy app migration, embedded settings, firmware listing/streaming, store behavior, scene previews, and browser flashing.
+- Updated documentation for cloud frame behavior and refreshed generated built-in app metadata.
+
 ## 2026.8.18 (2026-08-13)
 
 ### New features
