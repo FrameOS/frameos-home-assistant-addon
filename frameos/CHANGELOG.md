@@ -2,6 +2,27 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.18 (2026-08-13)
+
+### New features
+- Cloud deploys now have separate paths for over-the-air updates and USB updates, with the deploy drawer using real device facts such as firmware platform, flash size, OTA support, and reported FrameOS version.
+- Cloud scene deployments now track deploy state per assigned store scene, allowing the UI and backend to distinguish assigned scene versions from scenes the device has actually applied.
+- Installing store scenes now copies their cover images into the frame snapshot cache, improving scene tile/cover availability for cloud-managed frames.
+- The Waveshare ESP32-S3 13.3" E6 hardware preset now includes default battery sensing configuration for GPIO8 with a 3.0 divider.
+
+### Bug fixes
+- Cloud-managed frames are no longer shown as permanently “waiting for first deploy” or “deploy now” after they have already acknowledged the current scene checksum.
+- Fleet and sidebar “last seen” labels now fall back to `last_seen_at`, so cloud frames no longer show “no logs yet” when activity has been reported without a backend log timestamp.
+- Runtime image decoding now retries memory-budget failures at reduced resolution and upscales the result, avoiding error frames when a lower-resolution decode can still render successfully.
+- Cloud-pushed scenes now persist their runtime origin and are re-checked on load, so cloud-origin scene restrictions continue to apply after reboot or demotion from cloud management.
+- Cloud deploy status now reports pending sync when the assigned checksum differs from the device-acknowledged checksum instead of prompting for a redundant deploy.
+
+### Maintenance
+- Added tests for cloud scene image caching, per-scene deploy state, frame hub protocol behavior, scene persistence, embedded firmware defaults, and degraded image decoding.
+- Updated cloud frame and ESP32 documentation for the new deploy, firmware, and large-image behavior.
+- Removed the shared re-enrollment panel registry in favor of the updated cloud deploy and USB flows.
+- Tightened TypeScript optional typing around cloud re-enrollment choices.
+
 ## 2026.8.17 (2026-08-12)
 
 ### New features
