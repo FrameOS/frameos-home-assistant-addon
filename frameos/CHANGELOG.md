@@ -2,6 +2,27 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.21 (2026-08-14)
+
+### New features
+- Cloud chat now streams responses and can use FrameOS app/scene context and tools to help cloud users build or modify scenes more interactively.
+- Added a `path` field type across app schemas, the editor UI, and Nim code generation, including a dedicated asset/path input for fields that reference local files.
+- Added ESP32 power-management settings for battery/deep-sleep setups, including deep sleep on battery, wake check interval, battery ADC pin, and battery divider support in firmware defaults and live device settings.
+- The SD image builder now uses consolidated Raspberry Pi targets: `raspberry-pi-32`, `raspberry-pi-64`, and `raspberry-pi-5`, covering older 32-bit Pi boards, unified 64-bit Pi boards, and Pi 5/CM5.
+- Cloud SD image personalization now supports an explicit root-login/root-password choice during image creation.
+
+### Bug fixes
+- Live ESP32 settings polling no longer overwrites console-provisioned battery and wake-check settings unless those values are actually configured in the backend.
+- Firmware and SD image listings now recognize the new Raspberry Pi SD image asset names, so cloud and self-hosted update flows can show the current consolidated targets.
+- Legacy Raspberry Pi platform keys and aliases, such as older Zero W and Zero 2 W selections, now normalize to the new consolidated SD image targets instead of failing as unsupported.
+- First-boot cloud personalization now recognizes `root_password` and reports the full supported key list when a cloud config file contains only unknown keys.
+
+### Maintenance
+- Refreshed Buildroot base image manifests for the new Raspberry Pi SD image targets.
+- Updated the Buildroot base image publishing workflow to build all enabled Raspberry Pi platforms in parallel and use the new platform names.
+- Updated Buildroot platform tests, SD image tests, firmware listing tests, cloud UI tests, and ESP32 settings coverage for the new platform and power-management behavior.
+- Updated documentation for cloud frames, ESP32 setup, and Buildroot image tooling.
+
 ## 2026.8.20 (2026-08-14)
 
 ### New features
