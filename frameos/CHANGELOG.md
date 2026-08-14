@@ -2,6 +2,27 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.20 (2026-08-14)
+
+### New features
+- Workspace tiles can now offer an explicit “Preview in browser” fallback when a frame or scene has no device image available, rendering the assigned scene locally and caching the result.
+- Cloud-managed Linux/Buildroot frames can now receive update notifications from the workspace, alongside ESP32 firmware update nudges.
+- Cloud deploy status now shows version information for both ESP32 firmware and FrameOS devices, including whether a newer release is available.
+- The cloud ESP32 flasher now follows the flash log as it grows, making long-running flashes easier to monitor.
+
+### Bug fixes
+- Cloud-pushed scene changes now resolve public scene IDs to their uploaded runtime IDs, so schedules and cloud commands can activate the intended scene instead of failing with “Scene not found.”
+- Cloud frame activity and health indicators now use live hub data such as `connected` and `last_seen_at`, reducing false “stale” or “no logs yet” states for active cloud frames.
+- Cloud frame images now refresh when render metrics indicate a new render, helping fleet/workspace views show fresher device snapshots.
+- Cloud deploy status now reports queued pushes and applied scene/settings checksums more accurately for online, offline, and not-yet-enrolled frames.
+- Upgrade triggers now avoid clobbering an in-progress upgrade while also ignoring stale “starting” or “running” status files from crashed upgrades.
+
+### Maintenance
+- Added integration and shared-SPA test coverage for cloud frame images, workspace status grouping, ESP32 controls, deploy dialogs, and browser-rendered scene previews.
+- Added runtime tests for cloud hub verbs, scene activation, and upgrade in-flight detection.
+- Updated cloud frame and ESP32 memory documentation, including notes around flash layout and reserve measurements.
+- Performed cleanup across workspace TODOs, TypeScript configuration, linting, and package metadata.
+
 ## 2026.8.19 (2026-08-13)
 
 ### New features
