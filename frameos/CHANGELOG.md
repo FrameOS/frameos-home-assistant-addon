@@ -2,6 +2,28 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.22 (2026-08-15)
+
+### New features
+- Cloud-managed frames now show pending FrameOS upgrades in the dashboard/deploy change indicator, including the device version and latest published release.
+- Runtime/device upgrade progress is now reported back through cloud logs by watching the device upgrade status file, including terminal outcomes after reconnects.
+- Embedded USB firmware updates can also push the current scenes to the device after flashing, so one USB update can bring firmware and content into sync.
+- Cloud add-frame/deploy flows now include dedicated SD image and USB relink UI components, including support for re-downloading a generated SD image.
+
+### Bug fixes
+- Cloud settings pushes that do not change any frame settings are now acknowledged without rewriting config or reloading the runtime, avoiding unnecessary e-ink flashes and render churn.
+- FrameOS upgrade downloads now use the built-in bounded HTTP downloader, avoiding failures on systems where external `wget` lacks TLS support.
+- FrameOS favicons now pick icons based on the browser/tab color scheme and local vs hosted context, improving visibility in dark browser chrome.
+- Cloud store scene installs now preserve published scene IDs, fixing blank scene tiles and duplicate/private scene saves after adding catalog scenes.
+- The unsaved changes drawer now stays open with a saving spinner while cloud saves are in progress, and only closes automatically after a successful save.
+- Change indicator tooltips now name the pending change, such as a FrameOS upgrade, instead of only showing a generic “Undeployed changes” label.
+
+### Maintenance
+- Added tests for cloud frame change details, cloud deploy dialogs, SD image builder behavior, favicons, no-op settings detection, upgrade status logging, hub verbs, and bounded file downloads.
+- Refactored cloud add-frame UI into reusable SD image and USB relink components.
+- Updated deployment scripts and deployment documentation for the cloud app.
+- Updated editor and WASM package metadata for the release.
+
 ## 2026.8.21 (2026-08-14)
 
 ### New features
