@@ -2,6 +2,29 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.24 (2026-08-16)
+
+### New features
+- Added pending command visibility for frames, including a shared workspace panel/API shape for cloud and self-hosted control planes.
+- Added cancellation for queued ESP32 OTA update requests before they reach the device.
+- Added ESP32 power settings in Frame Settings, including deep sleep behavior, wake check interval, battery sense GPIO, and battery voltage divider.
+- Improved cloud frame enrollment/provisioning so scene setup is synchronized during claim/enroll/confirm flows.
+- Added UI controls for AI chat model and reasoning-effort overrides in settings.
+
+### Bug fixes
+- Fixed Buildroot OTA upgrades failing when `frameos setup` tried to write systemd files on the read-only root filesystem.
+- Fixed Buildroot upgrades needlessly rewriting or downgrading service units by preserving the installed service configuration first.
+- Fixed FrameOS service exit metadata recording by escaping systemd `%` specifiers correctly, so last-exit fields are written as intended.
+- Fixed a native Inky driver crash risk by avoiding ownership of host-allocated images when rendering panel-sized images.
+- Fixed hosted cloud deployments after releases so the cloud UI/runtime is updated after release artifacts are published.
+
+### Maintenance
+- Added backend tests for pending embedded OTA command visibility and cancellation.
+- Added Buildroot image tests to ensure staged and installed service units stay byte-identical.
+- Added setup tests for read-only mount handling and service exit metadata formatting.
+- Expanded cloud integration and UI tests around frame enrollment, command queues, SD image building, and add-frame flows.
+- Updated deployment documentation for the cloud release/deploy workflow.
+
 ## 2026.8.23 (2026-08-16)
 
 ### New features
