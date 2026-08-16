@@ -2,6 +2,24 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.25 (2026-08-16)
+
+### New features
+- The Render SVG app now supports SVG `<text>` rendering, using fonts from the frame’s assets folder when `font-family` matches and falling back to the default font when it does not.
+- The runtime upgrade command now supports `frameos upgrade --no-reboot` for operators who want to stage an upgrade that requires a reboot without rebooting immediately.
+
+### Bug fixes
+- OTA upgrades that require a reboot now schedule one automatically, so frames do not stay on the old running binary after the new release has been staged.
+- Backend static asset requests now return real 404 responses instead of the app shell, preventing stale browser tabs from failing with misleading dynamic import errors after an upgrade.
+- The web flasher now reports when its browser-loaded flashing code chunk is gone after a deployment, helping users refresh instead of seeing a generic flashing failure.
+- Buildroot Raspberry Pi images now enable memory cgroups in the boot command line from first boot, avoiding an extra reboot before FrameOS service memory limits can apply.
+- SVG banded rendering now preserves whitespace needed by SVG text, keeping text rendering consistent with full SVG rendering.
+
+### Maintenance
+- Refreshed Buildroot base image manifests for Raspberry Pi platforms.
+- Updated the Buildroot base image publishing workflow to build all platforms by default, resolve the target version once per run, and commit the manifest after platform builds finish.
+- Added tests and snapshots covering SVG text rendering, font-family resolution, upgrade reboot behavior, static asset 404 handling, and Buildroot image boot settings.
+
 ## 2026.8.24 (2026-08-16)
 
 ### New features
