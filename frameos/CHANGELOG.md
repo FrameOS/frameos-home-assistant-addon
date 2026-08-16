@@ -2,6 +2,33 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.23 (2026-08-16)
+
+### New features
+
+- Cloud accounts now include data export and account deletion options from the account security area, backed by new backend/API endpoints.
+- FrameOS Cloud now includes legal imprint, privacy, and terms pages with a shared legal footer in the public UI.
+- Cloud signup, password reset, Google auth, and related auth flows can now use Turnstile checks to reduce automated abuse.
+- The Cloud scene editor chat can work directly with frame scenes, render-check generated edits, and display richer Markdown responses.
+- The SD image builder now requires an explicit target board/platform instead of guessing, helping operators choose the right Raspberry Pi image.
+- Cloud operations gained production-focused tooling: `/healthz`, blue/green zero-downtime deploy scripts, backup/restore-drill tooling, and uptime monitoring.
+
+### Bug fixes
+
+- Raspberry Pi 5 / CM5 Buildroot images now enable the KMS framebuffer overlay so `/dev/fb0` is available for framebuffer-based displays.
+- The framebuffer runtime no longer crashes when framebuffer metadata is missing or not ready during startup; it logs the issue and avoids rendering into an unavailable device.
+- Cloud analytics/logging redaction was tightened so credentials and private content are not sent to analytics, including service-setting secrets such as Home Assistant tokens.
+- Cloud enrollment now logs boot-time claim-token attempts and skipped enrollment states, making failed or expired enrollments easier to diagnose.
+- Cloud deployment handling now treats drained systemd instances as successful shutdowns and clears failed unit state before switching traffic.
+
+### Maintenance
+
+- Removed the legacy ImageMagick runtime path: new deployments and Buildroot images no longer install ImageMagick, and frames now use Pixie as the only image engine.
+- Dropped the `image_engine` frame field from the backend model, API schemas, cloud backup restore allowlist, runtime config, and database schema.
+- Refreshed Buildroot base image manifests for Raspberry Pi 32-bit, 64-bit, and Pi 5 targets.
+- Expanded Cloud CI coverage to include all inputs used by the deployed Cloud bundle, including the Cloud frontend, shared frontend code, and wasm/runtime sources.
+- Added and updated tests, visual snapshots, deployment docs, backup docs, restore drills, and operational runbooks for the Cloud service.
+
 ## 2026.8.22 (2026-08-15)
 
 ### New features
