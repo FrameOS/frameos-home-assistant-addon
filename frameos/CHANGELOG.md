@@ -2,6 +2,28 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.26 (2026-08-16)
+
+### New features
+- Embedded ESP32 firmware builds can now use `FRAMEOS_EMBEDDED_BUILD_ROOT` to keep ESP-IDF build directories on a persistent volume, reducing rebuild time after container or Home Assistant add-on restarts.
+- Added Buildroot privilege documentation covering the host/container permissions needed to generate SD images.
+
+### Bug fixes
+- Retired the unsafe `shared` and `shared-scenes` compilation modes. Frames that still have those legacy settings now build as `static`, avoiding scene `.so` runtime crashes while preserving compiled scenes and drivers in a single executable.
+- Buildroot SD images created with legacy shared compilation settings are now compared after normalization, preventing unnecessary 1–2 GB image rebuilds when the effective mode is still static.
+- Precompiled FrameOS deploys no longer expect or copy scene shared libraries; only driver libraries are shipped alongside precompiled binaries.
+- Cross-compiled binary ZIP downloads no longer include obsolete scene shared-library artifacts.
+- Embedded firmware build logs now survive very long Ninja output lines and unterminated trailing lines, so the real build error remains visible.
+- Cancelling or timing out an embedded firmware build now terminates the spawned process group instead of leaving Ninja/compiler processes running in the background.
+- Deployment planning now gives clearer fallback messaging when precompiled FrameOS cannot be used and a source build is required.
+
+### Maintenance
+- Updated tests for the simplified compilation-mode matrix, precompiled builds, Buildroot image staging, cross-build artifacts, and embedded firmware build handling.
+- Removed generated shared-scene fixtures and the shared-scene library build tooling.
+- Hardened the Nim driver shared-library ABI by passing log/event payloads across the boundary as serialized text and avoiding cross-runtime reference ownership.
+- Updated analytics consent wording in the cloud auth UI.
+- Refreshed cloud/Buildroot documentation and internal todo tracking.
+
 ## 2026.8.25 (2026-08-16)
 
 ### New features
