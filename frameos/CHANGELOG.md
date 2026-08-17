@@ -2,6 +2,22 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.28 (2026-08-17)
+
+### New features
+- No notable changes were found for this category.
+
+### Bug fixes
+- Runtime/device: Drivers that request an early retry are now called back with the already-rendered frame instead of forcing a full scene re-render, avoiding repeated app work such as HTTP fetches or image generation while a display driver is waiting for hardware readiness.
+- UI/cloud frames: Cloud-managed frame settings now show only the settings the cloud can actually save, preventing edits to unsupported fields that would cause settings pushes to be refused.
+- UI/workspace: Cloud frame settings navigation now only includes sections that are actually rendered, avoiding dead settings links.
+
+### Maintenance
+- Added runner-loop tests covering driver retry callbacks without scene re-renders.
+- Added shared SPA tests for cloud frame settings visibility and workspace surface allow-lists.
+- Updated cloud frame documentation and related project notes.
+- Updated TypeScript, ESLint, and package metadata for the cloud UI/editor/WASM workspace.
+
 ## 2026.8.27 (2026-08-17)
 
 ### New features
