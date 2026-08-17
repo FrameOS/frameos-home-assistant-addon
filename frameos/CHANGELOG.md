@@ -2,6 +2,27 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.29 (2026-08-17)
+
+### New features
+
+- FrameOS Cloud now serves the bundled FrameOS font catalogue and font files, so the cloud scene editor can offer the same built-in fonts as self-hosted installs.
+- Cloud-connected frames can now use **Assets → Sync fonts**, with streamed progress while fonts are copied to the frame.
+
+### Bug fixes
+
+- ESP32 thin-client firmware now reserves its framebuffer at boot, reducing out-of-memory failures on PSRAM-less boards such as ESP32-C3 devices.
+- ESP32 status JSON now reports the actual board target/module instead of hardcoded ESP32-S3 details, making device diagnostics more reliable.
+- Failed embedded fast deploys now include the largest available internal heap block in their status context, making memory fragmentation and framebuffer allocation failures easier to diagnose.
+- The Assets panel now explains why **Sync fonts** is unavailable instead of silently hiding or disabling the action.
+
+### Maintenance
+
+- Added generated font manifest tooling and tests to keep the cloud font catalogue aligned with the fonts shipped in the repository.
+- Added cloud API and frontend tests for font catalogue access and font sync progress streaming.
+- Added ESP32 board/framebuffer host tests covering board target reporting and framebuffer reservation policy.
+- Updated cloud backup documentation to record the store bucket lock as enabled.
+
 ## 2026.8.28 (2026-08-17)
 
 ### New features
