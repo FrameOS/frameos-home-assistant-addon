@@ -2,6 +2,36 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.27 (2026-08-17)
+
+### New features
+- Added S3/R2-compatible object storage support for FrameOS Cloud blobs, including scene images, store assets, and frame preview images.
+- Added deployment backup and sweep tooling for cloud object storage, including rclone examples and systemd timer/service files.
+- Added a browser-based ESP32 release flasher flow for blank boards, with USB provisioning of frame settings after flashing generic release firmware.
+- Added backend provisioning plans for ESP32 release firmware so stock generic images can be configured without building a per-frame firmware image.
+- Added ESP32 SD-card font sync: embedded frames with mounted storage can now receive bundled and uploaded `.ttf` fonts through the frame asset API.
+- Added runtime support for drivers to request an earlier render pass, allowing display drivers to retry soon after hardware becomes available instead of waiting for the normal scene interval.
+- Added cloud frame preview notifications from the runtime so FrameOS Cloud can refresh previews after new scene snapshots are saved.
+
+### Bug fixes
+- Fixed object-store backfill deadlocking on its own database connection.
+- Fixed framebuffer startup on devices where `/dev/fb0` exists before a valid display mode is available; FrameOS now treats zero-sized modes as not ready and retries with backoff.
+- Fixed a potential local admin lockout: local password login is restored when cloud login is no longer available or a cloud link is reset.
+- Fixed generic Buildroot release images so the remote agent ships disabled until a backend adopts and configures the frame.
+- Fixed embedded asset sync behavior: frames without an SD card now report a clear error, and virtual frames no longer attempt unsupported font sync.
+- Fixed asset thumbnail generation to use PNG thumbnails that fit within 320×320, preserve aspect ratio, avoid upscaling, and keep transparency.
+- Fixed image responses to serve the image’s actual content type instead of forcing the wrong type.
+- Fixed retained object conflicts in the cloud object store to return `409 Conflict` instead of `403 Forbidden`.
+- Fixed release driver code generation so generated Nim modules import the render-hint symbols they use.
+
+### Maintenance
+- Added tests for generated Nim driver imports, shared-driver ABI safety rules, embedded release flashing, object-store behavior, image thumbnailing, frame preview sync, and cloud hub protocol behavior.
+- Added database migrations for cloud object storage metadata and watched frame preview tracking.
+- Updated cloud deployment, backup, operational runbook, cloud frame, cloud link, and Buildroot privilege documentation for the new storage and provisioning flows.
+- Updated Buildroot image tooling and tests for release-image defaults and precompiled artifact handling.
+- Refined embedded firmware build locking and release firmware metadata for ESP32 generic images.
+- Updated package metadata and lockfile entries for the cloud apps, editor, and WASM packages.
+
 ## 2026.8.26 (2026-08-16)
 
 ### New features
