@@ -2,6 +2,31 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.30 (2026-08-18)
+
+### New features
+- Cloud-managed Pi/Linux frames can now save additional settings from the UI/API, including flip, global error behavior, QR control code, metrics interval, max HTTP response size, asset saving, and timezone updater settings.
+- Cloud settings saves now gate newer settings by the frame’s reported FrameOS version and show a clearer “update the frame first” error when firmware is too old.
+- Cloud asset uploads now use chunked transfers, improving reliability for larger files and slow links; Linux cloud frames use larger chunks, while ESP32 cloud frames keep smaller device-friendly chunks.
+- The runtime now supports offset-addressed cloud asset upload chunks, so retried chunks overwrite the same byte range instead of duplicating data.
+- Cloud store and repository reads now use shared cache handling for faster, more edge-cache-friendly browsing and downloads.
+
+### Bug fixes
+- ESP32-C3 frames no longer count every failed render as a PSRAM rescue event.
+- Setting `metricsInterval` to `0` now correctly keeps metrics disabled instead of falling back to the 60-second default in backend-generated config and runtime config loading.
+- Disabled metrics now stay disabled while the runtime keeps checking for future settings changes, instead of only evaluating the interval once at startup.
+- Cloud root redirects no longer get stuck in browser caches.
+- Cloud-generated public URLs no longer use internal server-only addresses, fixing links in proxied or containerized deployments.
+- Cloud scene saves no longer repeatedly fork or republish unchanged store scenes due to sanitized scene JSON differences or stale origin metadata.
+- Cloud store scene installs no longer create perpetual “update available” badges caused by cloud-only origin/version bookkeeping.
+- Cloud scene persistence now serializes concurrent saves for the same frame to avoid duplicate private scene copies.
+- Cloud asset chunk uploads now reject gaps, clean up stale partial uploads, and keep writes scoped to the configured assets directory.
+
+### Maintenance
+- Added coverage for cloud public-origin handling, cloud frame settings, cloud scene persistence, cloud asset sync/uploads, store caching, and runtime asset chunk helpers.
+- Updated FrameOS Cloud documentation for the new cloud frame settings and asset upload behavior.
+- Updated editor and WASM package metadata for this release.
+
 ## 2026.8.29 (2026-08-17)
 
 ### New features
