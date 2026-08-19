@@ -2,6 +2,21 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.31 (2026-08-19)
+
+### New features
+- AI scene saving can now fork an existing scene instead of creating an orphaned copy, preserving the scene’s relationship to the original when edits are made from chat.
+
+### Bug fixes
+- Embedded thin-client rendering now dithers packed panel bitmaps, reducing banding in gradients and photos across 1bpp, grayscale, BWYR, 7-color, and Spectra 6 e-ink formats.
+- Spectra 6 bitmap packing now avoids emitting the panel’s unused palette index.
+- Cancelling or terminating an embedded firmware build now sweeps the full build process group, preventing leftover compiler processes from consuming CPU or interfering with later builds.
+
+### Maintenance
+- Added cleanup tooling for duplicate scene copies left behind by earlier AI save behavior.
+- Improved Deploy E2E SSH CI performance by caching the SSH target image more effectively, using a Redis service container, and allowing cross-compile tests to use available CPU cores.
+- Added tests covering embedded bitmap dithering, firmware build process cleanup, SSH target image tagging, and AI scene forking behavior.
+
 ## 2026.8.30 (2026-08-18)
 
 ### New features
