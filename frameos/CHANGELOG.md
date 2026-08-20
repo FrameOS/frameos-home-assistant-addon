@@ -2,6 +2,36 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.32 (2026-08-20)
+
+### New features
+- Cloud accounts can now enable optional two-factor authentication with TOTP, passkeys, and recovery codes; passkeys can also be used during sign-in and re-authentication.
+- Cloud now requires recent re-authentication before sensitive device access changes, including granting or revoking linked device access.
+- Added a per-frame Activity view and API so operators can review recent frame audit events.
+- Adding cloud frames is simpler: frames can show a link code on the panel for claiming, first enrollment can auto-confirm, and approvals can reuse a two-hour approval window.
+- Added backend/API support to adopt a running standalone frame into a managed backend by importing its local config and scenes, then writing backend credentials back to the frame.
+- Cloud frame actions now use canonical cloud routes for render, restart, reboot, and rename, giving one UI for both local and cloud-managed frames.
+- Schedules can now include automatic reboot entries.
+- Frame settings now accept JSON-like `frame.json` input, preserve admin payload data more safely, and support cloud hardware setting batches.
+- ESP32 rendering now uses a 16-bit canvas and streamed packers, enabling 1200×1600 renders on 8 MB PSRAM devices.
+- Added ESP32 support for the Seeed reTerminal E1004 / T133A01 13.3-inch Spectra 6 panel preset.
+
+### Bug fixes
+- Cloud revoke actions now resume correctly after `/login/reauth` instead of being dropped.
+- ESP32 large-panel rendering uses substantially less memory, reducing out-of-memory failures and unexpected device resets during full-frame renders.
+- Frame adoption now validates admin login and reachability before creating a backend frame, and cleans up if credential write-back fails.
+- Sensitive link tokens are redacted in more places before being surfaced in logs or UI-facing data.
+- Cloud asset write routes now consistently enforce recent-auth behavior for mutating operations.
+
+### Maintenance
+- Refreshed Buildroot base image metadata for Raspberry Pi 32-bit, Raspberry Pi 64-bit, and Raspberry Pi 5 targets.
+- Moved compute-heavy CI and release jobs onto the self-hosted EPYC runner pool, while keeping rendering-sensitive visual tests on GitHub-hosted runners.
+- Buildroot CI now supports top-level parallel package builds while keeping per-package `BR2_JLEVEL` at full CPU capacity.
+- Updated cross-build runner selection for amd64, armv6, armhf, and arm64 targets.
+- Added database migrations for two-factor authentication, frame audit indexing, and session recent-auth tracking.
+- Expanded integration and unit test coverage for two-factor auth, re-authentication, frame activity, frame enrollment, standalone adoption, schedule events, and Buildroot build behavior.
+- Updated cloud and device documentation, ESP32 memory notes, and manual testing checklists.
+
 ## 2026.8.31 (2026-08-19)
 
 ### New features
