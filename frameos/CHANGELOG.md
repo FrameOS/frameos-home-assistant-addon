@@ -2,6 +2,25 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.33 (2026-08-21)
+
+### New features
+- Runtime/device: added a `frameos set-display` command to patch display device, dimensions, rotation, VCOM, and upload URL into `frame.json`.
+- Backend/API: added a Cloud API route for per-frame telemetry enabled state.
+- UI: polished Cloud account pages with clearer activity feed frame names, improved tab order, and updated signup copy.
+
+### Bug fixes
+- Runtime/device: Buildroot first-boot cloud personalization can now apply display settings without requiring Python on the image.
+- Deployment/device: Buildroot images now disable systemd-resolved DNSSEC validation on frames, avoiding first-boot network checks failing behind consumer routers that break DNSSEC responses.
+- UI: fixed duplicate favicon injection on Cloud account pages.
+
+### Maintenance
+- Refreshed Buildroot base image manifests for Raspberry Pi 32-bit, Raspberry Pi 64-bit, and Raspberry Pi 5 images.
+- Frontend: moved generated Kea logic types inline into logic files and updated `kea-typegen`.
+- CI: Nim test shards now run test files in parallel and cache compiled assets/Nim caches to speed up pull request testing.
+- Added and updated tests for display patching, Cloud telemetry routing, shared SPA asset paths, SD image builder behavior, and UI snapshots.
+- Updated Cloud backup scripts, example environment, and documentation.
+
 ## 2026.8.32 (2026-08-20)
 
 ### New features
