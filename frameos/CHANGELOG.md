@@ -2,6 +2,35 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.34 (2026-08-22)
+
+### New features
+- ESP32 frames now receive the frame’s IANA time zone and a compact DST data slice from the backend, both in newly built firmware and during settings polls. Schedules, scene time, and JavaScript `Date` handling can stay aligned with local time through DST changes.
+- ESP32 frames without a loaded scene now show a proper FrameOS status screen instead of the old demo screen, including frame name, panel size, network/setup hotspot state, backend or cloud management state, and version.
+- Raspberry Pi framebuffer displays can now report their real detected size after startup, including when the framebuffer appears late. FrameOS can fold that detected size back into the frame config so scenes render at the correct resolution on later renders and boots.
+- The built-in status/system screens scale fixed-size UI elements for larger HDMI panels, making setup and system information more readable on high-resolution displays.
+- SD-card cloud personalization can now include a `time_zone`, and the frame name from the card is also applied as the device hostname. This helps newly flashed cloud-managed cards come up with the right local time and a unique `.local` name on the network.
+- The frame admin/workspace UI received routing and mobile layout updates, including direct frame workspace URLs and cleaner small-screen workspace/search layouts.
+
+### Bug fixes
+- ESP32 schedule matching no longer relies only on a flat current UTC offset when newer firmware has time zone data available, avoiding incorrect behavior around DST transitions.
+- ESP32 fallback/status rendering no longer changes just because a render counter advanced, reducing unnecessary e-ink refreshes when nothing meaningful changed.
+- Frames booted from generic cloud SD images are less likely to stay at the default `800×480` configuration on larger framebuffer displays once the actual panel geometry becomes available.
+- Cloud enrollment from first-boot personalization now preserves the pending frame name and time zone so they can be applied locally after enrollment.
+- First-boot cloud personalization now documents and reports `time_zone` as a recognized key instead of treating it as unknown.
+
+### Maintenance
+- Added backend and Nim tests for compact time zone slices, aliases, DST transition slicing, and fixed-offset zones.
+- Added tests for first-boot cloud personalization with time zone and hostname handling.
+- Added display-detection tests and driver plumbing for drivers to report detected display size back to the host.
+- Updated visual regression snapshots and end-to-end coverage for the workspace, frame install flow, cloud frames workspace, and store layouts.
+- Updated cloud frame documentation and manual testing notes.
+
+### FrameOS Cloud
+- Cloud-managed frames can now be addressed with direct `/frames/<id>` workspace URLs.
+- The cloud scene store now has tabbed browsing, and the frames page has been consolidated.
+- Mobile cloud pages have improved header/menu behavior and a more compact search layout.
+
 ## 2026.8.33 (2026-08-21)
 
 ### New features
