@@ -2,6 +2,31 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.35 (2026-08-23)
+
+### New features
+- ESP32 frames with enough PSRAM now render with a full RGBX canvas instead of a 16-bit canvas, improving colour fidelity on boards where it fits.
+- The FrameOS status screen now shows the three squares in the FrameOS mark in colour on colour-capable displays.
+- The live preview UI now has a JSON editor for JSON state fields and a clearer “Download PNG” action.
+
+### Bug fixes
+- Gradients on e-paper panels should show less Floyd–Steinberg banding, especially in smooth skies and other subtle colour transitions.
+- ESP32 image decoding now respects both total free PSRAM and the largest contiguous free block, reducing out-of-memory failures and unintended low-resolution fallback renders.
+- ESP32 frames now log when a render had to be degraded to a lower decode resolution, making “soft” renders easier to diagnose.
+- JPEG images using `cover` scaling are decoded closer to the cropped area needed for the panel, reducing memory use for large photos.
+- Adding a Raspberry Pi frame over SSH no longer loses the password when the connection string is entered as `user:pass@host`, including passwords containing `:` or `@`.
+
+### Maintenance
+- ESP32 firmware builds were bumped so generated firmware and OTA images include the rendering and memory fixes in this release.
+- ESP32 memory documentation was expanded with the current canvas, decode-budget, and PSRAM behaviour.
+- Rendering and backend tests were updated for the new dithering, ESP32 memory layout, and SSH connection-string handling.
+- Bundled rendering dependencies were updated.
+
+### FrameOS Cloud
+- After signing in, FrameOS Cloud now lands on `/frames`.
+- Cloud live preview now separates “Save to images” from “Download”.
+- Store previews can fall back to the first gallery image when the primary preview image is missing.
+
 ## 2026.8.34 (2026-08-22)
 
 ### New features
