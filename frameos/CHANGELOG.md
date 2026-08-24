@@ -2,6 +2,24 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.36 (2026-08-24)
+
+### New features
+- Frames using the wpa_supplicant Wi-Fi backend, notably Pi Zero W / ARMv6 images, now send the frame hostname in DHCP requests, so routers and DHCP lease lists should identify the frame more clearly.
+- Network troubleshooting is more useful on frames that appear connected but cannot reach the internet: boot snapshots, failed network checks, and `frameos-netdebug.sh` now include resolver/DNS state, routes, DHCP lease details, and `systemd-resolved` status.
+
+### Bug fixes
+- SVG gradients now render in memory-bounded row strips through Pixie instead of FrameOS re-rendering XML bands. This should reduce out-of-memory render failures and visual banding on memory-tight ESP32 and large e-ink setups, especially scenes/apps with gradient SVG backgrounds such as Weather.
+- Pi Zero W / ARMv6 images now feed DHCP DNS servers to `systemd-resolved`. This fixes frames that received an IP address and route but failed lookups with “Temporary failure in name resolution,” then fell back to the setup hotspot.
+
+### Maintenance
+- Added render tests for SVG gradient paint strips, including the Weather stacked scene and direct rendering into an existing canvas.
+- Expanded network backend tests around resolver diagnostics and DHCP handling.
+- Updated ESP32 memory documentation and refreshed build/package metadata.
+
+### FrameOS Cloud
+- No user-visible cloud changes in this release.
+
 ## 2026.8.35 (2026-08-23)
 
 ### New features
