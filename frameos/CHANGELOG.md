@@ -2,6 +2,28 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.38 (2026-08-26)
+
+### New features
+
+- ESP32 firmware now exposes the FrameOS serial console over both UART0/USB-UART and USB-Serial/JTAG, so boards with both ports have more connection options.
+- The frame admin deploy drawer now explains that the 13.3" ESP32 board can be flashed through either serial port: USB-Serial/JTAG is faster for logs, previews, and scene uploads, while USB-UART works at 115200 baud.
+
+### Bug fixes
+
+- No notable downloaded bug fixes were found for this release.
+
+### Maintenance
+
+- ESP32 build defaults and QEMU defaults were updated to match the new dual-console serial setup.
+- ESP32 flashing and cloud-frame documentation/manual test notes were refreshed.
+- Editor package metadata was updated for this release.
+
+### FrameOS Cloud
+
+- Cloud browser flashing now accepts the ESP32 board’s USB-UART bridge port as well as USB-Serial/JTAG.
+- Firmware release lookups are cached, making cloud flashing less likely to fail because of upstream rate limits.
+
 ## 2026.8.37 (2026-08-26)
 
 ### New features
