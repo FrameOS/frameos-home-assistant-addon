@@ -2,6 +2,26 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.39 (2026-08-26)
+
+### New features
+- ESP32 frames can now decode remote images directly from the HTTP socket instead of first holding the whole download in memory or spilling it to storage. Large JPEG/PNG-style image scenes should use less RAM and be less likely to show an error frame on memory-constrained boards.
+- Seeed reTerminal E1004 presets now include the three front buttons, battery sensing wiring, the battery-divider enable GPIO, and a default battery policy: deep sleep on battery with 15-minute command check-ins.
+- Seeed reTerminal E1001/E1002 presets now include their battery sensing wiring and battery-divider enable GPIO, while leaving the sleep policy for the user to choose.
+- The frame Power settings now include a “Battery enable GPIO” field for boards that switch the battery divider on only while sampling, such as the Seeed reTerminal E1004.
+- USB provisioning for ESP32 frames can now set `battery_enable_pin`, so generic firmware images can be configured with the same battery wiring as a board-specific build.
+- The Metrics panel now labels and explains battery percentage and battery voltage readings when a frame reports them.
+
+### Bug fixes
+- Fixed refreshes on the Seeed reTerminal E1004 / T133A01 13.3" panel: the refresh should complete instead of timing out with BUSY stuck, and the second half of the display should no longer show garbage.
+- Large image rendering on embedded frames is more robust: when FrameOS has to fall back to a lower-resolution decode, it now avoids allocations that are too large for the remaining contiguous heap.
+- ESP32 cloud-frame Power settings are now included in the frame form diff, so edits in that section are no longer ignored or reset by the next sync poll.
+- The bundled XKCD sample scene is more selective when reading the RSS feed, making it more likely to find the actual comic image instead of a non-image feed item.
+
+### Maintenance
+- ESP32 firmware images were bumped so existing ready builds are regenerated with the new socket image decoding and battery-enable-pin support.
+- Added coverage for Seeed reTerminal presets, power-setting preservation, USB provisioning keys, streaming image decode, degraded image decode, and cloud-frame settings
+
 ## 2026.8.38 (2026-08-26)
 
 ### New features
