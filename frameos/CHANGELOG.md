@@ -2,6 +2,32 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.37 (2026-08-26)
+
+### New features
+- SVG rendering on frames has improved for scenes that use radial gradients.
+- Scenes without an explicit execution mode now default to interpreted mode. Imported templates, scene zips, chat-created scenes, cloud restores, and device sync pulls are stamped automatically; scenes that include Nim-only apps, Nim code nodes, or source nodes are still marked compiled.
+- Scene execution is now an explicit advanced choice in the admin UI: interpreted is the normal path, and compiled is kept for scenes that need it.
+- Admin UI menu labels were clarified, and long-running task toasts now label the button that opens logs.
+
+### Bug fixes
+- Home Assistant add-on installs no longer try to use Docker just because an old setting saved “docker” when no Docker socket is available. This avoids failed source builds and lets the add-on fall back to precompiled FrameOS or build-host guidance.
+- Frame sync no longer reports scenes as changed only because one copy says `interpreted` and an older device copy has no execution field.
+- Uploading a scene zip no longer drops the existing cover image.
+- Restoring frame or template backups now normalizes scene execution settings, preventing restored scenes from unexpectedly forcing a compiled build.
+- When a JavaScript app returns an SVG that cannot be rendered, the frame now logs a clearer error with likely causes such as unsupported SVG tags or unescaped text characters.
+
+### Maintenance
+- Existing self-hosted databases are migrated so stored frame scenes and templates receive explicit scene execution settings where missing.
+- Added tests for scene execution inference, migration behavior, frame sync comparison, template import, backup restore, and Home Assistant build-environment selection.
+- Added documentation for JavaScript apps and code nodes.
+- Updated rendering/runtime dependencies and related visual snapshots.
+
+### FrameOS Cloud
+- FrameOS Cloud now supports AI-assisted scene creation and editing in the scene store / My Scenes flow.
+- The cloud scene editor and live preview have improved preview logs, scene details, image viewing, install, save, and version dialogs.
+- The scene store includes a larger set of generated scenes.
+
 ## 2026.8.36 (2026-08-24)
 
 ### New features
