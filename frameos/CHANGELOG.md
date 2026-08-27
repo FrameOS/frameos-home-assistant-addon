@@ -2,6 +2,33 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.41 (2026-08-27)
+
+### New features
+- Browser live preview now has a **browser-only asset folder** mounted at `/srv/assets`, with upload, drag-and-drop, folders, thumbnails, delete, and reset options. This makes local-image and slideshow scenes easier to test before copying the same files to a real frame.
+- Browser live preview can now opt in to **real-time rendering** for scenes that request faster updates, with FPS/render-rate feedback and batched logs so the admin UI stays responsive.
+- ESP32 firmware now reports its planned deep-sleep wake time, next render time, and sleep reason before going to sleep. The UI can show statuses such as “asleep · wakes in 5 min” instead of treating the frame as simply offline.
+- Battery-powered frames now get clearer battery indicators in the workspace, frame selector, sidebar, and metrics header when battery percentage metrics are available.
+- Queued actions for sleeping cloud-managed frames now explain when the frame is expected to wake and apply pending commands.
+
+### Bug fixes
+- Browser preview date/time behavior is more accurate: JavaScript `Date` and `frameos.format` now use the frame’s configured timezone, including DST and half-hour offsets, instead of falling back to the browser’s timezone.
+- Sleeping ESP32 frames are no longer shown as misleadingly “last seen just now” when the device has announced that it is intentionally asleep.
+- Connected cloud frames are handled more consistently in the workspace status display.
+- Cloud frame host labels are safer when no host is available, avoiding UI crashes in host/name fallbacks.
+
+### Maintenance
+- Updated FrameOS version metadata for 2026.8.41.
+- Added timezone offset tests for the browser/wasm preview runtime.
+- Updated wasm preview build tooling and documentation for timezone support and browser asset storage.
+- Updated ESP32 documentation for the sleep forecast behavior.
+- Updated editor/wasm package metadata.
+
+### FrameOS Cloud
+- Linked ESP32 frames that report sleep forecasts now show expected wake/overdue status in the cloud UI.
+- Cloud live preview includes browser assets and opt-in fast rendering.
+- Editing a scene-store template now keeps the listing’s title/name.
+
 ## 2026.8.40 (2026-08-27)
 
 ### New features
