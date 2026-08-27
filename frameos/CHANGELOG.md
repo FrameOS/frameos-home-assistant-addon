@@ -2,6 +2,21 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.40 (2026-08-27)
+
+### New features
+- The built-in index/status display now includes a clock and an animated HDMI marker, making HDMI/web-only frames easier to recognize as running.
+- Waveshare e-Paper support was consolidated around one C driver implementation per panel on Pi/Linux and ESP32. This adds/updates support paths for panels including the 13.3" E and 2.9" V3, and improves dual-chip-select handling for the 13.3" E.
+- Waveshare driver debug logging is now available through FrameOS driver debug logs, including panel command/data previews and busy-wait progress when enabled.
+- ESP32 hardware presets now include battery ADC wiring for more boards, including TRMNL OG/BWRY, XTEINK X4, Seeed XIAO ePaper Driver Board kits, and Seeed reTerminal E10xx devices.
+- First-boot SD/cloud personalization can now install root SSH authorized keys, and the admin settings UI includes SSH key management for supported provisioning flows.
+
+### Bug fixes
+- Waveshare panel busy waits are bounded and reported as driver errors instead of potentially hanging a render thread forever.
+- Waveshare SPI framebuffer writes on Raspberry Pi/Linux are chunked to avoid kernel transfer-size limits, with a bit-banged fallback if SPI cannot be opened.
+- Deploys for Waveshare 12.48" panels no longer try to stage the ePaper-only debug helper, fixing build/deploy failures for that panel family.
+- The Waveshare 13.3" E setup now keeps both chip-select GPIOs away from the kernel SPI driver, improving reliability for its dual
+
 ## 2026.8.39 (2026-08-26)
 
 ### New features
