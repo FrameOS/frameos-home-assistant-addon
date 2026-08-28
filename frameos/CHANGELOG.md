@@ -2,6 +2,37 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.42 (2026-08-28)
+
+### New features
+
+- ESP32 frames that use deep sleep can now wake early from configured GPIO buttons. A button press wakes the frame, delivers the button event to the scene, and refreshes the panel.
+- ESP32 deep-sleep behavior has been improved with modem sleep, log draining before sleep, and safer OTA handling while an update is in progress.
+- Select fields now support separate stored values and display labels across the editor, scene state fields, app config fields, compiled scenes, interpreted scenes, and the frame’s local control page. In the field editor, use `value | Label` when you want users to see a friendly label while saving a different value.
+- Embedded scene editor builds now route in memory, so embedding the editor in another page no longer changes the host page’s URL.
+
+### Bug fixes
+
+- Select options written as `{ value, label }` objects no longer break scene parsing, compiled scene generation, show/hide conditions, or select rendering.
+- The admin UI select component now safely renders unexpected non-string labels instead of crashing the editor.
+- The frame’s local control page now shows select option labels while still submitting the underlying option values.
+- ESP32 memory-pressure logs now include the failed allocation size, free heap, and largest free block, making out-of-memory render failures easier to diagnose.
+- ESP32 panel dithering and packing hot paths were optimized for large e-paper displays, which should reduce awake/render time on battery-powered ESP32 frames.
+
+### Maintenance
+
+- ESP32 firmware image size was reduced by about 108 KB, from roughly 93.2% to 90.2% of the OTA slot.
+- ESP32 firmware size reporting now demangles Nim symbols on both supported toolchains and breaks size down more deeply by subsystem.
+- Added tests for ESP32 deep-sleep wake-source selection and select-field option parsing/serialization.
+- Updated ESP32 deep-sleep, cloud-frame, JavaScript app, and firmware-size documentation.
+- Release version updated to 2026.8.42.
+
+### FrameOS Cloud
+
+- Cloud scene creation has improved AI prompt handling.
+- The cloud scene store now puts your private scenes first.
+- Cloud scene previews now better match the target panel.
+
 ## 2026.8.41 (2026-08-27)
 
 ### New features
