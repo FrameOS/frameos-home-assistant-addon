@@ -2,6 +2,35 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.43 (2026-08-29)
+
+### New features
+- JavaScript apps can now split code across their own `.ts`, `.tsx`, `.js`, `.jsx`, and `.json` files and import them with relative imports like `./helper` or `./data.json`.
+- The app source editor now understands those local imports and JSON modules, so multi-file JavaScript apps get better editor validation.
+- ESP32 frames get improved deep-sleep power handling, including battery-guard hysteresis and more visible power/settings state for battery-powered setups.
+- ESP32 image fetching is now streamed, reducing memory pressure while receiving rendered images.
+- Scenes installed from the scene store now remember where they came from and which version was installed, so FrameOS can tell when an installed store scene has an update.
+- Battery-powered frames now show their charge in the workspace sidebar instead of only a generic status dot.
+- The embedded scene editor now shows a Save / Discard row above the app source editor.
+
+### Bug fixes
+- AI-generated scenes no longer store the original prompt in scene settings. Existing stored prompts are dropped when scenes are loaded or exported, so they are not shared in exported scene ZIPs.
+- Cloud-managed frame scene previews now load the pinned scene version when a cloud assignment is pinned, instead of always previewing the latest store version.
+- The frame memory warning now matches the ESP32 firmware’s cloud-link safety floor, making low-memory warnings more consistent with what the device actually needs.
+- JavaScript/TypeScript app error locations are more accurate, especially after type-only code is stripped or when multiple imported files have similar names.
+- TypeScript inline type-only imports such as `import { value, type Shape } from './file'` are now handled correctly by the frame runtime.
+
+### Maintenance
+- ESP32 firmware diagnostics now report internal RAM in the same terms `malloc()` sees it, plus task stack headroom, making low-memory and stack issues easier to debug.
+- Added host-side tests for ESP32 battery/deep-sleep power decisions.
+- Added tests around template export/import behavior, scene origin preservation, JavaScript app imports, transpilation, and source-map line mapping.
+- Updated JavaScript app runtime documentation to describe multi-file module loading and JSON imports.
+
+### FrameOS Cloud
+- You can create personal API tokens and use the hosted FrameOS Cloud MCP server from compatible tools to work with your frames and scenes.
+- Cloud scene previews avoid queuing snapshot fetches for sleeping and ESP32 frames.
+- Shared scene store links now produce nicer link previews.
+
 ## 2026.8.42 (2026-08-28)
 
 ### New features
