@@ -2,6 +2,39 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.8.44 (2026-08-30)
+
+### New features
+
+- Raspberry Pi/Linux frame deploys now default to the precompiled FrameOS runtime when all scenes are JavaScript/interpreted, making full deploys faster and avoiding source builds for most frames.
+- Legacy compiled/Nim scenes are now surfaced more clearly in the admin UI: frames report how many compiled scenes they still have, scene lists and previews warn about them, and deploy/bootstrap messages explain that they need a source build or conversion to JavaScript.
+- The scene editor no longer creates new Nim-based code paths by default. New code/app nodes are treated as JavaScript/interpreted scenes.
+- Self-hosted backends can now ask the hosted FrameOS Cloud converter to convert a legacy Nim scene to JavaScript from the frame editor, including the editor’s unsaved scene copy.
+- SD card / first-boot personalization now supports a Wi-Fi country value, and frame sync tracks Wi-Fi country changes so wireless regulatory settings stay aligned.
+
+### Bug fixes
+
+- JavaScript `format()` now uses the frame’s configured timezone instead of the device’s `/etc/localtime`, fixing incorrect rendered dates/times on frames whose configured timezone differs from the OS timezone.
+- Buildroot-based Raspberry Pi images now disable DNSSEC validation through systemd-resolved, avoiding first-boot DNS failures on networks/routers that break DNSSEC responses.
+- Pi Zero W / Wi-Fi-only Buildroot images no longer show a misleading failed `network.service` for missing `eth0`; Ethernet setup is skipped when the board has no Ethernet interface.
+- Post-boot diagnostics on the boot partition now filter noisy Waveshare transfer debug lines, so the useful boot, network, and FrameOS logs remain visible.
+- The apps API now accepts select options written as either plain strings or `{value, label}` pairs, preventing an app with labelled dropdown options from breaking the `/api/apps` listing.
+- Scene/template imports and updates now treat missing scene execution settings as interpreted, even if older Nim-looking content is present, instead of silently forcing legacy compiled mode.
+
+### Maintenance
+
+- Added shared cloud-frame command contract fixtures and tests across Linux FrameOS, ESP32 firmware, backend checks, and cloud code to reduce device/cloud command drift.
+- Added ESP32 firmware CI checks for the generated cloud contract and continued firmware size reporting.
+- Moved legacy per-frame source cross-build validation off the pull-request path; it now runs on main or manually, matching the new precompiled-runtime deploy path.
+- Added documentation for JavaScript apps/code nodes, legacy source builds, and Nim-to-JavaScript conversion.
+- Updated visual/e2e snapshots and tests for the settings and scene-editor changes.
+
+### FrameOS Cloud
+
+- Cloud-linked users can convert legacy Nim scenes to JavaScript using the hosted converter.
+- Scene store versions now keep the whole scene version together, including listing details and images.
+- Signed-out visitors on scene store pages now get a path to sign in instead of a dead end.
+
 ## 2026.8.43 (2026-08-29)
 
 ### New features
