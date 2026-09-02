@@ -2,6 +2,26 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.0 (2026-09-02)
+
+### New features
+- JavaScript/TypeScript/JSX scene apps now run through FrameOS’s QuickJS-based TypeScript support, so more TypeScript syntax is accepted consistently between the editor, preview, and frame runtime.
+- Legacy-compiled scene tags now offer a one-click conversion action where supported, making old scenes easier to move to the current scene format.
+- The battery indicator in the frame admin UI now links directly to the battery chart.
+
+### Bug fixes
+- TypeScript-heavy scenes, including the Weather scene, should be much less likely to run out of memory during parsing/transpilation.
+- ESP32 battery readings are filtered more conservatively, reducing false “1% battery” style drops caused by ADC misreads.
+- Battery charts and indicators now ignore known-bad battery samples instead of treating obvious misreads as real readings.
+- Metrics charts now draw the data the visible plot can actually show, improving responsiveness with long metric histories.
+- Raspberry Pi deploys that need to build QuickJS from source now use the correct archive layout and path, fixing a fallback path that could fail when prebuilts were unavailable.
+
+### Maintenance
+- ESP32 firmware size was reduced by moving repeated app config handling into shared code and deduplicating CRC code, leaving more room in OTA slots.
+- App dispatch in generated firmware now uses a compact registry table instead of repeated keyword branches.
+- QuickJS prebuilts, Docker builds, and deploy tooling were updated for the new TypeScript-capable QuickJS build.
+- Added and expanded tests for JavaScript validation, ESP32 battery filtering, deploy planning, QuickJS installation
+
 ## 2026.8.44 (2026-08-30)
 
 ### New features
