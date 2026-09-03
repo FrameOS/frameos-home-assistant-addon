@@ -2,6 +2,40 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.2 (2026-09-03)
+
+### New features
+- ESP32 setup is safer: the provisioning Wi‑Fi access point now uses a per-device passphrase instead of a shared/default one.
+- ESP32 firmware releases now include one signed image per supported flash layout, and the backend/browser flasher selects the matching image for the frame instead of always using a generic build.
+- ESP32 OTA manifests now include signature data so devices can verify update images before installing them.
+- The frame admin UI battery indicator now opens a detailed popup with current charge, recent history, and a battery life forecast instead of just linking to metrics.
+- Frame secrets are now treated as write-only in more places: secret values such as API keys, passwords, Wi‑Fi passwords, and private key material are masked or stripped from sync/status payloads and admin UI editing flows.
+
+### Bug fixes
+- Bootstrap/install scripts now reject unsupported Linux releases with a clearer message instead of downloading a prebuilt binary that may fail at runtime on older distros.
+- The backend now skips precompiled FrameOS releases for host distributions outside the supported release matrix, falling back instead of trying an incompatible build.
+- Frame control requests, embedded frame bearer tokens, log uploads, and cloud-login handoffs received stricter authentication and validation checks.
+- Asset uploads now reject unsafe relative paths such as `..` segments and enforce upload size limits, preventing accidental writes outside the asset tree and oversized uploads.
+- Log uploads now validate authorization before reading the body, cap batch size and line size, and rate-limit requests from a frame key.
+- Backend network fetches used for frame operations now block unsafe targets more consistently, reducing accidental or malicious requests to private/internal addresses.
+- Home Assistant add-on ingress handling was hardened around trusted ingress/proxy paths.
+- AI scene/chat failures shown in the UI are now sanitized in normal mode, while detailed exceptions remain in server logs for operators.
+
+### Maintenance
+- Release and cross-build jobs now force HTTP/1.1 when talking to GitHub from affected runners, improving reliability of release builds.
+- Prebuilt Nim toolchain downloads are now verified against committed SHA-256 hashes before use.
+- Fork pull requests no longer run build/test jobs on shared self-hosted runner caches used by release jobs.
+- The WebAssembly preview runtime is packaged from the signed release asset so published packages and previews use the exact runtime built for the release.
+- ESP32 firmware size reporting now compares each flash-layout image against the matching baseline.
+- Visual test infrastructure was updated, including font availability and new battery-popover snapshots.
+- Additional backend, device, ESP32, sync, auth, upload-limit, network-target, and OTA-signing tests were added.
+- Documentation and security tracking were updated.
+
+### FrameOS Cloud
+- Linked frames in FrameOS Cloud now show the richer battery popup with charge history and battery life forecast.
+- Cloud live previews now use the released FrameOS runtime, so previews should better match what frames render.
+- Cloud accounts gained more visible security/sign-in improvements, including Google account linking and stronger two-factor/session flows.
+
 ## 2026.9.0 (2026-09-02)
 
 ### New features
