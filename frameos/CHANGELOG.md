@@ -2,6 +2,42 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.5 (2026-09-04)
+
+### New features
+
+- ESP32 USB flashing in the admin UI now uses the selected board’s flash layout when updating firmware, making it safer to update boards with different partition layouts.
+- New Raspberry Pi / Buildroot SD images now keep NetworkManager state and system time-sync state on the persistent FrameOS partition, so Wi-Fi, setup hotspot leases, and clock sync survive the read-only root filesystem.
+
+### Bug fixes
+
+- HDMI framebuffer rendering is more efficient and avoids an extra full-buffer clearing pass, which should make boot/status animations and framebuffer-based displays feel smoother, especially at higher resolutions.
+- The animated boot/status screen now starts pacing itself immediately after the first render instead of waiting on the initial default interval.
+- Slow devices now keep the boot/status animation moving at least once per second instead of appearing stuck for several seconds between frames.
+- Image cache spilling now checks available storage before writing. On ESP32 boards with small state partitions this avoids failed writes and logs a clear “not enough space” refusal instead of treating it as a storage failure.
+- Scheduled reboots and restarts no longer fire again if the frame comes back up within the same scheduled minute.
+- Interrupted upgrades are now reconciled on startup: if an upgrade status file still says an upgrade was in progress, FrameOS marks it failed instead of leaving the frame/admin UI stuck in an in-progress state.
+- Setup hotspot reliability is improved on Raspberry Pi / Buildroot images: NetworkManager’s writable runtime state is persisted, fixing hotspots that appeared briefly and then failed because lease files could not be written.
+- Clock sync is more reliable on frames without an RTC. FrameOS now waits for `systemd-timesyncd` to finish syncing instead of restarting it repeatedly, which previously could keep HTTPS/TLS from working after boot.
+- Existing Buildroot installs can now add persistent NetworkManager and time-sync bind mounts during setup/upgrade, not only on freshly flashed SD cards.
+- SSH access on Buildroot images using Dropbear is fixed by storing the host key on the persistent FrameOS partition instead of the read-only root filesystem.
+- Generic FrameOS Cloud / standalone Buildroot images with an enabled-but-unusable legacy agent setting now migrate to the unprivileged `frameos` runtime user correctly instead of staying on root.
+- The ESP32 setup portal now keeps the hotspot screen visible during setup, handles hotspot portal requests without requiring an admin login, and backs off Wi-Fi station retries.
+- The ESP32 setup portal now shows a more honest password placeholder and only exposes render-mode controls where they apply.
+- ESP32 USB flashing and firmware updates now wait for the USB command/log queue, reducing races during flashing from the admin UI.
+- The self-hosted backend’s SD image builder now includes the persistent NetworkManager and time-sync mounts in generated images.
+
+### Maintenance
+
+- Added regression tests for scheduled reboot replay prevention, clock-sync behavior, persistent setup mounts, upgrade-status recovery, image spool free-space checks, render pacing, and Buildroot image generation.
+- Updated manual bench notes for ESP32 USB flashing, hotspot/setup portal behavior, scheduled reboot behavior, hardware settings, sleep-aware image handling, and privilege-separation fixes.
+- Improved Buildroot image build/test coverage around partition setup and persistent state directories.
+- Updated FrameOS package metadata for this release.
+
+### FrameOS Cloud
+
+- No user-visible cloud changes in this release.
+
 ## 2026.9.4 (2026-09-04)
 
 ### New features
