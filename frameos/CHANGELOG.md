@@ -2,6 +2,32 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.7 (2026-09-04)
+
+### New features
+
+- The built-in status / “no scenes installed” screen now shows more useful setup details on the frame: the card’s real hostname, IP address, and local access link.
+- Frames showing a pending FrameOS Cloud link code now include the code and QR as part of the status screen layout, rather than relying only on a generic overlay.
+
+### Bug fixes
+
+- The FrameOS Cloud link code no longer covers the status screen rows. On landscape displays it sits beside the status details; on portrait displays it appears below them.
+- Frames linking to FrameOS Cloud now introduce themselves using their configured name, or the card’s hostname when the image still says “FrameOS Setup”, so cloud enrollment uses a recognizable frame name.
+- Cloud-managed frames now clear any leftover queued link-code request and will not keep trying to show or restart a stale setup link code after enrollment.
+- Fresh Buildroot / cloud-personalized cards can now apply their configured time zone through the privileged helper, fixing cases where the frame stayed on UTC.
+- First-boot setup and upgrades are more tolerant of a busy systemd startup: `systemctl daemon-reload` and service enablement are retried before setup fails.
+- `frameos --version`, `frameos -v`, and `frameos version` now print the compiled version and exit instead of accidentally starting another FrameOS runtime.
+
+### Maintenance
+
+- Added automated coverage for the status screen link-code layout, cloud enrollment display names, queued link-code cleanup, privileged time-zone changes, and setup command retries.
+- Updated bench/manual testing notes for recent OTA, driver-loading, setup, and free-space validation runs.
+- Release housekeeping for FrameOS 2026.9.7.
+
+### FrameOS Cloud
+
+- Re-enrolling a frame now uses the time zone from its bound cloud token, so refreshed enrollments keep the intended local time.
+
 ## 2026.9.6 (2026-09-04)
 
 ### New features
