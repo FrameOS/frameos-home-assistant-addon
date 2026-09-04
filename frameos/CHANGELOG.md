@@ -2,6 +2,33 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.4 (2026-09-04)
+
+### New features
+- ESP32 self-hosted flashing now uses the same signed stock release images as FrameOS Cloud, selected for the board’s chip and flash layout, instead of building per-frame firmware on the backend.
+- ESP32 frames can now receive release OTA manifests and app images through a self-hosted backend, with the device verifying the signed release image before installing it.
+- ESP32 frames now poll a live settings endpoint for frame name, refresh interval, rotation, power/deep-sleep settings, time zone, schedule, HTTPS/admin credentials, and scene service settings, reducing the need to reflash for configuration changes.
+- Buildroot SD images now run the FrameOS runtime as an unprivileged `frameos` user, with root access limited to specific privileged helper actions.
+- Composed Raspberry Pi SD cards now include resolver/network drop-ins during image creation, so first boot has the intended network configuration available earlier.
+
+### Bug fixes
+- New Buildroot SD cards now run first-boot display driver setup from the installed release directory with the correct `frame.json`, fixing cases where panel overlays were not applied until rerunning setup from the portal.
+- Buildroot cloud-enrollment state written on first boot is now readable by the unprivileged FrameOS runtime, fixing enrollment on images that run as the `frameos` user.
+- The FrameOS runtime is now always stamped with the release version, fixing frames that installed an update but reported the previous version and kept being offered the same update again.
+- ESP32 OTA on self-hosted backends now serves the bare `-app.bin` OTA image for the device’s layout, not the merged flashing image, avoiding invalid OTA payloads.
+- ESP32 boot logs now update the admin UI’s last successful deploy snapshot when a frame boots into a newer firmware version, while plain reboots on the same version no longer look like new deploys.
+- Composed SD card generation now writes its temporary user-merge files outside the read-only service root, fixing failures in locked-down/self-hosted composer environments.
+
+### Maintenance
+- The self-hosted Docker image no longer carries the full ESP-IDF toolchain at runtime; ESP32 firmware is consumed as release assets instead of being built inside the backend container.
+- Buildroot base image manifests were refreshed for Raspberry Pi 32-bit, Raspberry Pi 64-bit, and Raspberry Pi 5 images.
+- Added test coverage for ESP32 release flashing, OTA manifests, firmware asset selection, Buildroot privilege setup, and SD image composition.
+- Documentation and manual bench-test notes were updated for the Buildroot privilege model and recent SD-card behavior.
+
+### FrameOS Cloud
+- ESP32 flashing from FrameOS Cloud now selects the image that matches the board’s flash layout.
+- Cloud provisioning is more tolerant of boards running older firmware.
+
 ## 2026.9.2 (2026-09-03)
 
 ### New features
