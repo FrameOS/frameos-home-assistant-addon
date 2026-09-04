@@ -2,6 +2,22 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.6 (2026-09-04)
+
+### New features
+- No notable new features were found for this release.
+
+### Bug fixes
+- Fixed Buildroot-based frame upgrades installed through the privileged update path so release code folders (`drivers`, `scenes`, and `vendor`) are made readable by the FrameOS runtime. This prevents upgraded frames from failing to load display drivers or bundled runtime assets after an update.
+- Release service files installed on Buildroot images now get an explicit readable file mode, avoiding permission issues caused by the installer’s restrictive default umask.
+
+### Maintenance
+- Added tests to prevent regressions in Buildroot release ownership and file permission handling.
+- Updated Buildroot privilege documentation and manual testing notes for the USB/update flow.
+
+### FrameOS Cloud
+- No user-visible cloud changes in this release.
+
 ## 2026.9.5 (2026-09-04)
 
 ### New features
