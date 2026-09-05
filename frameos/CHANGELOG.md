@@ -2,6 +2,35 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.8 (2026-09-05)
+
+### New features
+
+- No notable new features were found for this release download.
+
+### Bug fixes
+
+- SVG-based scene panels now keep the full size of the cell they were given, even when the frame’s render memory budget forces a smaller intermediate raster. This fixes cases like charts or SVG app output appearing tiny and centered with large black borders.
+- Hand-written SVGs without a `viewBox` now rasterize correctly at the requested size.
+- Timezone changes now keep `/etc/timezone` in step with the timezone set by `timedatectl`, fixing frames that showed the correct `/etc/localtime` but still reported the image’s old timezone through fallback readers.
+- Cloud-triggered FrameOS upgrades on frames using the privileged “door” path no longer block the cloud session thread for the whole upgrade. The frame should keep acknowledging commands and heartbeats while the upgrade runs in the background.
+- In the admin UI, the ESP32 USB firmware update button no longer jumps around as progress changes from one to two or three digits.
+- In the firmware deploy drawer, “Resend scenes & settings” is only offered when there are scenes to resend and they are not already in sync, avoiding unnecessary reloads, e-ink refreshes, and log noise during firmware upgrades.
+- SSH key lists fit better in narrow settings and SD-card-builder panels.
+
+### Maintenance
+
+- Added regression coverage for full-size SVG panel rendering, degraded SVG rendering, SVGs without a `viewBox`, timezone file syncing, and non-blocking upgrade scheduling.
+- Polished SD image builder and deploy drawer layout behavior.
+- Updated FrameOS editor/wasm package metadata and release versioning.
+- Improved cloud deployment automation so a docs-only commit after a cloud change does not prevent the deploy from shipping the current cloud code.
+
+### FrameOS Cloud
+
+- You can now link an already-running frame from inside the Add frame drawer.
+- Frame-bound claim codes now stay valid for the same lifetime as other claim codes.
+- Firmware update nudges are delivered once, like reboot requests, reducing repeated update prompts/actions.
+
 ## 2026.9.7 (2026-09-04)
 
 ### New features
