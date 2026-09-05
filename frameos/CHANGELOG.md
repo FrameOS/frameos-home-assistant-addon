@@ -2,6 +2,25 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.9 (2026-09-05)
+
+### New features
+- No notable new features were found for this release.
+
+### Bug fixes
+- ESP32 frames no longer try to restore a scene on the next boot if that scene previously aborted because it ran out of memory, helping avoid repeated failures after a bad or too-heavy scene.
+- ESP32 frames with a wiped `/state` now report an empty scene store instead of a stale cached scene checksum, so assigned scenes can be sent again correctly.
+- Fixed JPEG rendering for 4:4:4 images on ESP32/Pixie-class devices by clamping decoded pixel values correctly.
+- Raspberry Pi / Linux frames now keep `/etc/timezone` in sync even when `/etc/localtime` already points at the right zone. This helps apps and scheduling code that read the text timezone file use the configured timezone instead of falling back to the image default.
+
+### Maintenance
+- Added tests covering timezone synchronization when the system timezone is already set.
+- Updated FrameOS editor/WASM package metadata and lockfiles.
+- Updated manual testing and bench documentation.
+
+### FrameOS Cloud
+- Linked ESP32 frames that report an empty scene store are now re-sent their assigned scenes automatically.
+
 ## 2026.9.8 (2026-09-05)
 
 ### New features
