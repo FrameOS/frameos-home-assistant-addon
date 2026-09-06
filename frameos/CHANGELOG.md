@@ -2,6 +2,44 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.10 (2026-09-06)
+
+### New features
+
+- On-device JavaScript scene rendering is more bounded: runaway scenes now hit wall-clock, heap, and dispatch budgets instead of hanging the frame or exhausting memory.
+- The setup portal is easier to use: it hides the frame’s own setup SSID from Wi-Fi choices, adds a show-password option, shows Internet status, and keeps the “Saved!” handoff visible as the frame joins your LAN.
+- The on-device “Add scene” flow can now start with the FrameOS Cloud scene store when the backend is tracking that source.
+- ESP32 support now includes a 72×40 SSD1306 OLED panel profile, including dimensions and a matching ESP32-C3 0.42" OLED hardware preset.
+- The ESP32 USB workflow in the admin UI has been consolidated into a single connect flow, with board/flash identification used to pick the right firmware image.
+- Raspberry Pi bootstrap installs now verify the downloaded FrameOS release signature before unpacking it, and the admin UI flags when the generated bootstrap URL uses plain HTTP.
+
+### Bug fixes
+
+- Thin-client embedded frames no longer get stuck showing the diagnostic card after the previously active scene was deleted or replaced; stale active-scene IDs are ignored.
+- ESP32-C3 firmware fixes include a watchdog reset improvement and reduced NVS churn so configuration storage should no longer fill up during normal use.
+- Saving device settings with a blank password or secret now means “leave unchanged” instead of wiping the stored admin password, Wi-Fi password, API key, or TLS private key.
+- Frame sync no longer offers backend-owned settings such as control mode, Remote agent settings, frame admin auth, or TLS certificate material as values to pull from the device.
+- Frame admin repository listings that return malformed/non-array data are treated as empty instead of breaking the listing.
+- Frame admin authentication caching was made safer under concurrent requests.
+- First-run cloud setup on a self-hosted backend is restricted to local hosts/IPs unless explicitly allowlisted, reducing DNS-rebinding risk before the first user exists.
+- WebSocket authentication now uses same-origin cookie sessions only, with Origin checks for browsers.
+- Home Assistant sync no longer publishes frames from one project to another project’s MQTT broker when multiple projects configure different brokers.
+
+### Maintenance
+
+- Added release-signing verification helpers and tests for Raspberry Pi bootstrap/precompiled installs.
+- Added scene execution fixtures and resource-limit tests to catch interpreter regressions.
+- Expanded setup portal, auth, frame sync, embedded firmware, WebSocket, and Home Assistant sync test coverage.
+- New frames now receive EC HTTPS proxy private keys instead of RSA keys.
+- Updated embedded ESP32 version reporting and firmware contract tests.
+- Refreshed manual testing and security tracking docs for the C3, setup portal, OTA, and privilege-separation work.
+
+### FrameOS Cloud
+
+- Cloud-linked frames can use the cloud scene store as an Add scene source.
+- The hosted ESP32 flasher has the updated USB connect and board-identification flow.
+- The hosted cloud watchdog-reset/flashing flow for ESP32 boards was tightened.
+
 ## 2026.9.9 (2026-09-05)
 
 ### New features
