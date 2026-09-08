@@ -2,6 +2,23 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.11 (2026-09-08)
+
+### New features
+
+- Public scene-store scenes now need per-frame permission before they receive service settings such as API keys. Frame Settings → Service settings shows what a store scene is requesting, and live preview can ask for consent before using those keys.
+- Browser Screenshot and RTSP Snapshot apps now refuse unsafe targets before starting Chromium or ffmpeg. Unsupported URL schemes such as `file://` are blocked, and store-origin scenes are guarded before launching external helpers.
+- The setup portal now includes a time zone field and a live hostname/admin link, with tighter layout on the frame setup page.
+- Self-hosted backends can now fast-deploy to adopted Buildroot cards that have no SSH shell access: scenes and settings are pushed through the frame’s admin API and the runtime reloads on the frame.
+- The new-frame/adopt flow is more flexible: frame and backend address fields accept `host:port` and full `http://`/`https://` URLs, and the backend address is prefilled from saved settings.
+- Embedded editor loading now uses explicit trusted origins, improving how the editor is opened from FrameOS pages.
+
+### Bug fixes
+
+- Fixed blank-screen/backlight behavior for Pimoroni HyperPixel 2.1 Round frames using the legacy framebuffer driver. The driver no longer depends on the old vendored HyperPixel setup code.
+- Reloading a frame admin tool URL directly on the device, such as `/frames/1/assets`, now routes back into the admin UI correctly.
+- Adopted frames now keep the device’s HTTP/HTTPS state and web port, avoiding failed write-backs to the
+
 ## 2026.9.10 (2026-09-06)
 
 ### New features
