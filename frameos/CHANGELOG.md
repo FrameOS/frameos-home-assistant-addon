@@ -2,6 +2,39 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.12 (2026-09-09)
+
+### New features
+
+- Adopted standalone Buildroot/SD-card frames are more useful from the backend even when they do not have SSH or FrameOS Remote: the backend can use the frame admin API for logs, image access, restart, and reboot actions.
+- When adopting a running frame, the backend now writes its access credentials back to the device and restarts FrameOS afterward, so the frame starts reporting to the backend immediately.
+- The standalone installer now verifies the downloaded FrameOS release archive before extracting it and refuses tampered or incorrectly signed downloads.
+
+### Bug fixes
+
+- Fixed adopted “keyless” generic cards failing to show images or snapshots after adoption by handing them the backend-generated frame access key.
+- Fixed frame adoption state so the sync panel starts clean after a successful adoption, instead of showing already-applied settings as pending changes.
+- Fixed local login, cloud-login handoff, and frame log IP handling behind proxies: `X-Forwarded-For` is now trusted only from proxies explicitly listed in `FRAMEOS_TRUSTED_PROXIES`, preventing LAN clients from spoofing rate-limit or boot IP decisions.
+- Fixed embedded boot IP updates so an ESP32 frame cannot move its backend `frame_host` to a spoofed address unless the request really came from that address or `embedded.followBootIp` is enabled.
+- Fixed frame sync/adoption so a device cannot grant itself backend-owned service credential groups; those permissions remain controlled by the backend.
+- Fixed frame JSON import to accept only normal frame settings, with validation and a 16 MB limit. Imports can no longer carry hidden deploy state, status, app lists, or pre-pinned SSH host-key state.
+- Fixed websocket broadcasts for newly created or cloud-restored frames so sensitive frame credentials are not sent to every open browser tab.
+- Virtual frame image/page URLs now use a view-only `device_config.viewToken` instead of the frame’s full server API key. Existing kiosk URLs using the server API key will need to be regenerated.
+- ESP32 firmware now guards against overly deep JSON before parsing scene/settings payloads, reducing the chance of crashes from malformed data.
+
+### Maintenance
+
+- Added tests around adopted-frame restart/reboot behavior, frame import validation, trusted proxy handling, frame sync secrets, release signature verification, and ESP32 JSON guarding.
+- ESP32 CI now validates the 32 MB flash layout and uses ESP-IDF ccache to speed up repeated firmware builds.
+- Hardened release and snapshot automation by pinning write-token GitHub actions to exact commits.
+- Updated visual regression snapshots for the admin UI.
+- Updated documentation around cloud linking, cloud-managed frames, security assumptions, and manual testing.
+- No notable Home Assistant add-on runtime changes were found.
+
+### FrameOS Cloud
+
+- No user-visible cloud changes in this release.
+
 ## 2026.9.11 (2026-09-08)
 
 ### New features
