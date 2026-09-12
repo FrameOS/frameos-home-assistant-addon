@@ -2,6 +2,39 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.14 (2026-09-12)
+
+### New features
+
+- Linux frames now serve HTTPS directly from the FrameOS runtime. New Raspberry Pi OS installs and Buildroot SD images no longer rely on Caddy for the frame’s HTTPS endpoint, and upgrades disable any old `caddy.service` that could still be occupying the HTTPS port.
+- HyperPixel 2.1 Round now uses one device entry and one native driver: `pimoroni.hyperpixel2r`. The former separate “native” variant has been folded into the standard HyperPixel 2.1 Round selection.
+- Buildroot frames keep their HTTPS configuration instead of having it forced off by Buildroot defaults. In the frame settings UI, the old “HTTPS proxy” wording has been simplified to “HTTPS”, and the Buildroot toggle is no longer presented as an editable Caddy-style proxy switch.
+- Self-hosted backends can now accept browser WebSocket connections more reliably when running behind a trusted reverse proxy that rewrites `Host`, while still checking origins for cookie-based sessions.
+
+### Bug fixes
+
+- HyperPixel 2.1 Round panels now stay dark until FrameOS explicitly turns the display on, avoiding unwanted backlight/display activation during startup or setup.
+- First-boot setup now hands the generated `frame.json` to the runtime user, fixing permission problems on newly flashed/setup frames that run FrameOS unprivileged.
+- The deploy drawer no longer shows stale FrameOS upgrade lines after a frame upgrades itself through the frame admin UI, cloud, or its own update path.
+- Older deploy baselines that predate the explicit server scheme setting are now interpreted correctly, so self-hosted backends and the Home Assistant add-on should no longer show a spurious “Server scheme” pending change on every frame.
+- Frame version tracking now follows boot reports from both shell-managed and shell-less frames, so the backend’s “last deployed/running version” view better matches what the device actually booted.
+- Frame updates broadcast through the admin UI now include non-secret FrameOS Remote status, so Remote version/capability changes can appear without a page reload.
+- Deploy-plan UI updates were tightened up to avoid stale version lines, false-positive diffs, hover display issues, and missed live broadcasts.
+
+### Maintenance
+
+- Prepared the 2026.9.14 release.
+- Removed the retired HyperPixel legacy framebuffer driver from release builds and added a database migration for the unified HyperPixel device entry.
+- Added runtime listener tests for HTTP, hotspot/setup, and native TLS behavior.
+- Added backend tests for Buildroot HTTPS preservation, deploy baseline version handling, server scheme baselines, log validation, WebSocket origin checks, and FrameOS Remote broadcasts.
+- Local Pixie source overrides for development builds are now opt-in via `FRAMEOS_PIXIE_PATH`; nearby checkouts are no longer picked up accidentally.
+- Updated native HTTPS, Buildroot privilege, cloud-link, ESP32, and manual testing documentation.
+
+### FrameOS Cloud
+
+- Cloud-managed device lists now use the single HyperPixel 2.1 Round device entry.
+- Managing the same cloud-linked frame from multiple pages/tabs should merge live setting broadcasts more reliably.
+
 ## 2026.9.13 (2026-09-12)
 
 ### New features
