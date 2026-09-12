@@ -2,6 +2,50 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.13 (2026-09-12)
+
+### New features
+
+- ESP32 firmware now includes additional safeguards around OTA updates, provider URLs, asset paths, upload sizes, settings parsing, and schedule catch-up behavior.
+- ESP32 builds now validate both the standard and 32 MB flash layouts, improving confidence for larger e-paper boards.
+- The beRecycle data app now uses the public RecycleCMS API instead of a scraped secret-based endpoint.
+- Scene editing has clearer preview/status feedback and more validation around scene JSON, source editing, scene state, and live previews.
+- Frame actions in the admin UI now use more consistent wording: install, deploy, update, sync, and activate are separated more clearly across menus and drawers.
+- Frame settings were reorganized into clearer sections, including separate device, connectivity, cloud, account, system, and ESP32 hardware settings surfaces.
+- Self-hosted backends now issue time-limited frame bootstrap links. Regenerating frame credentials still invalidates old links, and new bootstrap links expire after 24 hours.
+- Self-hosted backends can store and serve a frame server scheme setting, improving how frame URLs are generated in mixed HTTP/HTTPS setups.
+
+### Bug fixes
+
+- Embedded frames using server-side rendering now handle a full render queue more gracefully instead of failing the device render request outright.
+- Stale active-scene IDs are ignored for embedded rendering, so deleting or replacing a scene no longer leaves thin-client ESP32 frames stuck on a diagnostic card until another scene is activated.
+- Source validation in the app editor is less likely to hang the backend: JavaScript/TypeScript validation runs off the request loop, and Nim validation now times out cleanly.
+- Asset listings in the self-hosted backend no longer load every asset blob into memory just to show filenames and sizes, which should make large asset libraries faster and less memory-hungry.
+- Uploaded asset paths are validated as relative paths, preventing accidental writes outside the intended asset tree.
+- Cloud-linked self-hosted installs now prevent unlinking a cloud identity if that would leave the local user with no password-based way back in.
+- Local login is now case-insensitive for email addresses, while still avoiding ambiguous matches if old accounts differ only by email casing.
+- AI chat history lookup was tightened so browser-created chat IDs resolve to the stored project-scoped chat correctly.
+- Private cloud scene preview images proxied through a self-hosted backend are served with safer headers, including protections for SVG previews.
+- Remote shell and terminal websocket handling received timeout and secret-handling fixes, reducing the chance of stuck commands or leaked connection secrets.
+- The frame setup script’s fallback release version is now updated during releases, so fresh installs from the standalone script point at the current release.
+
+### Maintenance
+
+- Added many regression tests across scene editing, deploy planning, frame settings, ESP32 firmware helpers, remote execution, upload limits, archive extraction, authentication, websockets, and embedded rendering.
+- Added type-checking and lint configuration for the backend, with a baseline gate for future cleanup.
+- Release, cross-compilation, npm publishing, ESP32 CI, and Buildroot workflows were hardened with better caching, runner sizing, digest handling, permissions, and artifact verification.
+- Docker builds now use the pnpm version declared by the repository package manager setting via Corepack instead of a separately pinned version.
+- Timezone data was refreshed.
+- Legacy Inky HyperPixel helper files were removed from the vendored tree.
+- Prebuilt dependency verification and archive extraction code were tightened.
+- Home Assistant sync code received test coverage and small hardening changes.
+
+### FrameOS Cloud
+
+- Cloud-linked users can use improved cloud-side frame and firmware flows, including signed release artifact checks for generated images and firmware downloads.
+- Cloud scene sharing and private scene actions were refined.
+- Cloud account security now includes stronger session-management flows, such as signing out everywhere.
+
 ## 2026.9.12 (2026-09-09)
 
 ### New features
