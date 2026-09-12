@@ -2,6 +2,51 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.15 (2026-09-12)
+
+### New features
+
+- The on-frame status screen is now available as a built-in scene, and its device facts are cached so it is lighter to show repeatedly.
+- The status screen now includes an **Inputs** row, making it easier to see configured input sources on the frame.
+- Scene activation from the admin UI now waits for the frame to render before finishing, so previews are less likely to show the previous scene.
+- On-device scene images are more useful: the frame can serve cached display images, answer `HEAD` requests for `/image`, copy scene cover images locally, and generate thumbnails.
+- Adopted Buildroot frames that are managed only through their own admin API now support more day-to-day management from the backend: assets, fonts, service keys, scene activation, and scene snapshots work without SSH or FrameOS Remote.
+- Full deploy and fast deploy now both work for admin-API-only adopted frames by pushing scenes and settings through the frame’s admin API instead of trying to use a shell.
+- The on-device admin can apply more settings directly: HTTP/HTTPS listener changes are rebound on save, driver-related changes queue a restart, and timezone, mount, and driver setup work can be queued from the settings save.
+- The setup portal now defaults to the admin UI flow.
+- The frame admin UI now shows whether FrameOS Cloud is actually driving the frame, and cloud login / cloud management are exposed as separate switches.
+- The upgrade card for Buildroot frames now shows the host OS label instead of the release slug.
+- The deploy drawer has been expanded for shell-less frames and unsaved changes, with a shared flow closer to the cloud deploy experience.
+- Long-running task toasts now include a compact log strip so you can see recent task output without opening the full logs.
+- The frame workspace now has improved sidebar and settings navigation for on-device use.
+- The battery popover now reports the frame’s wake cadence more clearly.
+
+### Bug fixes
+
+- Adopted Buildroot frames are no longer shown as “remote control disabled” when they are intentionally managed through their admin API.
+- Opening the install/bootstrap command for an adopted shell-less Buildroot card no longer switches the existing card away from admin-API management before the new device actually connects.
+- When a newly installed device’s FrameOS Remote connects for the first time, the backend now switches that frame to Remote-based deploys at that point.
+- Bootstrap scripts for moving an adopted Buildroot frame to a Raspberry Pi OS-style host now write the correct runtime mode for the new host.
+- Admin-API-only frames no longer fail full deploys by attempting SSH or Remote operations they cannot support.
+- Scene snapshots for admin-API-only frames can now be pulled from the device when the backend does not already have a stored copy.
+- Cloud unlink/reset now also clears the local cloud-login switch, so the local admin password becomes available again when cloud login is no longer usable.
+- Saving listener settings from the on-device admin now applies changed ports and HTTPS state immediately instead of requiring manual recovery.
+- Repeated admin image requests are cached by render generation, reducing slow repeated PNG encoding on higher-resolution frames.
+
+### Maintenance
+
+- Added backend tests for admin-API-only adopted frames, including assets, fonts, service keys, deploys, scene activation, and snapshots.
+- Added device/server tests for settings apply behavior, TLS/listener changes, cloud link state, status scene behavior, and upgrade labels.
+- Added frontend tests for battery forecasts, frame image refresh, task toasts, shell-less deploy dialogs, workspace surfaces, and settings/apply flows.
+- Updated visual test snapshots for the changed frame settings and cloud-store UI.
+- Updated documentation around cloud linking, native HTTPS, API behavior, and manual testing.
+- Reduced the backend mypy baseline by one entry.
+- Updated packaged FrameOS component versions for this release.
+
+### FrameOS Cloud
+
+- No user-visible cloud changes in this release.
+
 ## 2026.9.14 (2026-09-12)
 
 ### New features
