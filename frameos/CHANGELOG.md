@@ -2,6 +2,31 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.16 (2026-09-13)
+
+### New features
+- The frame’s own admin page now offers **Reboot device**, alongside reload/restart controls.
+- FrameOS upgrade progress is now written to the normal frame log from the device runtime, so upgrades started outside FrameOS Cloud can be followed from the local admin UI or a self-hosted backend.
+
+### Bug fixes
+- The built-in status screen scene (`system/index`) now loads its snapshot/tile correctly in the backend UI instead of returning a missing image.
+- Self-hosted backend sync no longer treats the backend connection fields as frame edits, avoiding false merge conflicts like “Server Host: Backend / Frame: Not set” after a frame is detached or adopted elsewhere.
+- When a frame is disconnected from a backend, the previous backend is now told with a clear `server:detached` log message instead of silently losing contact.
+- Saving frame settings no longer restarts the runtime just because the admin API and stored config use different spellings/defaults for unchanged display driver options.
+- On the frame’s status screen, the **Inputs** row is now hidden when no buttons or input devices are configured, instead of showing “GPIO buttons (none configured)” on frames with no buttons.
+- Frame images in the admin UI now keep the last good image visible while loading and show a small spinner, instead of pulsing the whole image.
+- Upgrade status logging now replays a recent final status after FrameOS restarts and reports a stalled upgrade if the status file stops updating.
+
+### Maintenance
+- Self-hosted backend Postgres support has been withdrawn: the backend dependencies and CI matrix no longer include the Postgres driver. Existing FrameOS installs are expected to use SQLite.
+- Built-in app metadata was regenerated so the admin UI matches the bundled app sources.
+- CI now checks that generated frontend files are committed when source changes affect them.
+- Test coverage was expanded for scene image paths, frame API reboot behavior, backend detach handling, settings-change classification, status-screen input rows, and upgrade status watching.
+- Release/version metadata and setup script references were updated for FrameOS 2026.9.16.
+
+### FrameOS Cloud
+- No user-visible cloud changes in this release.
+
 ## 2026.9.15 (2026-09-12)
 
 ### New features
