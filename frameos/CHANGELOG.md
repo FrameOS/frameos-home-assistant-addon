@@ -2,6 +2,24 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.17 (2026-09-14)
+
+### New features
+- No notable new features were found for this release.
+
+### Bug fixes
+- Frames now handle corrupt or partially written scene payloads more gracefully: instead of getting stuck in a fast restart loop with a stale image, the frame can show the startup error, retry, and recover after you deploy the frame again.
+- Fast deploys now flush updated `frame.json` and scene files to the SD card before asking the frame to reload, reducing the chance of blank/corrupt scene data after a power loss or watchdog reset immediately after deploy.
+- Full deploy/release activation now flushes the staged release before switching `/srv/frameos/current`, so a sudden reset is more likely to leave the frame on the old working release instead of a half-written new one.
+- Remote FrameOS deployments now also flush the staged remote release before switching the active remote service release, improving reliability for self-hosted remote-managed frames.
+
+### Maintenance
+- Added regression tests for corrupt scene payload recovery and deploy disk-flush ordering.
+- Updated installer/release metadata so fresh installs from the setup script target this release by default.
+
+### FrameOS Cloud
+- No user-visible cloud changes in this release.
+
 ## 2026.9.16 (2026-09-13)
 
 ### New features
