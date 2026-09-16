@@ -2,6 +2,29 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.18 (2026-09-16)
+
+### New features
+- Waveshare 10.3" IT8951 e-ink panels on Raspberry Pi now send pixel data in 4 KB SPI transfers instead of byte-by-byte writes. Full-frame refreshes should start much faster on these displays.
+- Cloud-linked frames can now receive a display power command and translate it into `turnOn` / `turnOff` events for display drivers that support panel power control.
+- Automatically saved app assets are now grouped under `saved/<app>` in the assets folder, with named nodes getting their own subfolder. This makes saved images easier to browse and avoids different apps landing in one flat `saved/` directory.
+- The frame metrics API now reports how many samples the backend retains, so the Metrics panel can explain its datapoint count correctly on both self-hosted backends and cloud-linked frames.
+
+### Bug fixes
+- New Buildroot SD card images now boot Raspberry Pi boards with the `ondemand` CPU governor instead of leaving the kernel in `powersave`, which could keep boards such as the Pi Zero 2 W pinned at their lowest clock speed.
+- IT8951 driver logs now separate the wrapper stage from the controller’s last internal stage, making display-driver troubleshooting clearer.
+- Saved assets from JavaScript apps and generated scenes now carry the app keyword correctly, so asset saving uses the new app-based folders consistently.
+- The Metrics panel no longer has to rely on a hardcoded retained-sample count, avoiding incorrect explanations when the backend and cloud keep different metric depths.
+
+### Maintenance
+- Added tests for IT8951 SPI packing, cloud display-power commands, metrics retention reporting, saved-asset folder selection, and Buildroot boot command-line generation.
+- Improved CI resilience by making Nim cache restore best-effort when another job is saving the cache at the same time.
+- Updated visual/e2e coverage for admin UI changes and refreshed related snapshots.
+- Updated documentation for the IT8951 SPI transfer behavior and boot partition details.
+
+### FrameOS Cloud
+- Confirming a pending cloud-linked frame no longer requires the frame to authenticate again.
+
 ## 2026.9.17 (2026-09-14)
 
 ### New features
