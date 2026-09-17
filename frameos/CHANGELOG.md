@@ -2,6 +2,30 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.19 (2026-09-17)
+
+### New features
+- The Add scene drawer has been reorganized: Scene Store browsing and saved/private scenes are now separated, with categorized store shelves and clearer search/paste-a-scene-URL behavior.
+- Scene Store entries now show quieter, more consistent thumbnails. Missing, broken, or blank covers fall back to a small picture glyph instead of a loud “No snapshot” style placeholder.
+- Self-hosted backends and frame admin pages now treat the FrameOS Scene Store as the main repository listing, reducing duplicate bundled sample/gallery entries while still allowing custom repositories on self-hosted installs.
+
+### Bug fixes
+- Active scene labels should no longer disappear after a few minutes or after a sleeping frame wakes up. The backend now remembers the last active scene without a short expiry and can recover it from cached frame state.
+- Frame image metadata now includes the active scene when available, helping the workspace update the active scene badge without extra device requests.
+- Repository refreshes are now persisted correctly. This fixes stale Scene Store/custom repository listings where cards could keep pointing at removed or renamed preview images.
+- Opening the scene picker now refreshes stale templates, repositories, and private cloud scenes instead of keeping old data forever in long-lived browser tabs or Home Assistant ingress panels.
+- Slow or unavailable repository providers should no longer hang the scene picker; FrameOS returns cached results and finishes the refresh in the background.
+- The active scene shown in the workspace can now catch up from a sync response when the frame list did not already know which scene was showing.
+- The header’s “Back to Add scene” flow is preserved more reliably when opening related drawers from the scene picker.
+
+### Maintenance
+- Added and updated backend/API tests for active scene caching, image metadata headers, repository refresh behavior, and store catalog handling.
+- Updated visual snapshots for the redesigned scene drawer, store shelves, placeholders, and mobile layouts.
+- Updated package metadata and setup script references for this release.
+
+### FrameOS Cloud
+- Cloud-hosted frame pages now serve the WebAssembly preview runtime from the frames app asset path, so browser-based scene previews can load correctly.
+
 ## 2026.9.18 (2026-09-16)
 
 ### New features
