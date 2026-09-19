@@ -2,6 +2,39 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.20 (2026-09-19)
+
+### New features
+
+- Added Raspberry Pi support for Pimoroni HyperPixel 4.0 and HyperPixel 4.0 Square panels, including touch and non-touch variants.
+- Improved HyperPixel support on Raspberry Pi 5, including the HyperPixel 2.1" Round display path; touch-capable HyperPixel panels now use evdev input where available.
+- Every scene now has a refresh interval as part of its state. Scenes can expose it as the built-in `refreshInterval` control, or assign the `refreshInterval` role to their own public field.
+- Virtual frames now accept and store scene refresh interval state, so browser/kiosk previews follow the same state model as physical frames.
+- The frame admin UI now shows scene updates more prominently: “Update available” appears over the scene image, and “Update to latest” is available from the scene menu.
+- Scene install and update actions now show loading feedback while the scene is being fetched or while an update is still landing.
+
+### Bug fixes
+
+- Store scene cover images are copied more reliably: FrameOS now follows the store’s redirect to its CDN instead of leaving newly installed scenes with blank cover tiles.
+- Scene cover redirects are checked at each hop, blocking unsafe targets such as local network, loopback, or metadata-service addresses.
+- Release, OTA, precompiled runtime, ESP32 firmware, and SD-card image signature checks now verify that the signature was made for the exact asset being installed or flashed. A signed file renamed as a different version or target is refused.
+- Bootstrap installs on Raspberry Pi OS now perform the same stricter release-archive signature checks before installing FrameOS.
+- ESP32 OTA verification now also checks the signed asset name, preventing a valid signature for one firmware image from being reused for another.
+
+### Maintenance
+
+- Bundled sample and gallery scenes were updated so they pass the scene linter cleanly.
+- Added shared refresh-interval validation and tests across the backend, frontend, WASM preview, generated Nim scenes, the runtime, and virtual frames.
+- Added driver tests and ABI checks for the new HyperPixel driver.
+- Expanded release-signing tests for precompiled FrameOS downloads, Buildroot SD images, bootstrap installs, ESP32 firmware, and signing tools.
+- Updated visual snapshots for the scene workspace and scene list after the new update indicators.
+- Updated ESP32 build/test coverage for minisign verification.
+
+### FrameOS Cloud
+
+- Linked cloud frames can see when an installed scene has an update available and update it to the latest version from the cloud.
+- Scene install and update actions in the cloud UI now show clearer in-progress feedback.
+
 ## 2026.9.19 (2026-09-17)
 
 ### New features
