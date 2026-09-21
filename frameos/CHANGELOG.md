@@ -2,6 +2,36 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.21 (2026-09-21)
+
+### New features
+- Scene events now use one shared contract across Raspberry Pi/Linux frames, ESP32 firmware, and the browser preview, making custom events more consistent between real frames and previews.
+- ESP32 firmware now has the same scene event dispatcher flow as other frames, improving support for schedules, buttons, driver events, and cloud-triggered events.
+- In the scene editor, the frame’s live picture now lives in the Preview drawer.
+- Browser previews now pass pointer movement over the canvas to the scene, so pointer-aware scenes behave more like they do on a frame.
+- The Scene Store now includes a **Real time** category.
+- When more than one scene has an update, the update dialog now offers **Update all scenes (N)**.
+- AI-generated JavaScript scene/app code is now guided to be more suitable for ESP32 memory limits.
+
+### Bug fixes
+- Clicking **Update** on a single scene no longer updates every scene on the frame.
+- Custom event origins, such as schedule or cloud triggers, are now preserved in scene sync comparisons so those triggers are not silently lost.
+- Compiled scenes now reliably include event payload definitions regardless of where the backend process is started from.
+- Fast deploys now remove stale `all_scenes.json` files left by older releases, avoiding old scene metadata being preferred over the current `scenes.json`.
+- The frame admin HTTP server received security and concurrency hardening to avoid sharing request state across worker threads.
+- Home Assistant sync now uses the generated scene-change event list, improving active-scene and image updates when frames change scenes.
+- Self-hosted development installs now append generated `SECRET_KEY` values to `.env` safely, even when the existing file does not end with a newline.
+
+### Maintenance
+- Deploys and SD image generation now rely on `scenes.json` only; the retired `all_scenes.json` payload is no longer produced.
+- Added generated event contracts, fixtures, and tests covering Linux frames, ESP32 firmware, the browser preview, and the frontend.
+- Hardened release/build pipelines with hashed Python dependency installs, stricter workflow checks, pinned Emscripten checkout, and reduced secret exposure during Buildroot image publishing.
+- Fixed CI issues around scene compilation and frontend asset caching, and reduced Nim test sharding overhead.
+- Cleaned up shipped TODO/history documents and expanded event-system documentation.
+
+### FrameOS Cloud
+- When a frame joins FrameOS Cloud, the cloud can import the scenes that were already running on that frame.
+
 ## 2026.9.20 (2026-09-19)
 
 ### New features
