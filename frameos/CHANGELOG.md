@@ -2,6 +2,29 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.22 (2026-09-22)
+
+### New features
+- Pimoroni HyperPixel 4.0 and HyperPixel 4.0 Square now use the Raspberry Pi kernel’s KMS HyperPixel overlays on every Raspberry Pi model. FrameOS writes to the framebuffer while the kernel handles panel init, backlight, and touch.
+- Cloud-managed Linux frames can now accept a display-driver change as a managed setting. When the driver changes, FrameOS runs driver setup so boot config and overlays are applied correctly.
+- The scene workspace now opens app editing in a modal, so you can edit an app node without leaving the workspace diagram.
+
+### Bug fixes
+- HyperPixel 4.0/Square setups created with the old firmware-DPI path are converted away from that configuration, removing conflicting `dpi_*`, GPIO, and old touch-overlay lines. This fixes cases where the panel could show a fixed pattern instead of the framebuffer.
+- FrameOS now prunes incomplete and older release directories while keeping the current release and rollback release, helping small SD/data partitions keep enough room for the next upgrade.
+- Disk and upgrade health reporting is more useful: bind mounts are not counted twice in disk totals, and recent upgrade failures such as “not enough free disk space” can be surfaced through metrics.
+- Cloud-pushed display-driver values are validated as driver keys, and unsafe/path-like values are refused instead of being persisted.
+
+### Maintenance
+- Time zone data was refreshed.
+- Cloud-frame setting contracts and fixtures were regenerated for Linux and ESP32, including the new Linux display-driver setting.
+- Added coverage for release cleanup, upgrade-space planning, disk metrics, HyperPixel boot configuration, and cloud settings behavior.
+- Release packaging and setup metadata were updated for this version.
+
+### FrameOS Cloud
+- Linked Linux frames running this release can be switched to another display driver from FrameOS Cloud settings.
+- The cloud scene workspace now edits apps in a modal instead of navigating away from the workspace.
+
 ## 2026.9.21 (2026-09-21)
 
 ### New features
