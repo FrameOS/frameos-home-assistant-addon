@@ -2,6 +2,30 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.9.23 (2026-09-24)
+
+### New features
+
+- Frame workspace sidebar now has an **Update all** action for active frames whose only pending change is a FrameOS upgrade. It queues updates one frame at a time and skips frames that already have an update, deploy, or OTA in progress.
+- Scene editor now supports inserting a new compatible node into an existing data connection, reconnecting the value through the new node where the input/output types match.
+- Scene workspace keyboard shortcuts now work in the workspace editor, including undo/redo after actions like realigning nodes.
+
+### Bug fixes
+
+- Fixed a memory leak in spooled downloaded data and image spool metadata. Frames that frequently fetch uncached content, such as `downloadUrl` on a short interval, should be much less likely to run out of memory or hit the watchdog.
+- Fixed scene workspace selection mounting so scene/app routes can correctly select the current scene and keep diagram shortcuts active.
+- Improved diagram shortcut scoping so copy, paste, undo, and redo act only on the visible scene.
+
+### Maintenance
+
+- Added regression coverage for spool memory cleanup, diagram history, node picker insertion, and fleet update behavior.
+- Updated the installer fallback release to 2026.9.23 for direct script runs.
+- Updated FrameOS editor/WASM package versions for this release.
+
+### FrameOS Cloud
+
+- No user-visible cloud changes in this release.
+
 ## 2026.9.22 (2026-09-22)
 
 ### New features
