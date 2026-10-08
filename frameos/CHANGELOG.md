@@ -2,6 +2,38 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.0 (2026-10-08)
+
+### New features
+
+- Scenes can now react to richer input events across hosts: keyboard, pointer/touch, wheel, GPIO/button actions, and gestures such as tap, double-tap, long-press, and swipe.
+- Frame previews now forward pointer/touch and keyboard input into the scene, making interactive scenes easier to test before deploying.
+- Linux/Raspberry Pi frames now have input settings for keyboard layout and keyboard grabbing. Supported layouts include US, GB, DE, FR, ES, IT, SV, DA, and NB.
+- GPIO buttons can now carry logical roles such as `primary`, `secondary`, `next`, `prev`, `up`, `down`, `back`, `menu`, and `refresh`, so scenes can respond to intent instead of only pin labels.
+- Added sample “Keyboard test” and “Touch test” scenes for trying the new input event system.
+- Self-hosted backends now store, validate, sync, and back up the new frame input settings.
+
+### Bug fixes
+
+- Saving Settings no longer fails with a 422 error when the settings table contains internal or legacy rows.
+- Browser scene previews refresh cached service keys/settings after Settings are saved, so previews use the latest configuration.
+- Button event nodes without an explicit action filter now fire on button press only, instead of also firing on release, repeat, or long-press events.
+- GPIO button roles now survive frame updates and are included in the generated `frame.json`.
+- Invalid keyboard layouts and non-boolean keyboard grab values are rejected before they can be saved to a frame.
+
+### Maintenance
+
+- Added database migration support for the new per-frame input settings.
+- Updated event contracts, documentation, generated bindings, and fixtures for the new input event model.
+- Added automated tests for input settings, button listener behavior, input state handling, event contracts, and cloud/frame sync compatibility.
+- Added end-to-end keyboard and touch scenes plus updated visual snapshots for the frame settings and events UI.
+- Updated setup, firmware, WASM preview, and image build tooling for this release.
+
+### FrameOS Cloud
+
+- Cloud live previews now support the newer interactive input path for linked frames.
+- Cloud-managed frame settings now understand the new input settings for compatible frames.
+
 ## 2026.9.23 (2026-09-24)
 
 ### New features
