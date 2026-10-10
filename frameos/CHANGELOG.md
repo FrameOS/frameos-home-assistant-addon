@@ -2,6 +2,36 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.4 (2026-10-10)
+
+### New features
+
+- ESP32 frames now honor custom frame palettes for color e-paper panels, including palettes pushed from either a self-hosted backend or FrameOS Cloud. Dithering and automatic color fitting now use that palette on the device.
+- The Assets panel has a new **Default slideshow settings** dialog for choosing the default seconds between images when starting a folder slideshow.
+- The photo color editor in Assets now has previous/next navigation, an image position indicator, and **Save & next** for working through a folder faster.
+- Single-image actions in Assets are clearer: the button is now labeled **Render image**.
+- Frame cards now include a re-render button directly in the card header.
+
+### Bug fixes
+
+- ESP32 firmware now reports an unresolved hostname as a DNS failure instead of treating it as a blocked network request.
+- Color palette previews/settings for cloud-connected ESP32 Waveshare panels now map the panel name correctly when the device reports the bare panel key.
+- Frame settings layout is cleaner: service-key boxes are shorter, section spacing is more even, and firmware action buttons sit in a dedicated row.
+- Workspace drawer links now select and scroll to the frame they refer to.
+- Dark-theme cloud/workspace views received visual fixes around frame rows, battery UI, and firmware status.
+
+### Maintenance
+
+- Expanded visual regression coverage for the asset color editor and refreshed snapshots for updated frame, workspace, battery, and cloud views.
+- Updated user-facing docs and UI copy to consistently use “color”.
+- Fixed the ESP32 host test/build path under stricter POSIX settings.
+- Improved hosted cloud deployment automation for release-only follow-up commits.
+
+### FrameOS Cloud
+
+- Linked frames in cloud now show firmware update progress in the frames list while an update downloads, verifies, reboots, or fails.
+- Cloud frame list views received small dark-theme visual fixes.
+
 ## 2026.10.3 (2026-10-10)
 
 ### New features
