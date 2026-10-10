@@ -2,6 +2,36 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.2 (2026-10-10)
+
+### New features
+
+- Photos can now use per-photo colour profiles. The Assets panel can save colour adjustments and palette overrides next to an image, and the Photos app applies them when that image is shown.
+- New frame-wide colour settings let you tune how drawn images are fitted into your panel’s colour range, with support carried through rendering and display drivers.
+- ESP32 frames now push the image they just rendered back to the self-hosted backend, so the backend’s frame image/preview can update even when the frame is asleep or cannot be pulled from directly.
+- Embedded ESP32 frames that still point at a default `.local` hostname now replace it with the real boot IP address when they check in, making the backend more likely to reach the frame after DHCP changes.
+- The Assets panel now browses one folder at a time instead of loading the entire asset tree at once, which should be noticeably faster for large photo libraries.
+- Asset thumbnails for Linux frames with the admin API enabled are now fetched from the frame’s admin API instead of over SSH.
+
+### Bug fixes
+
+- ESP32 USB setup/log views no longer dump large image payloads into the log, and image previews are disabled over UART bridge connections to avoid noisy or unusable transfers.
+- SSH thumbnail fetching is now limited per frame, reducing dropped SSH connections when many thumbnails are requested.
+- Embedded `.local` host replacement is limited to embedded frames and still requires the reported IP to match the actual boot request unless explicit follow-boot-IP behavior is enabled.
+- The self-hosted backend now rejects invalid or non-image ESP32 image pushes and rate-limits repeated pushes.
+
+### Maintenance
+
+- Added a self-hosted backend database migration to store frame colour settings.
+- Added tests and documentation for asset colour profiles, folder-scoped asset browsing, ESP32 image pushes, USB log filtering, and embedded boot-IP handling.
+- Updated generated display-driver bindings so drivers can receive render palette overrides.
+- Updated frontend visual snapshots and release/build tooling for this release.
+
+### FrameOS Cloud
+
+- Cloud-linked ESP32 frames can now provide their latest rendered panel image to the cloud for live preview.
+- Cloud frame asset browsing now supports folder-at-a-time loading and photo colour profile workflows.
+
 ## 2026.10.1 (2026-10-10)
 
 ### New features
