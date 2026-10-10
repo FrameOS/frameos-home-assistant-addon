@@ -2,6 +2,32 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.1 (2026-10-10)
+
+### New features
+
+- No notable new features were found for this release.
+
+### Bug fixes
+
+- ESP32 USB flashing now waits based on the firmware image’s state partition size, so large-flash boards have time to finish first-boot formatting instead of appearing to fail too early.
+- ESP32 USB setup and flashing are more reliable when a board is silent, in download mode, running other firmware, or otherwise not accepting serial data. Stuck USB writes now time out with recovery guidance instead of hanging the whole USB flow.
+- ESP32 USB reconnect handling now avoids repeated probe/open/close churn that could reset USB-Serial/JTAG boards or leave the port busy.
+- The deploy drawer no longer shows dual USB/JTAG port guidance for reTerminal E1004-style boards that use the same 13.3" panel but only have a single USB-UART port.
+- Newly added, not-yet-deployed frames no longer get noisy “Error fetching image” log entries just because the backend cannot fetch a screenshot from them yet. Deployed frames still log screenshot fetch failures.
+
+### Maintenance
+
+- The ESP32 deploy and USB setup UI copy was simplified in several places, including Wi-Fi scan wording, flash layout loading, and reboot messages.
+- Fresh installs using the repository setup script now default to this release.
+- Editor and WebAssembly package metadata were bumped for the 2026.10.1 release.
+- Additional automated coverage was added for ESP32 USB probing, command handoff, serial write timeouts, flashing layout handling, and frame image fetch logging.
+
+### FrameOS Cloud
+
+- ESP32 flashing and relinking from FrameOS Cloud is more resilient when a board drops off USB or stops accepting serial writes.
+- Cloud ESP32 flashing now waits longer for first boot when the selected image has a large state partition.
+
 ## 2026.10.0 (2026-10-08)
 
 ### New features
