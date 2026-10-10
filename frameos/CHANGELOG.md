@@ -2,6 +2,37 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.3 (2026-10-10)
+
+### New features
+
+- Photos can now use per-photo colour profiles stored next to the image, and the Local Image app applies those adjustments during rendering. Palette overrides are also passed through to the panel dithering step so e-paper output can better match a specific photo.
+- Frame settings now include frame-wide colour controls, synced to embedded ESP32 frames as live settings so supported firmware can apply them without a reflash.
+- The Assets panel now loads one folder at a time instead of walking the whole assets tree, making large photo libraries faster to browse.
+- Asset thumbnails can now be requested through the frame admin API instead of pulling originals over SSH, reducing SSH load when browsing images.
+- ESP32 frames now push the rendered panel image back to the self-hosted backend after rendering, so the backend’s frame image endpoint can show the latest display even when the board later goes to sleep.
+
+### Bug fixes
+
+- Embedded ESP32 frames that still had a default `.local` host name now replace it with the verified boot IP address, fixing backend image/admin access on networks where the ESP32 does not answer mDNS.
+- ESP32 USB logs no longer include large image payloads, and previews are not sent over UART bridges, keeping flashing/debug logs readable.
+- USB redeploy flashing now uses the serial port selected in the connect card.
+- ESP32-C3 thin-client firmware builds now include the missing colour-setting stub, fixing a link failure when building/flashing that target.
+- Clearing frame colour or palette settings through backend sync now sends the cleared value instead of leaving the old setting on the device.
+
+### Maintenance
+
+- Added the database migration and API schema support needed to store frame colour settings.
+- Added tests for per-photo colour profiles, dithering/palette handling, folder-based asset browsing, admin-API thumbnails, ESP32 image pushes, and ESP32-C3 firmware stubs.
+- Added documentation for asset colour profiles.
+- Updated visual snapshots for the frame settings/debug UI changes.
+
+### FrameOS Cloud
+
+- Cloud asset browsing now supports folder-at-a-time loading and per-photo colour profile editing for linked frames.
+- Cloud USB flashing/relinking now keeps the selected serial port and filters image payloads out of logs.
+- Cloud frame pages can show a live scene preview for supported linked frames.
+
 ## 2026.10.2 (2026-10-10)
 
 ### New features
