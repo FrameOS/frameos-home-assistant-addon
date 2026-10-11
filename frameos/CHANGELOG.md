@@ -2,6 +2,33 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.5 (2026-10-11)
+
+### New features
+- ESP32 frames now have a backend command queue. Scene switches, events, deploys, restarts, and firmware/update actions can be queued while a battery-powered frame is asleep and applied when it next wakes.
+- ESP32 frames report their active scene and scene state back to the backend, so the admin UI can show the last known state without trying to contact a sleeping frame.
+- Deploy status for ESP32 frames is now recorded when the frame actually pulls the new scenes/settings, making sleeping-frame deploys more accurate.
+- Self-hosted backends now support personal API tokens from **Settings → API tokens and MCP**. Tokens can be full-access or read-only, expire automatically, can be revoked, and the secret is shown only once.
+- Self-hosted backends now expose a Model Context Protocol endpoint at `/api/mcp`, letting MCP-capable clients inspect and manage FrameOS through the same permissions as the web UI. Actions that change frames require explicit confirmation.
+- API tokens work for normal self-hosted logins, but are not available through Home Assistant ingress because Home Assistant owns authentication there.
+
+### Bug fixes
+- ESP32 button presses that wake a frame now reach the scene they are meant for instead of being lost during the wake/deep-sleep transition.
+- ESP32 scene switching during wake now skips the scene being left, avoiding an unnecessary render/action on the old scene.
+- Seeed reTerminal E1004 button labels have been corrected: GPIO3 is **RIGHT** and GPIO5 is **REFRESH**.
+- ESP32 frames now receive all granted service setting groups from the backend, instead of only a fixed built-in set.
+- Read-only API tokens are now consistently blocked from mutating API calls, and API tokens cannot be used to mint more tokens or change account email/password.
+
+### Maintenance
+- ESP32 firmware now uses a shared backend HTTP client for its pull requests.
+- Added backend migrations for personal API tokens and queued frame commands.
+- Added test coverage for API tokens, MCP, ESP32 command queues, deploy acknowledgement, and ESP32 scene state across deep sleep.
+- Updated MCP/API/cloud-frame documentation and frontend visual snapshots.
+- Updated setup and package metadata for FrameOS 2026.10.5.
+
+### FrameOS Cloud
+- No user-visible cloud changes in this release.
+
 ## 2026.10.4 (2026-10-10)
 
 ### New features
