@@ -2,6 +2,25 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.8 (2026-10-12)
+
+### New features
+
+- No notable new features were found for this release.
+
+### Bug fixes
+
+- ESP32 frames now remember a scene switch even when the scene was already loaded on the device, so the selected scene remains the frame’s last scene instead of being lost.
+
+### Maintenance
+
+- Updated release metadata, installer defaults, and package versioning for the 2026.10.8 release.
+- Updated ESP32 documentation alongside the scene persistence fix.
+
+### FrameOS Cloud
+
+- No user-visible cloud changes in this release.
+
 ## 2026.10.7 (2026-10-12)
 
 ### New features
