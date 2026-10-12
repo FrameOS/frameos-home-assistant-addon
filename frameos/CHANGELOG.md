@@ -2,6 +2,37 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.6 (2026-10-12)
+
+### New features
+
+- Self-hosted backends now show firmware update progress for frames in the admin UI, matching the cloud experience: frame lists, status indicators, deploy drawers, and action menus can show states like “updating firmware”, “update queued”, errors, or verified updates.
+- Self-hosted backends now record firmware update status reported by devices: ESP32 OTA log lines and Raspberry Pi upgrade log lines are folded into the frame’s current state.
+- The frame API now includes queued command types, so the UI can tell when an update or scene command is already waiting for a sleeping frame.
+
+### Bug fixes
+
+- ESP32 sleeping frames now keep queued scene switches and scene events across deep sleep instead of losing them before the next wake.
+- Commands for sleeping ESP32 frames now stay valid long enough to survive until the frame’s next announced wake-up, reducing missed update notifications and other queued actions.
+- ESP32 JPEG rendering is more stable: the JPEG decoder was moved off the stack to avoid crashes/resets on memory-constrained boards.
+- Immich “Memories” mode now works with Immich 3 by sending the date format the newer API accepts, instead of silently falling back to random photos.
+- Scene state persistence now avoids saving values that are still at their defaults, so updated scene/app defaults are not accidentally masked by old saved state.
+- Seeed reTerminal E1004 button mappings were corrected: GPIO3 is Refresh and GPIO5 is Right, matching the hardware.
+- Firmware update telemetry is no longer treated as deployable frame configuration, so update progress should not make a frame look like it needs redeploying.
+
+### Maintenance
+
+- Self-hosted backends include a database migration to store current firmware update progress on each frame.
+- Test coverage was expanded for firmware update status handling, queued command reporting, sleeping-frame command behavior, scene state persistence, Immich memories, and Seeed presets.
+- Nim test binaries are now built without optimization for more reliable test runs, and several sleeping-frame tests were fixed.
+- Chromium Screenshot app tests no longer wait for a fake browser startup delay, speeding up test runs.
+- Documentation was updated for ESP32 firmware behavior, cloud-linked frames, JavaScript apps/code nodes, and API notes.
+
+### FrameOS Cloud
+
+- Cloud now shows running firmware updates consistently wherever a frame’s state is shown.
+- Cloud-linked frames can report firmware update progress in the same status vocabulary used by self-hosted backends.
+
 ## 2026.10.5 (2026-10-11)
 
 ### New features
