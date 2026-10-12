@@ -2,6 +2,36 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.9 (2026-10-12)
+
+### New features
+
+- ESP32 firmware updates now wait their turn if a render is already in progress. The frame finishes rendering first, and the admin UI shows that the update is waiting instead of looking idle.
+- The frame list, actions menu, and deploy drawer now show clearer firmware-update states: queued, updating with progress when available, rebooting, failed/stalled, and recently updated to a specific FrameOS version.
+- The “Update queued” state now uses an hourglass icon, making it clearer that the frame has not picked up the request yet.
+- GPIO button mappings are now included in the ESP32 settings sync. Changes made in the Settings panel can reach an already-provisioned ESP32 frame without relying on USB-console provisioning.
+
+### Bug fixes
+
+- ESP32 OTA updates should no longer fail silently. If a frame restarts on its old version during an update, or an update stops reporting progress for too long, the backend/admin UI now marks it as failed or stalled instead of returning to “ready” or offering another upgrade as if nothing happened.
+- Successful firmware updates now leave a short-lived “updated to …” outcome for the deploy drawer, instead of disappearing immediately after the reboot.
+- Raspberry Pi release upgrades reported through frame logs now keep better state in the self-hosted backend, including failures that survive a same-version reboot and successful boots that close the update as done.
+- Seeed reTerminal E1004 button mapping has been corrected: GPIO3 is `RIGHT`, GPIO4 is `LEFT`, and GPIO5 is `REFRESH`.
+- ESP32 settings changes no longer incorrectly imply that a full firmware deploy is required. The signed release firmware receives settings through sync, so ordinary settings/scenes changes are treated accordingly.
+- The deploy UI wording is clearer: “Fast deploy” is now presented as “Scenes & settings deploy” where that is what will actually happen.
+
+### Maintenance
+
+- Added backend tests for firmware-update state handling, interrupted OTA downloads, completed updates, and GPIO button settings sync.
+- Added/updated frontend visual coverage for firmware-update and deploy UI states.
+- Updated ESP32 documentation around flashing, OTA behavior, and related setup details.
+- Updated FrameOS editor/WASM package metadata and release versioning.
+
+### FrameOS Cloud
+
+- Cloud-linked frames now report firmware-update progress, queued updates, interrupted updates, and completed updates more consistently.
+- If a cloud-triggered firmware update stalls or the frame restarts on the old version, the cloud now surfaces that as a failed/stalled update instead of silently returning to idle.
+
 ## 2026.10.8 (2026-10-12)
 
 ### New features
