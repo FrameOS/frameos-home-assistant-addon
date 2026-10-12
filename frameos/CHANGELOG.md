@@ -2,6 +2,37 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.11 (2026-10-12)
+
+### New features
+
+- Immich is now a JavaScript app. Existing Immich scenes are stored as the new `immich` app, while older device runtimes are still sent the legacy `data/immich` form they can read until they update.
+- JavaScript apps can now fetch and decode images natively on ESP32 frames; the new Immich app uses this to render photos directly into the ESP32 canvas.
+- The admin UI now shows deploy progress from the moment you click an action through the first render. This covers full deploys, fast deploys, admin-API deploys, virtual frames, restarts, reboots, and ESP32 firmware updates.
+- Virtual frames now support “set next scene”/scene activation directly: state is applied, the virtual frame renders, and the deployed baseline is updated without needing SSH.
+- Fresh Raspberry Pi bootstrap installs and Buildroot SD images now write scene data in the format expected by the FrameOS runtime being installed.
+
+### Bug fixes
+
+- ESP32 Immich rendering is more reliable: connection errors are named, refused connections are retried, album filtering is logged for troubleshooting, and rendering resumes once required service keys arrive.
+- Older ESP32 firmware no longer breaks when the backend has already migrated an Immich scene to the JavaScript app; the backend sends each board the scene format its reported runtime supports.
+- Imported templates and restored backups that still contain the retired Nim Immich app are migrated automatically.
+- Frame sync no longer reports spurious changes just because an older frame reports the retired Immich app keyword.
+- Virtual frames no longer fall through to the SSH deploy path when activating a scene, avoiding “No SSH private keys available” failures and lost state.
+- Deploy progress now records refused, failed, and cancelled actions instead of leaving the progress bar stuck at an earlier stage.
+
+### Maintenance
+
+- Removed the retired Nim Immich app implementation and updated the generated app lists to use the repo JavaScript app.
+- Added shared deploy-progress and retired-app migration contracts, fixtures, documentation, and tests.
+- Added backend/API tests for deploy progress, retired Immich migration, ESP32 scene compatibility, and virtual-frame scene switching.
+- Updated frontend visual snapshots for the frame settings, debug, and app drawer views.
+
+### FrameOS Cloud
+
+- Cloud-linked frames can show the same deploy/update progress flow from queued action to first render.
+- Cloud scene import paths understand retired Immich scenes and migrate them to the JavaScript app.
+
 ## 2026.10.10 (2026-10-12)
 
 ### New features
