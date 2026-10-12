@@ -2,6 +2,30 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.7 (2026-10-12)
+
+### New features
+- Cloud-linked frames running this release now report their GPIO button pin/label map to the control plane. In Settings, cloud frames can show the buttons currently on the device before you push any button settings.
+- The GPIO buttons section now lets you copy a reported on-device button map into an editable list with **Edit buttons**, instead of starting from a blank configuration.
+- Cloud frame scene details can now show when an installed scene declares service-key access that has not been granted, and can grant those missing groups without reinstalling the scene.
+
+### Bug fixes
+- Firmware update status is cleared more reliably after a Pi has already rebooted into the new FrameOS version, avoiding stale “rebooting into …” messages for a version the frame is already running.
+- Color correction and asset color previews now use the device-reported panel for cloud frames, including ESP32 panel names, so palettes and previews match the actual display more reliably.
+- The default color auto-fit behavior now matches the runtime more closely: it is enabled by default for color e-paper families, not merely because a panel has any palette.
+- New Seeed reTerminal E1004 ESP32 frame setups now include the built-in front-panel buttons instead of configuring an empty GPIO button list.
+
+### Maintenance
+- Added tests for firmware update status folding, already-applied update cleanup, cloud enrollment hardware payloads, cloud scene service-key grants, and asset color behavior.
+- Updated documentation for asset color profiles and cloud frame hardware/settings reporting.
+- Refreshed frontend visual snapshots for the frame settings mobile views.
+- Updated FrameOS editor and WASM package metadata for this release.
+
+### FrameOS Cloud
+- Linked frames can expose their current GPIO button map in cloud frame settings when running 2026.10.7 or newer.
+- Scene management can grant missing service-key access to an already-installed scene.
+- Cloud-managed scene pushes avoid an unnecessary extra render when preserving the active scene.
+
 ## 2026.10.6 (2026-10-12)
 
 ### New features
