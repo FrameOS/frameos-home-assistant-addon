@@ -2,6 +2,25 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.10 (2026-10-12)
+
+### New features
+- No notable new features were found for this category.
+
+### Bug fixes
+- ESP32 firmware update status is more reliable after a restart: when a board boots into a new FrameOS version, the admin UI now treats the update as finished instead of leaving the update state unclear.
+- ESP32 boards now cache backend-provided service settings in persistent storage too, so those settings survive restarts before the board can fetch settings again.
+- The deploy drawer now tells you when a firmware update check ran and found nothing to install, instead of appearing to ignore the click.
+- Self-hosted backends now recognize an update that completed without intermediate OTA logs: if a frame boots on a newer version than the backend last knew, the firmware update row is marked as done.
+
+### Maintenance
+- Updated the installer’s default release target to FrameOS 2026.10.10 for fresh installs run directly from the repository.
+- Added backend tests for firmware update state after reboot, including unseen ESP32 update completions.
+- Updated ESP32 documentation and package metadata for this release.
+
+### FrameOS Cloud
+- Linked frames get the same improved firmware-update completion handling when they reconnect after booting into a new version.
+
 ## 2026.10.9 (2026-10-12)
 
 ### New features
