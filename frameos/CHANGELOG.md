@@ -2,6 +2,34 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.12 (2026-10-13)
+
+### New features
+- Seeed reTerminal ESP32 frames can now chirp on button presses: the buzzer sounds while a recognized press is held, and uses a lower tone when a press is refused.
+- Seeed reTerminal presets now include buzzer wiring by default:
+  - reTerminal Sticky: GPIO48 at 4000 Hz.
+  - reTerminal E1001/E1002/E1004: GPIO45 at 2000 Hz.
+- ESP32 frame settings now support configurable `buzzerPin` and `buzzerToneHz`, including `-1` for disabling the buzzer pin.
+- “Preview on frame” now works for sleeping ESP32 frames: previews are queued, pulled on the next wake, and kept until a newer scene deploy replaces them.
+- The ESP32 firmware/settings contract now includes buzzer pin and tone settings, so self-hosted backends can provision and manage them.
+
+### Bug fixes
+- Fixed Seeed reTerminal E1004 button mapping: the right button and refresh button now use the correct GPIO order.
+- Fixed a case where ESP32 preview/deploy scene checksums could be compared against the wrong scene set, especially when preview scenes were active.
+- Fixed the deploy/settings drawer for ESP32 frames so a frame boot report is not treated as an “Embedded settings” change.
+- Fixed saved ESP32 frame updates so the board’s latest boot information is preserved instead of being overwritten by stale admin UI data.
+- Fixed stuck log rate limits: if a Redis rate-limit counter lost its expiry, FrameOS now restores the window instead of blocking frame logs forever.
+- Fixed Linux/Raspberry Pi compiled display drivers so driver exceptions stay inside the driver library and are logged instead of wedging later renders.
+- Added exponential backoff for repeated immediate driver retries, preventing a broken display driver from spinning every few hundred milliseconds and flooding logs.
+
+### Maintenance
+- Added tests for queued ESP32 previews, buzzer settings, deploy progress, stale boot metadata, log rate-limit recovery, driver exception handling, and driver retry backoff.
+- Updated ESP32 cloud/device contract fixtures and generated contract code for the new buzzer settings.
+- Updated ESP32 documentation for the new buzzer configuration.
+
+### FrameOS Cloud
+- Linked ESP32 frames can use the new buzzer pin and tone settings from the cloud-managed frame settings.
+
 ## 2026.10.11 (2026-10-12)
 
 ### New features
