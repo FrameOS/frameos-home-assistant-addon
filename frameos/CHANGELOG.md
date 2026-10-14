@@ -2,6 +2,21 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.13 (2026-10-14)
+
+### New features
+- Frames can now play a backend-hosted photo album with the new Photo Album scene/app: pick a folder, choose fit/order/timing, and the frame fetches the current album contents through a share link.
+- Several bundled apps and samples now run as scene-contained JavaScript apps instead of legacy Nim apps, including Gallery, Unsplash, Wikimedia Commons, Google Photos, Home Assistant sensor, Weather, Recycle, chart rendering, and AI image/text apps. Existing scenes are migrated where needed.
+- The self-hosted admin UI now has a Photos workspace for creating folders/albums, uploading photos up to 250 MiB, browsing thumbnails or list view, selecting files, opening a lightbox, and installing album scenes onto frames.
+- Self-hosted Photos storage can use the local filesystem or an S3/R2-compatible object store, with content-hash storage, thumbnails, and per-project library rows.
+- MCP/API users get photo-library tools for listing, uploading, moving, deleting, sharing, recoloring, previewing photos, and installing photo album scenes.
+- Scene-writing help is now available from the backend/MCP, and AI-generated scenes can include bundled JavaScript app source so generated scenes are more portable.
+- When running through the Home Assistant add-on, photo album share routes are available on the frame-facing public API so frames can fetch shared album photos without a browser login.
+
+### Bug fixes
+- ESP32 frames with 8 MB boards can decode progressive JPEGs more reliably, and JPEG decoding keeps images sharp instead of degrading quality unnecessarily.
+- Immich album mode now includes photos
+
 ## 2026.10.12 (2026-10-13)
 
 ### New features
