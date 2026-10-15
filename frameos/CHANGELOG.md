@@ -2,6 +2,29 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.15 (2026-10-15)
+
+### New features
+- ESP32 frames with a button buzzer now play a distinct click on button press and a lower click on release, making button actions easier to confirm by sound.
+- Cloud-linked frames now have a local **Ship logs and metrics to the cloud** / **Log shipping** switch. Turning it off keeps the frame linked and managed, but stops telemetry scopes from being used for log and metrics uploads.
+- The frame admin UI now exposes log-shipping status in cloud settings for linked frames that have telemetry permission.
+
+### Bug fixes
+- Cloud-managed frames with log shipping disabled now show a clear explanation in the Logs panel instead of appearing to have “No logs yet.”
+- The admin UI page background was changed to avoid expensive fixed-background repaints, improving scrolling performance especially in dark mode.
+- “Open in GitHub” links for repository-based JavaScript apps now point to the correct repository path instead of the built-in Nim app source folder.
+
+### Maintenance
+- Updated ESP32 button/buzzer documentation.
+- Updated cloud-link and cloud-managed-frame documentation for the log/metrics telemetry switch.
+- Added backend behavior tests for the new cloud telemetry switch and updated frontend visual snapshots for the workspace/settings changes.
+- Updated frontend dependencies used by the account/settings surfaces.
+
+### FrameOS Cloud
+- Account pages now live inside the Frames workspace settings area, so cloud settings, security, usage, backups, and developer pages feel like part of the same app.
+- The cloud workspace has a new Home page with quick access to recent frames, scene store items, private cloud scenes, photo albums, and usage.
+- The cloud scene store has a public storefront for browsing scenes before opening the full workspace.
+
 ## 2026.10.14 (2026-10-15)
 
 ### New features
