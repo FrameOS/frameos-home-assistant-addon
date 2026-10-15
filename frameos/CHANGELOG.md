@@ -2,6 +2,25 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.14 (2026-10-15)
+
+### New features
+
+- Photos can now show either a whole album or one selected photo on a frame. The Photo album app has a new “One photo” field for showing a single path from an album share link.
+- Photos on self-hosted backends now support resizing photos in place, including fit, output format, quality, upscale, background, and color-profile options.
+- Photo previews in the admin UI can be rendered at different panel sizes, making it easier to check how an image will look on a specific frame.
+- Photo albums installed on frames now get frame-specific share links, so one frame’s access can be revoked without stopping other frames using the same album.
+- Photo sharing now supports custom named links, and share listings show when each link was last used.
+- The Photos UI has improved sharing controls, including opening the share dialog from an album’s link icon and keeping the dialog open after stopping a share.
+- Scene previews now explain why they are waiting, and “Show on frame” can preview changes before they are saved.
+- Automation/MCP photo tools now understand per-frame share links, custom link names, and last-used share metadata.
+
+### Bug fixes
+
+- Large streamed image decodes on ESP32 frames no longer fail just because the normal render deadline expires while the decoder is still making progress. Long decodes now renew the deadline and log decode start/progress messages.
+- “Update all” now includes frames that need a FrameOS upgrade even when they also have other pending scene or settings changes.
+- The Photos lightbox no longer closes from incidental clicks; use the close button, Esc,
+
 ## 2026.10.13 (2026-10-14)
 
 ### New features
