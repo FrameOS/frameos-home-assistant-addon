@@ -2,6 +2,51 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.16 (2026-10-18)
+
+### New features
+
+- Scene AI can now use a rendered image of the scene as context, so edits and answers can be based on what the frame would actually show.
+- JavaScript apps can now participate more directly in scene flows: a JS app can export `run()`, and field-feeding JS can export `get()`.
+- Scene permissions are now declared by apps, combined at the scene level, and enforced by the frame/runtime.
+- Button handling is split into two layers: low-level `gpio` down/up events and user-level `button` actions such as press, double press, and long press. ESP32 button handling also adds 30 ms debounce, clearer per-event sounds, held-second ticks, and `heldSeconds`.
+- Cloud-linked ESP32 frames can enable local network access using a code shown on the panel.
+- Photos has new album-scene options, including shape selection, album links, and “Select all” in the Photos workspace.
+- Photos now reads and stores image metadata such as dimensions and location where available, and the admin UI can show more photo information.
+- Scene preview is easier to use: logs sit under the picture, the preview area is resizable, and preview button holds behave more like a physical frame key.
+- The scene drawer now keeps its header/footer fixed so Activate and Reset stay reachable.
+- Scene diagrams now show an edit button on JavaScript app nodes and remove the extra “(scene)” suffix after their names.
+- App editing now includes a generated `config.json` form and app test reporting in the admin UI.
+
+### Bug fixes
+
+- Photos privacy was tightened: private photo links are kept out of AI scene/app prompts, restored only in returned scenes/files, and scenes with photo album links get clearer cloud-store publish errors.
+- Deleting photos now performs real object cleanup, not just UI/library removal.
+- Private cloud-drive scene preview images are now proxied through the authenticated backend instead of exposing private CDN links directly to the browser.
+- URL fetching used by previews, template installs, repository images, and photo tools now re-checks the actual connection target to reduce DNS-rebinding and local-network bypass risks.
+- Raspberry Pi asset paths are now restricted to safe asset roots, preventing frame asset uploads from being pointed at runtime/state directories.
+- ESP32 OTA URL handling and settings saves were hardened.
+- ESP32 request errors are now plainer and easier to read.
+- ESP32 wake-button presses now click like normal presses, and held buttons tick once per second.
+- Scene AI now retries with the model when it creates a scene app that no node actually runs.
+- Button listener behavior was corrected for the new event model: unfiltered `button` listeners now hear press-style actions instead of relying on the old default action filter.
+- Embedded frames now receive scene payloads filtered for the embedded runtime version, improving compatibility when retired apps are replaced.
+
+### Maintenance
+
+- ESP32 firmware size was reduced by about 34.7 KB, bringing it back below the previous release size.
+- Added app tests for many bundled repository apps, including photo album, weather, Home Assistant sensor, image, JSON, and text apps.
+- Added extensive tests for ESP32 button timing, LAN access, panel drawing, photo metadata, photo share-link redaction, scene access, and network target guarding.
+- CI Nim cache handling now uses immutable snapshots so overlapping test runs cannot mix stale compiled objects.
+- Added documentation for LAN access, photo metadata, event behavior, ESP32 image size, and updated scene/JS app docs.
+- Updated generated event contracts, cloud-frame contracts, visual snapshots, and release metadata.
+
+### FrameOS Cloud
+
+- Cloud-linked frames can now support temporary local-network access using a code shown on the frame panel.
+- Cloud scene AI can use a rendered scene image as context when helping edit scenes.
+- Cloud Photos handling now keeps album links out of AI prompts and blocks public sharing of scenes that contain private photo album links.
+
 ## 2026.10.15 (2026-10-15)
 
 ### New features
