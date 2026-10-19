@@ -2,6 +2,47 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.17 (2026-10-19)
+
+### New features
+
+- Scenes embedded inside other scenes now keep their own refresh schedule, so split layouts can update a weather, clock, photo, or data panel independently instead of waiting for the parent scene.
+- Setup hotspots are easier to join on new Raspberry Pi images: the hotspot can act as a captive portal, so phones and laptops should open the setup page from their “sign in to network” flow.
+- New frames created by a self-hosted backend now leave hotspot credentials blank by default, letting the frame generate its own setup network name instead of reusing `FrameOS-Setup`.
+- The setup flow can require a code shown on the frame’s panel before accepting changes, reducing the chance that someone nearby configures the frame accidentally.
+- ESP32 firmware now uses FrameOS’ own QR encoder, reducing firmware size and leaving more room for future firmware features.
+- The frame admin UI now shows an “Asleep” badge on frame images for sleeping frames.
+- Fleet “Update all” actions in the admin UI are quieter and no longer produce a toast for every frame.
+- The scene store updates more immediately: newly public scenes appear without waiting for a full page reload, and Refresh is included in the store controls.
+- Personal API tokens on self-hosted backends now default to the maximum one-year lifetime instead of 90 days.
+
+### Bug fixes
+
+- ESP32 frames can now lazy-load scenes referenced by another scene, fixing failures where a split scene panel was not resident when rendering.
+- ESP32 rendering now catches more runtime failures at the firmware boundary, avoiding a poisoned renderer state that could otherwise lead to repeated empty renders after an exception.
+- Cloud enrollment no longer treats `localhost` or other loopback server hosts as an active self-hosted backend, so generic SD cards can enroll instead of being rejected as already managed.
+- ESP32 OTA updates are more strictly validated: a firmware image must match the release it was signed for, and the device will only process one OTA update at a time.
+- ESP32 setup and Wi-Fi handling received validation fixes, including a WPA2 password floor and clearer hotspot handling per interface.
+- Buildroot SD images now include captive DNS configuration for the setup hotspot, improving captive-portal detection on freshly flashed cards.
+- Admin sessions on self-hosted backends are now HMAC-protected.
+- Asset upload handling was tightened so private upload parts are not exposed.
+- Image metadata processing now passes filenames more safely.
+- Editing a scene in the admin UI no longer remounts the whole page after each edit.
+- Object backup comparison now uses file size instead of modification time, avoiding unnecessary or missed backup changes caused by timestamp differences.
+
+### Maintenance
+
+- Self-hosted backends now run daily cleanup for old personalized SD images and cached release images that are no longer referenced, helping keep build artifact storage from growing indefinitely.
+- Buildroot image builds now fall back to workspace-local caches when the shared runner cache is read-only.
+- ESP32 console-line parsing and related firmware paths gained additional test coverage.
+- The QR code implementation was replaced with an in-tree encoder and the external QR dependency was removed.
+- Project todo documentation was reorganized, with shipped and stale items separated out.
+- Build, CI, runner-cache, firmware-size, and test-suite maintenance were updated across the release.
+
+### FrameOS Cloud
+
+- No user-visible cloud changes in this release.
+
 ## 2026.10.16 (2026-10-18)
 
 ### New features
