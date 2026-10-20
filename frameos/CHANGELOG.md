@@ -2,6 +2,39 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.18 (2026-10-20)
+
+### New features
+
+- Added an AI chat box on the Frames home page and on each frame page. It can inspect frames, answer questions from live frame data, and help create or edit scenes directly in the editor.
+- The AI scene tools can now render scenes with ESP32 memory limits, so scenes that would run out of memory on an ESP32 are caught earlier with a clearer out-of-memory message.
+- The scene drawer now has clearer controls for **Activate**, **Preview**, and **Reset**.
+- Scene updates are now pushed more selectively: scene-only changes are pushed as scenes, while settings changes are deployed separately.
+- Self-hosted backends now support chats that are not tied to a specific frame, including chat history titles and message counts.
+
+### Bug fixes
+
+- Uploaded and previewed scenes now keep their original scene IDs. After a reboot, the frame is more likely to return to the last active scene instead of losing track of it.
+- Imported scenes now keep their own state instead of sharing or overwriting state between scenes.
+- Frame image caching now handles current scene IDs more accurately, including frames running older firmware that reported previewed scenes as `uploaded/...`.
+- Runtime image requests avoid caching while the display driver still owns the current picture, reducing stale screenshots in the admin UI.
+- ESP32 settings pushes no longer include panel configuration in `set_settings`, avoiding accidental panel-setting churn during normal settings updates.
+- The setup hotspot now reads the configuration owned by its caller, improving reliability during Wi-Fi/setup portal flows.
+
+### Maintenance
+
+- Added backend tests for the new AI chat flow, scene patching, chat history, and frameless chats.
+- Added shared device-limit fixtures and tests so backend, frontend, and WASM rendering agree on ESP32 memory ceilings.
+- Added tests for renderer out-of-memory reporting and scene render logs.
+- Updated visual end-to-end snapshots for the changed frame overview, scene drawer, workspace, and cloud-store UI.
+- Updated deployment wording from “Deploy scenes” to “Push scenes” where only scenes are being sent.
+
+### FrameOS Cloud
+
+- Cloud-linked frames can use the new AI chat from Frames home and individual frame pages.
+- The cloud scene drawer now offers clearer Activate / Preview / Reset controls and pushes scene-only changes more directly.
+- Cloud-linked frames should keep their reported active scene more accurately after reconnecting.
+
 ## 2026.10.17 (2026-10-19)
 
 ### New features
