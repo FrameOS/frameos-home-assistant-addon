@@ -2,6 +2,35 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.19 (2026-10-21)
+
+### New features
+- Pico W and Pico 2 W boards are now supported as thin-client frames, including the Pimoroni Inky Frame 7.3" Spectra 6 preset.
+- Self-hosted backends now list Pico `.uf2` firmware alongside ESP32 `.bin` and Raspberry Pi SD image assets, so the admin UI can offer the right flashing flow for Pico boards.
+- Thin-client frames such as Pico boards and PSRAM-less ESP32 boards now use the backend renderer for scene state and events, so scene switches and control events can work without an on-device scene runtime.
+- The workspace AI chat can now turn frames and installed scenes it mentions into clickable links, and the chat drawer URL reflects the active chat.
+
+### Bug fixes
+- ESP32 OTA updates are more resilient: a dropped Wi-Fi connection during a firmware download can be resumed instead of starting over.
+- ESP32 firmware update failures now report clearer reasons, including Wi-Fi disconnect causes and named OTA download errors.
+- Deploy progress now treats an `ota:error` reported after boot as a failed firmware deploy instead of letting the deploy appear to continue.
+- Thin-client rendering no longer gets stuck on the diagnostic card when the backend has a stale active-scene id for a scene that no longer exists.
+- Scene events sent to queued thin-client frames are now held for the next backend render instead of being sent as events the device firmware cannot execute.
+- Pico frames no longer get ESP32 partition-layout details or OTA warnings just because their flash size matches an ESP32 layout.
+- The Pimoroni Inky Frame 7.3" Spectra preset now includes the Pico-specific shift-register, busy, and power-latch pin settings needed by that board.
+- On self-hosted backends, clicking the rail logo now opens `/home`, matching the cloud UI.
+
+### Maintenance
+- Release publishing now signs Pico `.uf2` firmware assets before attaching them to the GitHub release.
+- Added host-side tests for Pico firmware parsers, hotspot/status code, flash state handling, and related portable firmware pieces.
+- Added host-side tests for ESP32 OTA download resume and error bookkeeping.
+- CI now runs the Pico firmware host tests before building Pico W and Pico 2 W firmware.
+- Updated the Flox environment and build/test plumbing used by contributors and release automation.
+
+### FrameOS Cloud
+- Cloud AI chat can link to frames and installed scenes it names, so you can jump straight from a chat answer to the referenced frame or scene.
+- Cloud chat drawer URLs now identify the active chat, making chat links/bookmarks more useful.
+
 ## 2026.10.18 (2026-10-20)
 
 ### New features
