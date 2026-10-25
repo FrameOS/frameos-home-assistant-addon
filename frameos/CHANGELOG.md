@@ -2,6 +2,44 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.20 (2026-10-25)
+
+### New features
+
+- ESP32 frames with a configured microphone can now use voice chat: hold the frame’s voice key to talk, then release to send. On Seeed reTerminal E1001/E1002, the REFRESH key is the default voice key.
+- Voice chat now keeps a per-frame conversation log and can, when you allow it, switch scenes, update scene state, render now, or build/change scenes from spoken requests.
+- New voice permission switches let you choose what voice chat may do on each frame; voice controls are hidden when the frame has no microphone configured.
+- Button actions are now configurable. Frames can have their own button map, installed scenes can provide or override event maps, and scene changes can move forward/backward through the frame’s scene list.
+- reTerminal E-series ESP32 support now includes the panel-bus SD slot, status LED, RTC clock, and charger status hardware.
+- Scene previews are more visible in the workspace: a preview row shows what is staged for a frame, and previewed scenes are kept separate from saved/deployed scenes until discarded or deployed.
+- The FrameOS Gallery image app now requests images from `gallery.frameos.net` already scaled for the frame’s panel.
+- The frame settings UI adds a Button actions section, including presets for reTerminal hardware buttons.
+- Self-hosted backends now include event-map data in frame sync and embedded settings so button bindings survive deploys, sync, and ESP32 scene pulls.
+
+### Bug fixes
+
+- Installing private FrameOS Cloud scenes from a linked self-hosted backend now uses the backend’s link token, so private scene downloads no longer fail anonymously.
+- Template download failures now show a clearer error, including a hint for private FrameOS Cloud scenes, instead of surfacing as a generic server error.
+- ESP32 frames no longer wait indefinitely when a backend does not answer a log upload.
+- ESP32 Wi-Fi now joins networks using 20 MHz channel width, improving compatibility with access points that reject wider channel settings.
+- Frame scene previews are no longer lost when a deploy happens; the preview remains available until you explicitly discard it.
+- Microphone, status LED, buzzer, and related ESP32 hardware settings are now only sent to firmware when configured, so board presets are not accidentally overwritten.
+- Frames without a configured microphone no longer expose voice controls or voice bindings.
+
+### Maintenance
+
+- Release and firmware CI jobs are pinned to Ubuntu 24.04 to avoid newer runner image breakage in signing and Pico firmware builds.
+- ESP32 CI now builds and tests additional firmware layouts and host-side checks, including voice bindings, voice key hold behavior, I2C charger/RTC decoding, and log upload backoff.
+- End-to-end visual snapshots were updated for the new frame settings, button actions, and scene preview UI.
+- Time zone data was refreshed.
+- Documentation was added or updated for voice chat, scene previews, events/button maps, supported Seeed/Waveshare/Pimoroni devices, and ESP32 setup.
+
+### FrameOS Cloud
+
+- Linked cloud frames can use the new voice chat flow, including per-frame permission switches.
+- Cloud-managed frames can use button action mappings and scene event maps.
+- Cloud-managed frames can show and manage scene previews before committing changes.
+
 ## 2026.10.19 (2026-10-21)
 
 ### New features
