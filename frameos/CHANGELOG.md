@@ -2,6 +2,43 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.21 (2026-10-27)
+
+### New features
+
+- JavaScript apps can now build JSX UIs directly, including `<svg>` elements, Tailwind-style layout classes, pointer handlers such as clicks/swipes, and hover/active/group-hover states.
+- JSX/SVG scenes repaint only changed nodes, making interactive UI scenes smoother and less wasteful on frames.
+- The built-in index scene now shows a Buttons row explaining what each configured button event does on that frame.
+- ESP32 LCD frames now show a FrameOS boot splash that indicates what startup is waiting for.
+- Added ESP32 support for the Seeed SenseCAP Indicator: 4" 480×480 RGB LCD, FT6336U touch, and the top button. Its default controls include screen toggle, next/previous scene, and left/right edge swipes.
+- Added ESP32 support for the Seeed reTerminal E1003 10.3" IT8951 e-paper panel, including the matching preset and touch wiring.
+- Added more reTerminal Sticky hardware support, including keys, touch as pointer events, voice input, fuel gauge readings, and Waveshare codec speaker/microphone support.
+- Self-hosted backends can now serve RGB565 render buffers for LCD-based ESP32 frames.
+
+### Bug fixes
+
+- ESP32 protected HTTP actions now stop after an unauthorized request is rejected; refused requests no longer continue into the protected handler.
+- ESP32 frames no longer busy-spin between renders, and scenes with a one-second interval render once per second as intended.
+- ESP32 LCD animation timing was fixed; fast LCD animations such as the DVD logo scene now run at normal frame rates instead of advancing extremely slowly.
+- ESP32 LCD startup no longer waits for the clock before continuing boot.
+- ESP32 rendering uses a more efficient text-outline raster path and optimized gradient filling.
+- ESP32-C3 firmware builds again.
+- JSX text preserves spaces correctly after the QuickJS update.
+- Photo/image handling in JSX scenes was tightened so kept images remain available across UI updates.
+
+### Maintenance
+
+- Reduced ESP32 firmware size through unused Wi-Fi/TLS configuration removal, smaller timezone aliases and input tables, no PPM support, and a smaller embedded Ubuntu font.
+- Updated the embedded JavaScript/TypeScript runtime to quickts `2026-06-04-quickts.2`.
+- Synced timezone data.
+- Added or expanded ESP32 test coverage for animation timing, HTTP access gating, touch decoding, IT8951 panels, LCD splash rendering, SPIFFS cleanup, I2C devices, and firmware sizing.
+- Added documentation for JSX UI, realtime rendering, ESP32 image-size auditing, events, photos, voice chat, and new hardware support.
+- Improved CI so ESP32 firmware image builds and size checks run more broadly on pull requests.
+
+### FrameOS Cloud
+
+- The hosted cloud ESP32 flasher now includes the new ESP32 board and panel choices added in this release.
+
 ## 2026.10.20 (2026-10-25)
 
 ### New features
