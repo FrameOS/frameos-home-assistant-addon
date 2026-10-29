@@ -2,6 +2,47 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.22 (2026-10-29)
+
+### New features
+
+- Added an on-frame scene switcher: swipe up from the bottom to see every scene as a tile and switch scenes directly.
+- Added on-frame scene settings: swipe down from the top to edit a scene’s fields without opening the admin UI.
+- JSX/TSX scenes can now include interactive form fields, scrollable boxes, and an on-screen keyboard for text entry.
+- Added render scale for JSX/TSX scenes: scenes can be laid out for a smaller virtual screen and rendered sharply at the panel’s full resolution. The setting is available through frame settings, sync, embedded provisioning, and cloud backups.
+- Scene changes now show a loading mark when switching takes long enough to be visible, including on fast LCD panels.
+- The Events to Agenda app has moved to a JavaScript app, keeping agenda scenes available without the old Nim implementation.
+- Pi LCD rendering now uses an RGB565 canvas, pushes only changed rows, and applies rotation in the driver.
+- Added default edge-swipe mappings for reTerminal E1003.
+- HyperPixel panels now support swipe input.
+- SenseCAP Indicator now opens the scene switcher when its key is pressed twice; holding the key no longer triggers an action.
+- The frame admin UI scene preview stays pinned and resizes while the log and form content scroll underneath it.
+- The scene editor and AI chat now include more frame context, render sizes, preview device choices, and a “locate” flow for location-based scene settings.
+
+### Bug fixes
+
+- The on-screen keyboard no longer accidentally triggers edge-swipe gestures.
+- Wi-Fi settings are preserved more reliably across frame restarts.
+- AI chat source edits now handle an empty find/replace range correctly.
+- Frame sync now compares render scale as a numeric setting and treats missing render scale from older runtimes as “automatic,” avoiding false change warnings.
+- Embedded frame settings now include render scale for devices that pull live settings from the backend.
+- Cross-builds for armhf now compile the Wi-Fi supplicant code again with GCC 14.
+
+### Maintenance
+
+- Added database migrations for frame render scale and retiring the old Nim Events to Agenda app.
+- Added tests for render scale, scene switching, scene settings, loading marks, panel canvas handling, JSX scaling/forms, embedded LCD loading, and frame sync comparisons.
+- Added build safeguards to reject stale QuickJS build artifacts.
+- Reduced generated app capability code size for embedded builds.
+- Updated backend dependencies, including Pillow 13.0.0.
+- Updated documentation for scene switching, scene settings, JSX UI/forms, realtime rendering, events, and retired apps.
+
+### FrameOS Cloud
+
+- “Use my location” now works on FrameOS Cloud pages that need browser location access.
+- Cloud scene previews now support the same render-size and preview-device improvements as the editor.
+- Store and AI scene workflows include the retired Events to Agenda migration.
+
 ## 2026.10.21 (2026-10-27)
 
 ### New features
