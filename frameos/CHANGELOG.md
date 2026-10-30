@@ -2,6 +2,28 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.10.23 (2026-10-30)
+
+### New features
+- Touch-screen frames now support Back and Forward actions: swipe in from the left edge for Back, and from the right edge for Forward. These act within the current scene or built-in panel instead of switching to the previous/next scene.
+- The scene switcher now uses Back/Forward to move between pages of scenes, while top and bottom edge swipes still open scene settings and the scene switcher.
+- Frame event maps and button/action settings now allow Back and Forward as actions, so self-hosted operators can bind them to buttons or gestures.
+
+### Bug fixes
+- HyperPixel 2.1" Round panels now keep the scene settings screen and on-screen keyboard inside the visible circular glass.
+- In scene settings, Back now dismisses the on-screen keyboard first; using Back again closes the settings without saving.
+- Cloud-enrolled ESP32 boards connected over USB to a self-hosted backend now report when that backend is holding the frame, and the admin UI can hand the board back to FrameOS Cloud instead of leaving it stuck on the wrong backend.
+- Default touch gestures on HyperPixel touch panels and the SenseCAP Indicator no longer change scenes with left/right edge swipes.
+
+### Maintenance
+- Updated the event contracts, generated client/server mappings, and documentation for the new Back/Forward actions.
+- Updated scene switcher, scene settings, keyboard, and round-panel tests for the new gesture and layout behavior.
+- Refreshed frontend visual snapshots and embedded firmware tests around touch-event defaults.
+- Updated setup/release packaging for this release.
+
+### FrameOS Cloud
+- FrameOS Cloud
+
 ## 2026.10.22 (2026-10-29)
 
 ### New features
