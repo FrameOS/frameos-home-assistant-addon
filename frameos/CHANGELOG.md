@@ -2,6 +2,28 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.0 (2026-11-02)
+
+### New features
+
+- New OpenAI Text apps, migrated legacy OpenAI Text nodes, and bundled AI sample scenes now default to `gpt-6.1-terra`.
+- Self-hosted backend AI features for scene chat, scene generation, and scene review now default to `gpt-6.1-terra`. The admin UI placeholders for AI model settings were updated to match.
+
+### Bug fixes
+
+- Pico e-paper frames now power the panel immediately before refresh and handle suspiciously instant BUSY signals more defensively, improving refresh reliability on supported Pico panels.
+- HDMI/framebuffer frames on Raspberry Pi now add `hdmi_blanking=1` during setup when a Pi boot config is present, so “display off” cuts the HDMI signal instead of only painting the screen black.
+
+### Maintenance
+
+- Added coverage for framebuffer setup so the HDMI blanking boot-config change is only applied on hosts that actually have a Pi config file.
+- Updated tests and generated app metadata for the new OpenAI Text default model.
+- Updated the direct-from-repo install script fallback to install this release.
+
+### FrameOS Cloud
+
+- Cloud AI scene chat and scene generation now use `gpt-6.1-terra` by default.
+
 ## 2026.10.23 (2026-10-30)
 
 ### New features
