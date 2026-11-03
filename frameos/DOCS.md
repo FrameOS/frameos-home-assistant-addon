@@ -29,9 +29,17 @@ frames change, render new images, or send events.
 
 ### What gets shared
 
-- **One device per frame** (archived frames excluded), each with:
+- **One device per frame** (archived frames excluded), with:
   - an **image entity** showing the frame's latest rendered image,
-  - **sensors** for the frame's status, active scene, and when it was last seen.
+  - **sensors** for the frame's status, the scene showing, and when it was last seen.
+    The scene sensor's attributes hold the showing scene's settings (its public fields,
+    typed), so a template reads `state_attr('sensor.kitchen_frame_scene', 'fields').city`,
+  - a **scene selector** (`select`): pick a scene and the frame switches to it,
+  - a **display switch**: screen on / off,
+  - **buttons**: Refresh, Next scene, Previous scene, Restart FrameOS, Reboot.
+
+  That is eleven entities per frame, however many scenes and settings it has. Setting a
+  scene's parameters is a command from an automation (below), not an entity.
 - A **FrameOS hub device** with a frame count sensor (`sensor.frameos_frames`) whose
   attributes list all frame names.
 - **Events**: every event a frame sends (button presses, scene changes, renders, custom
@@ -44,12 +52,35 @@ frames change, render new images, or send events.
       event_type: frameos_event
       event_data:
         frame_name: Kitchen frame
-        event: button_press
+        event: button
   ```
 
   Each event carries `frame_id`, `frame_name`, `event`, and the original event data in
   `payload`. Events are also published to MQTT under `frameos/frame/<project>/<frame>/event`
   for MQTT triggers.
+
+Changes sync both ways: a frame renamed, a scene added or removed, a setting changed on the
+frame itself (its settings panel, a button, a schedule) shows up in Home Assistant, and what
+you set in Home Assistant goes to the frame the way the FrameOS editor's own buttons do.
+
+### Commands from automations
+
+For more than the entities offer, publish JSON to `frameos/frame/<project>/<frame>/command`
+with the `mqtt.publish` action (the ids are in the entity's MQTT topics):
+
+```yaml
+action: mqtt.publish
+data:
+  topic: frameos/frame/1/3/command
+  payload: '{"scene": "Weather", "state": {"city": "Paris"}}'
+```
+
+shows a scene with parameters (a frame applies settings to the scene showing, so "set the
+city, then show the weather" is this one message); `{"event": "render"}`,
+`{"event": "turnOff"}` or `{"event": "setSceneState", "payload": {"state": {"city": "Rome"}}}`
+send one event the frame's own API accepts. Values are typed by the scene's fields, so a
+template's `"true"` reaches a switch-type setting as a boolean. The full list of entities, topics and events is in the FrameOS
+repository's `docs/home-assistant.md`.
 
 ### MQTT (recommended)
 
