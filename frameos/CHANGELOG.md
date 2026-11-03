@@ -2,6 +2,31 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.1 (2026-11-03)
+
+### New features
+- The Home Assistant integration now creates more useful controls for each frame: a scene selector, display on/off switch, refresh button, next/previous scene buttons, and restart/reboot buttons.
+- Home Assistant automations can now send commands back to a frame over MQTT, including switching scenes with state values or dispatching supported frame events.
+- Scene field values for the currently displayed scene are now published to Home Assistant as attributes on the Scene sensor.
+- Self-hosted FrameOS and the Home Assistant add-on can now serve the frames’ backend port over HTTPS using a certificate (`FRAMEOS_SSL_CERTFILE` / add-on SSL option). The admin UI also uses that scheme when pre-filling new frame server addresses.
+
+### Bug fixes
+- ESP32 provisioning now keeps the correct backend scheme for HTTPS installs on non-default ports such as `8443`, instead of falling back to plain HTTP.
+- Backend server addresses typed with a scheme or port are now split and stored correctly when creating, importing, adopting, or updating frames. This avoids malformed addresses such as duplicated ports.
+- IPv6 backend addresses are now formatted correctly for ESP32 provisioning.
+- Bootstrap/install URLs now use the same saved backend base URL that frames are provisioned with, improving reliability behind HTTPS and custom ports.
+- Home Assistant no longer creates separate entities for every scene field; this avoids entity clutter and keeps field values attached to the active Scene sensor.
+- Archived frames now have retained Home Assistant state, image, and scene-field MQTT topics cleared more completely.
+
+### Maintenance
+- Added Home Assistant integration documentation.
+- Added tests for Home Assistant commands, discovery payloads, scene field attributes, MQTT sync behavior, HTTPS public scheme handling, and server address parsing.
+- Updated setup and README documentation, including ESP32 swipe behavior wording.
+- Bumped package metadata and release version for 2026.11.1.
+
+### FrameOS Cloud
+- No user-visible cloud changes in this release.
+
 ## 2026.11.0 (2026-11-02)
 
 ### New features
