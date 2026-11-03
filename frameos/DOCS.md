@@ -29,9 +29,19 @@ frames change, render new images, or send events.
 
 ### What gets shared
 
-- **One device per frame** (archived frames excluded), each with:
+- **One device per frame** (archived frames excluded), with:
   - an **image entity** showing the frame's latest rendered image,
-  - **sensors** for the frame's status, active scene, and when it was last seen.
+  - **sensors** for the frame's status, the scene showing, and when it was last seen,
+  - a **scene selector** (`select`): pick a scene and the frame switches to it,
+  - a **display switch**: screen on / off,
+  - **buttons**: Refresh, Next scene, Previous scene, Restart FrameOS, Reboot,
+  - **one entity per scene setting**: every public field of every scene on the frame
+    (a switch, number, select or text by its type), named "*Scene*: *Field*". A setting
+    of the scene showing is applied at once; one of another scene is kept and applied
+    when that scene is next selected from Home Assistant, so an automation can set the
+    weather city and then show the weather scene. Turn these off per project under
+    **Settings → Home Assistant → Scene settings as entities** if the entity count is
+    too much.
 - A **FrameOS hub device** with a frame count sensor (`sensor.frameos_frames`) whose
   attributes list all frame names.
 - **Events**: every event a frame sends (button presses, scene changes, renders, custom
@@ -44,12 +54,33 @@ frames change, render new images, or send events.
       event_type: frameos_event
       event_data:
         frame_name: Kitchen frame
-        event: button_press
+        event: button
   ```
 
   Each event carries `frame_id`, `frame_name`, `event`, and the original event data in
   `payload`. Events are also published to MQTT under `frameos/frame/<project>/<frame>/event`
   for MQTT triggers.
+
+Changes sync both ways: a frame renamed, a scene added or removed, a setting changed on the
+frame itself (its settings panel, a button, a schedule) shows up in Home Assistant, and what
+you set in Home Assistant goes to the frame the way the FrameOS editor's own buttons do.
+
+### Commands from automations
+
+For more than the entities offer, publish JSON to `frameos/frame/<project>/<frame>/command`
+with the `mqtt.publish` action (the ids are in the entity's MQTT topics):
+
+```yaml
+action: mqtt.publish
+data:
+  topic: frameos/frame/1/3/command
+  payload: '{"scene": "Weather", "state": {"city": "Paris"}}'
+```
+
+shows a scene with parameters; `{"event": "render"}`, `{"event": "turnOff"}` or
+`{"event": "setSceneState", "payload": {"state": {"city": "Rome"}}}` send one event the
+frame's own API accepts. The full list of entities, topics and events is in the FrameOS
+repository's `docs/home-assistant.md`.
 
 ### MQTT (recommended)
 
