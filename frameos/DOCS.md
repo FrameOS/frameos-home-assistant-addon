@@ -31,17 +31,15 @@ frames change, render new images, or send events.
 
 - **One device per frame** (archived frames excluded), with:
   - an **image entity** showing the frame's latest rendered image,
-  - **sensors** for the frame's status, the scene showing, and when it was last seen,
+  - **sensors** for the frame's status, the scene showing, and when it was last seen.
+    The scene sensor's attributes hold the showing scene's settings (its public fields,
+    typed), so a template reads `state_attr('sensor.kitchen_frame_scene', 'fields').city`,
   - a **scene selector** (`select`): pick a scene and the frame switches to it,
   - a **display switch**: screen on / off,
-  - **buttons**: Refresh, Next scene, Previous scene, Restart FrameOS, Reboot,
-  - **one entity per scene setting**: every public field of every scene on the frame
-    (a switch, number, select or text by its type), named "*Scene*: *Field*". A setting
-    of the scene showing is applied at once; one of another scene is kept and applied
-    when that scene is next selected from Home Assistant, so an automation can set the
-    weather city and then show the weather scene. Turn these off per project under
-    **Settings → Home Assistant → Scene settings as entities** if the entity count is
-    too much.
+  - **buttons**: Refresh, Next scene, Previous scene, Restart FrameOS, Reboot.
+
+  That is eleven entities per frame, however many scenes and settings it has. Setting a
+  scene's parameters is a command from an automation (below), not an entity.
 - A **FrameOS hub device** with a frame count sensor (`sensor.frameos_frames`) whose
   attributes list all frame names.
 - **Events**: every event a frame sends (button presses, scene changes, renders, custom
@@ -77,9 +75,11 @@ data:
   payload: '{"scene": "Weather", "state": {"city": "Paris"}}'
 ```
 
-shows a scene with parameters; `{"event": "render"}`, `{"event": "turnOff"}` or
-`{"event": "setSceneState", "payload": {"state": {"city": "Rome"}}}` send one event the
-frame's own API accepts. The full list of entities, topics and events is in the FrameOS
+shows a scene with parameters (a frame applies settings to the scene showing, so "set the
+city, then show the weather" is this one message); `{"event": "render"}`,
+`{"event": "turnOff"}` or `{"event": "setSceneState", "payload": {"state": {"city": "Rome"}}}`
+send one event the frame's own API accepts. Values are typed by the scene's fields, so a
+template's `"true"` reaches a switch-type setting as a boolean. The full list of entities, topics and events is in the FrameOS
 repository's `docs/home-assistant.md`.
 
 ### MQTT (recommended)
