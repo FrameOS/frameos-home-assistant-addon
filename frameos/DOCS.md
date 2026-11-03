@@ -64,8 +64,46 @@ Assistant URL + long-lived access token (for events) and the MQTT broker host/cr
 
 ## Ports
 
-- `8989/tcp` — FrameOS public API port; frames on your network send logs and events here.
+- `8989/tcp` — FrameOS API port; frames on your network send logs and events here and fetch
+  their scenes and assets from it.
 - `8990/tcp` — ingress port used by the Home Assistant UI, not exposed.
+
+## HTTPS for the API port (optional)
+
+The Home Assistant UI reaches FrameOS through ingress, which is already covered by Home
+Assistant's own TLS. The frames themselves connect to port `8989` directly. To serve that
+port over HTTPS, point the add-on at a certificate in Home Assistant's `/ssl` folder, the
+same way the Mosquitto broker and Node-RED add-ons do:
+
+```yaml
+ssl: true
+certfile: fullchain.pem
+keyfile: privkey.pem
+```
+
+| Option     | Default         | Meaning                                              |
+|------------|-----------------|------------------------------------------------------|
+| `ssl`      | `false`         | Serve port `8989` over HTTPS.                        |
+| `certfile` | `fullchain.pem` | Certificate (with chain) in `/ssl`.                  |
+| `keyfile`  | `privkey.pem`   | Its private key in `/ssl`.                           |
+
+The **Let's Encrypt** and **DuckDNS** add-ons write exactly these two files, so with either
+of them installed the defaults work as they are. If `ssl` is on and a file is missing or
+unreadable, the add-on does not start and its log says which file it looked for.
+
+What to expect once it is on:
+
+- Frames verify the certificate against the public CA bundle, so it must be one a browser
+  would trust (Let's Encrypt is fine; a self-signed certificate is not), and the frames must
+  reach the backend by the name on the certificate — set that name as the frame's server
+  host (or as **Settings → Defaults → Default backend host** in FrameOS, so every new frame
+  gets it).
+- New frames are prefilled with an `https://` server address. Frames you added before
+  turning `ssl` on keep reporting over plain HTTP until you set their **Server scheme** to
+  `https` under the frame's settings and deploy them again, so switch `ssl` on first, update
+  the frames, then rely on it.
+- The ingress port (`8990`) stays plain HTTP behind the Supervisor's proxy; only port `8989`
+  changes.
 
 ## Support
 

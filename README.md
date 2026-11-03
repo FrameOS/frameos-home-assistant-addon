@@ -33,6 +33,13 @@ status sensors (via MQTT discovery, using the Mosquitto broker add-on if install
 FrameOS web UI under **Settings → Home Assistant**. Archived frames are not shared. See
 [`frameos/DOCS.md`](frameos/DOCS.md) for details.
 
+## HTTPS for Frames
+
+Frames connect to the add-on on port `8989`. Turn on the `ssl` option (with `certfile` /
+`keyfile` naming a certificate in Home Assistant's `/ssl` folder, as the Mosquitto and
+Node-RED add-ons do) to serve that port over HTTPS. See the Documentation tab for the
+details.
+
 ## Data Persistence
 
 The database is stored at `/data/frameos.db` in the persistent data volume provided by Home Assistant, so data is not lost across restarts or updates.
