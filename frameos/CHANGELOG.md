@@ -2,6 +2,35 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.2 (2026-11-04)
+
+### New features
+
+- JSX-based scenes and apps can now use `<select>` controls on the frame. Tapping a select opens an on-frame option list, selecting an option fires `onChange`, and other controls do not receive taps while the list is open.
+- The on-screen keyboard now supports press-and-hold accents and symbol variants, including common accented letters and punctuation/currency variants.
+- ESP32 LCD frames now show an “Updating” message on the display while scene data is being written to flash, making scene updates visibly in progress instead of looking frozen.
+- Home Assistant now exposes separate **Refresh image** and **Re-render** buttons:
+  - **Refresh image** fetches what the panel currently shows.
+  - **Re-render** runs the scene again.
+
+### Bug fixes
+
+- Home Assistant’s **Refresh image** action no longer triggers a scene render. This avoids advancing random/photo-style scenes when you only wanted Home Assistant’s image entity to update.
+- Home Assistant image updates are now resized to fit typical MQTT broker packet limits, helping prevent the frame image entity from going stale when large panel-sized renders are published.
+
+### Maintenance
+
+- Improved release and CI build caching, including GHCR-based image layer caches, Pico toolchain caching, and per-shard Nim cache archives.
+- Added CI safeguards so only trusted push-to-main jobs can write shared ESP32 build caches.
+- Added a weekly refresh timer for self-hosted GitHub runner images.
+- Moved the remaining image build workflows off Depot-backed builds.
+- Expanded tests for JSX select boxes, on-screen keyboard behavior, ESP32 LCD splash text, and Home Assistant commands/discovery/sync.
+- Updated documentation for JSX UI controls, scene settings, realtime rendering, ESP32 firmware, and the Home Assistant integration.
+
+### FrameOS Cloud
+
+- No user-visible cloud changes in this release.
+
 ## 2026.11.1 (2026-11-03)
 
 ### New features
