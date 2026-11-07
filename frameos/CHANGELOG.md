@@ -2,6 +2,34 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.4 (2026-11-07)
+
+### New features
+- JSX-based interactive scenes are more responsive, especially on ESP32 and Raspberry Pi frames. Tap handling and event-triggered rerenders wake the runner immediately instead of waiting for polling delays.
+- JavaScript/TypeScript scene apps can draw JSX UI directly through the native renderer instead of building SVG strings first, improving reliability and performance for interactive UI apps.
+- New built-in sample scenes were added, including analog and typographic clocks, a chess puzzle, DVD logo bounce, day agenda, word clock, and year progress.
+- Added support for the Waveshare 9.7" (E) Spectra 6 e-paper panel (`EPD_9in7e`, 1120×784) in the device list, backend panel metadata, Raspberry Pi driver generation, and ESP32 firmware panel matrix.
+- ESP32 firmware now uses a log ring for FrameOS logs, so USB serial logs remain visible without making the render task wait on slow serial output.
+- The embedded scene editor now shows one file tree for a scene/template, including `template.json`, scene diagrams, and app folders, with whole-row click targets for easier navigation.
+
+### Bug fixes
+- Fixed a memory/buffer release issue that could make JSX UIs stop responding after panel buffer copies.
+- Fixed JSX preview input handling: textarea up/down keys and scrolling behave better, sliders react on hover, and stuck pointer drags in the preview are cleared.
+- Scene loading now annotates source node IDs during parsing instead of reparsing the whole scene JSON, reducing load time and memory pressure on constrained frames.
+- Cloud-linked frame updates are guarded so a hosted scene version is not pushed to a frame that cannot run it.
+- Store `scenes.json` access limiting is now scoped per signed-in account rather than only by network address, reducing false rate-limit hits for users sharing an IP.
+
+### Maintenance
+- Bundled the Pixie renderer source in the FrameOS tree and added its pixel/image test suite to CI for safer rendering changes.
+- Added render profiling hooks and documentation for investigating slow or memory-heavy renders.
+- Updated JSX/QuickJS build tooling, including prebuilt JSX prelude bytecode support and QuickJS libc selection for host tools.
+- Updated scene-writing documentation and AI guidance to prefer JSX drawing where appropriate.
+- Improved Docker build exclusions so large renderer test assets are not copied into runtime images.
+
+### FrameOS Cloud
+- Cloud-linked frames will no longer receive scene pushes that require a newer FrameOS runtime than the frame can run.
+- No other user-visible cloud changes in this release.
+
 ## 2026.11.3 (2026-11-07)
 
 ### New features
