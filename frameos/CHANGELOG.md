@@ -2,6 +2,27 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.3 (2026-11-07)
+
+### New features
+- ESP32 PhotoPainter firmware can now read battery voltage, charge percentage, and charging state from the AXP2101 power chip.
+- ESP32 PhotoPainter firmware now supports the PCF85063 real-time clock.
+
+### Bug fixes
+- Fixed ESP32 PhotoPainter displays not refreshing again after a power loss by handling the PMIC on its second I2C bus correctly.
+- Cloud-managed virtual frames now show a clearer error if their refresh interval is below the plan’s allowed minimum.
+
+### Maintenance
+- Updated the default install script release fallback to 2026.11.3 for fresh installs run directly from the repository.
+- Updated ESP32 documentation and tests around PhotoPainter board, I2C, battery gauge, and RTC behavior.
+- Updated package metadata and lockfile entries for the editor/WASM tooling.
+- Cloud billing/provider cleanup and related internal plan-sync work were included, but do not change this downloadable FrameOS runtime directly.
+
+### FrameOS Cloud
+- Virtual frames are now available: FrameOS Cloud can render a frame with no hardware and provide a view link plus a direct PNG image link.
+- Virtual frame settings include size changes, link replacement, render status, and refresh interval information.
+- Account usage and plan pages now show virtual-frame limits and usage where applicable.
+
 ## 2026.11.2 (2026-11-04)
 
 ### New features
