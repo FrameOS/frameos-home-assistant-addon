@@ -2,6 +2,44 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.5 (2026-11-09)
+
+### New features
+- Scenes can now be used as layouts: a layout scene can wrap another scene with `<Scene>` and `<yield />`, and nested scenes can run on their own schedules.
+- New layout starter/sample scenes are included: top bar, bottom bar, side rail, and Windows 98-style layouts.
+- Slow renders now show the loading mark more consistently, so frames give feedback while a scene is taking longer to draw.
+- The Map app now supports drag and pinch interactions, with pixelated canvas scaling and touch handling that keeps frames rendering while gestures are queued.
+- Frames can show a settings page directly on the screen: tap the gear to manage Wi-Fi, rotation, scale, restart, and reboot on ESP32 and Raspberry Pi frames. This can be disabled from the frame settings.
+- ESP32 hardware presets now include Seeed XIAO ePaper EE02, EE03, EE04, EE05 carrier boards, plus the 7.5" XIAO panel preset.
+- The on-screen keyboard has been expanded with held-symbol rows, faster page switching, lit pressed keys, repeating backspace, accent positioning fixes, and space-drag caret movement.
+- Calendar is now a JavaScript image app in the app repository, replacing the older built-in Nim calendar app.
+- Google Photos scenes now have a Fit setting that changes how photos are placed.
+- Scene preview for ESP32 more closely matches an awake frame by keeping JavaScript interpreters between renders.
+- The frame admin UI now includes layout controls for scenes and templates, plus hardware preset updates for the new Seeed XIAO boards.
+- Self-hosted backends now include the on-screen frame settings flag in frame sync, backups, restore, ESP32 settings pulls, and provisioning.
+
+### Bug fixes
+- ESP32 scene uploads no longer stop early when a command contains CR/LF, and a refused scene payload no longer replaces the frame’s existing scenes.
+- ESP32 frames that change Wi-Fi from the on-screen settings page can report their new address back to the backend, allowing the backend to follow the frame when the request came from that address.
+- Scene upload endpoints now reject invalid layout scenes instead of accepting scenes that cannot actually behave as layouts.
+- Voice scene selection now leaves layout scenes out of the switchable scene list.
+- Scene preview now renders through one canvas in the selected board’s format, and the preview form keeps its values across renders.
+- The Store editor now loads the newest app/template version instead of reusing a stale browser-cached copy.
+- Scene sync comparisons now include the layout a scene is wearing, so frames are marked out of sync when the installed scene layout differs.
+- Updating a scene through backend tools preserves the scene’s event map and layout metadata.
+
+### Maintenance
+- ESP32 firmware uses a shared probe loop and patched hash-table implementation, reducing firmware size by about 22 KB.
+- CI now includes an ESP32 “kitchen sink” runtime test that exercises a large UI inside an 8 MB memory cap.
+- The old built-in Nim calendar app is retired and migrated to the repository JavaScript app.
+- Scene layout documentation, fixtures, generated contracts, and tests were added or refreshed.
+- Additional tests were added for on-screen frame settings, ESP32 Wi-Fi network handling, layout validation, Google Photos fit behavior, SVG rendering, and ESP32 memory limits.
+
+### FrameOS Cloud
+- Cloud-linked frames can use the new scene layout support from the hosted cloud editor.
+- The cloud ESP32 flasher includes the new Seeed XIAO ePaper board presets.
+- Cloud scene previews and editor checks were updated for the new layout behavior.
+
 ## 2026.11.4 (2026-11-07)
 
 ### New features
