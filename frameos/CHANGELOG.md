@@ -2,6 +2,46 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.6 (2026-11-11)
+
+### New features
+- ESP32 frames can update scenes much faster: the backend can send only changed scenes, and firmware stores/scenes switches one scene at a time instead of replacing the whole list.
+- ESP32 rendering and scene switching should feel snappier, with less idle time in the render task and a quicker on-device scene switcher.
+- Touch e-paper frames respond sooner: taps are handled on the first tap, and supported panels can use partial refresh for faster feedback.
+- Seeed reTerminal Sticky now has touch support, partial refresh, immediate tap responses, and edge-swipe events.
+- Seeed reTerminal E1003 now has touch support, partial refresh, faster 4-bit grayscale handling, and stays awake after a tap.
+- ESP32 grayscale/e-paper rendering can use a 4-bit canvas, reducing memory use on large grayscale panels.
+- The scene store now includes layout templates such as Front page, Gallery wall, Polaroid, and Terminal layouts.
+- Layout controls in the admin UI were streamlined: Activate is available on every scene, and Settings uses a single layout selector.
+- Voice chat can now create or change scenes by default, instead of requiring an opt-in for those scene-editing actions.
+- The iCal-to-Events app is now a JavaScript app and reads calendar feeds incrementally, which should help with larger feeds.
+- ESP32 frames now report state-partition storage usage back to the backend so the admin UI/backend can track how much scene storage is in use.
+
+### Bug fixes
+- Previewing a scene on a frame no longer replaces the frame’s whole scene list. Saved scenes remain available while the preview is active, and discarding the preview returns to the saved list.
+- Editor previews now go through the same control path as other frame actions, improving consistency for embedded frames.
+- Installing a store scene from a self-hosted backend now reaches the frame correctly.
+- Store scene installs that do not immediately activate the scene now finish their progress state instead of leaving the install bar hanging.
+- Installing or duplicating a store scene whose app has the same name as the scene no longer rewrites the app keyword to a new scene id.
+- Layout rendering is more robust against long captions that previously could run out of memory.
+- ESP32 scene intervals are snapped consistently, fixing cases where a near-1-second layout interval could fall back to the frame’s much longer default refresh interval.
+- ESP32 picture push behavior for fast animations was tightened so animations do not repeatedly push unnecessary pictures to the backend.
+- Frame settings saves no longer overwrite ESP32 device-reported storage information with stale values from an older admin UI form.
+- Existing buildroot SD image records and ESP32 last-boot records continue to be preserved when saving frame settings from a stale form.
+
+### Maintenance
+- ESP32 firmware was reduced by about 71 KB through logging, loader sharing, printf, float formatting, and compressed setup-page changes.
+- ESP32 firmware test coverage was expanded for scene storage, slot caching, partial refresh, refresh queues, backend links, boot scenes, network buffers, SPIFFS garbage collection, and shared canvases.
+- The firmware build/CI path now validates more ESP32 image variants and storage behavior before release.
+- Timezone data was updated.
+- The retired Nim iCal app migration was added so existing scenes move to the JavaScript iCal app path.
+- Documentation and generated contracts for ESP32 behavior, scene previews, layouts, events, realtime rendering, voice chat, and device limits were updated.
+
+### FrameOS Cloud
+- Cloud uploads that previously failed because object storage required a content length should work again.
+- Rendered pictures and scene preview images are saved to cloud storage again.
+- No other user-visible cloud changes in this release.
+
 ## 2026.11.5 (2026-11-09)
 
 ### New features
