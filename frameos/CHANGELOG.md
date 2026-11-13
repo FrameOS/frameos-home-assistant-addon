@@ -2,6 +2,43 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.7 (2026-11-13)
+
+### New features
+
+- ESP32 frames can now run in a server-rendered mode: the backend/control plane renders the scene and the board pulls the finished panel image. This adds support for pre-rendering before a sleeping frame wakes, ETags/304s to avoid re-sending the same image, and leaner input relay for taps and clicks.
+- Server-rendered ESP32 frames now keep the active scene and scene state on the backend instead of on the board, making very small or sleeping boards behave more like virtual frames.
+- ESP32 provisioning/settings can now carry a processor speed mode, including a “performance” option where supported.
+- Scene previews can now test a scene inside a selected layout, so layout interactions are easier to check before deploying.
+- The scene editor workspace with the file tree is now available more broadly, including saved scenes/templates and frame scene editing on both local/self-hosted and cloud-connected planes.
+- Deploy planning now shows diffs when updating scenes to their newest versions and can update scenes on both planes.
+- A native iOS app project is included, with support for FrameOS Cloud and self-hosted backends, frame lists/details, scenes, layouts, photos/assets, logs, settings, and chat.
+- The iOS app now shows a frame’s layouts under Scenes and can create new layouts from starters.
+
+### Bug fixes
+
+- Waveshare PhotoPainter ESP32 boards now power down before each deep sleep, and wait for an in-flight refresh before powering down.
+- ESP32 boards no longer show the status screen just because a key was pressed during boot.
+- Server-rendered ESP32 frames no longer let stale on-device scene/state reports overwrite the backend’s active scene after a scene switch.
+- State-change and scene-switch events for server-rendered boards now update the backend store before asking the board to render, so the next pulled image reflects the change.
+- Saving edited saved scenes/templates now applies the same scene normalization as creation and refuses invalid layout scenes instead of saving inconsistent data.
+- The iOS app now preserves the catalog cover when installing a scene onto a backend.
+- The iOS app layout has been adjusted for iPad-width screens, and its dark-mode logo/icon assets were updated.
+
+### Maintenance
+
+- Added extensive backend tests and documentation for ESP32/server-side rendering, render pulls, pre-rendering, FOSB payloads, and relayed input.
+- Added ESP32 unit tests for render pull/relay behavior.
+- Added iOS CI that builds the app once, runs FrameOSKit tests against shared fixtures/contracts, and runs simulator UI tests.
+- Self-hosted Docker images now include the built scene editor assets and Node.js support needed by backend server-side rendering.
+- Refactored shared scene workspace/editor code so the same editor components can be used by the admin UI, embedded editor, and iOS-related contracts.
+
+### FrameOS Cloud
+
+- Apple sign-in is now available for FrameOS Cloud, including native iOS sign-in support.
+- Cloud-linked ESP32 frames using server-side rendering can receive cloud-rendered images and relay input through the cloud.
+- Store scene embeds now better match light/dark page framing and open scene pages more cleanly.
+
 ## 2026.11.6 (2026-11-11)
 
 ### New features
