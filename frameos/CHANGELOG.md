@@ -2,6 +2,38 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.9 (2026-11-15)
+
+### New features
+
+- Scenes now run as compiled JavaScript programs instead of an interpreted graph, improving consistency between frames and browser previews and giving heavier JS/pixel scenes more room to perform.
+- Added an on-frame **Scene Store** flow: a frame can install, preview, update, remove, or discard public Store scenes through its backend, with the saved scene list deployed back to the frame.
+- Added new sample scenes and layout starters, including **Scene store**, **Asset browser**, **Terminal app**, **Pixel toys**, **Color cycling**, **Tiling layout**, **macOS layout**, and **BeOS layout**.
+- Added desktop-style layouts where scenes can run as windows, including macOS- and BeOS-style desktops, plus a Windows-style side-by-side layout for Pi frames and browser preview.
+- Added theme support for layouts so system pages on the frame can be dressed by the active layout.
+- Added 8-bit palette pixel rendering support, used by Pixel toys, Color cycling, and the Hellfire effect, with fast paths for ESP32.
+- The battery card now shows more device state, including deep sleep, charging, and USB power, and its icon is designed to survive long sleeps.
+
+### Bug fixes
+
+- ESP32 touch input is more stable: touch panels are polled regularly, presses settle before being reported, and two-thumb glides keep their original press location.
+- The on-screen keyboard handles held keys and two-thumb typing better; the space bar now drags sideways only.
+- Edge swipes and pull gestures are more robust, including a 32-bit overflow fix and safer safe-mode gesture counting.
+- 8-bit palette scenes now render inside a layout’s assigned area instead of at the panel corner.
+- JSX layouts now keep keys correctly on 32-bit builds and handle negative insets correctly.
+- Sample scenes now lay out at the size they are drawn at, reducing preview/frame mismatches.
+- ESP32 LCD rendering avoids losing frames to heap walks, and slow scene switches show the loading mark after 500 ms.
+- ESP32-C3 thin-client firmware builds now include the required timer dependency.
+- Color Cycling now runs in the correct direction and is faster on ESP32.
+- Scene Store images and covers are handled more predictably on frames, including smaller JPEG covers and clearer handling when firmware is too old for the requested display plane.
+
+### Maintenance
+
+- ESP32 firmware was reduced by about 39.8 KB without intended behavior changes.
+- QuickJS on ESP32 now builds key interpreter, allocator, and cycle-collector code with stronger optimization.
+- CI was reorganized to run faster, skip unrelated heavy jobs on pull requests, and use warmer runner images and caches.
+- Backend tests now support
+
 ## 2026.11.8 (2026-11-15)
 
 ### New features
