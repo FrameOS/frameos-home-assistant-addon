@@ -2,6 +2,51 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.8 (2026-11-15)
+
+### New features
+
+- Added new sample scenes and layouts: **Terminal app**, **Scene store**, **Asset browser**, **Pixel toys**, **Color cycling**, **Tiling layout**, **macOS layout**, and **BeOS layout**.
+- Added desktop-style layouts that can show multiple scenes as windows, including macOS-, BeOS-, and Windows-style layouts.
+- Added **8-bit palette drawing** support for pixel-heavy scenes, used by Pixel toys, Color cycling, and Hellfire-style effects.
+- Added a **Terminal app** scene that runs as a JavaScript app through the frame bridge.
+- Added an on-frame **Scene store** flow: a frame can install, preview, update, remove, or discard public store scenes through the backend instead of only from the admin UI.
+- Added an **Asset browser** sample scene for browsing frame assets.
+- Added themed layouts so built-in frame pages can match a layout’s visual style.
+- Added battery status improvements in the workspace, including deep sleep, charging, USB state, and a battery icon designed to survive long sleep gaps.
+- Added support for JavaScript apps requesting the `frame` permission for frame-page settings and frame control APIs.
+
+### Bug fixes
+
+- Fixed ESP32 touch handling so touch panels are polled regularly, presses settle before being reported, and two-thumb glides report from where they began.
+- Fixed on-screen keyboard behavior: held keys restart on the correct row, the space bar only drags sideways, and two-thumb typing can register both keys.
+- Fixed pull/swipe edge cases, including a 32-bit overflow on the second top pull and safe-mode swipe counting on another edge.
+- Fixed 8-bit palette rendering so it draws inside a layout’s assigned area instead of at the panel corner.
+- Fixed ESP32 LCD rendering stalls caused by heap walks, reducing dropped frames; slow responses now show the loading mark after 500 ms.
+- Fixed sample scene previews and rendered pictures so they lay out and draw at the intended size.
+- Fixed browser scene preview storage so previews work in the browser preview environment.
+- Fixed JSX layout edge cases, including stable keys on 32-bit builds and placement of negative insets.
+- Fixed scene store handling on frames so small JPEG covers are used, pictures draw at their own size, and unsupported older planes report that they are too old.
+- Fixed Pixel toys and Color cycling navigation and direction: paging now works backward and forward, and Color cycling runs the right way on ESP32.
+- Fixed event handling for code nodes so context is read from `contextValue`.
+
+### Maintenance
+
+- Scenes now run as compiled JavaScript programs rather than an interpreted graph, with shared scene kits evaluated once per context.
+- Improved native-speed handling of whole typed arrays and added pixel operation tests for palette scenes.
+- Reduced ESP32 firmware size by about 39.8 KB without intended behavior changes.
+- Built parts of the ESP32 QuickJS interpreter loop, allocator, and cycle collector with `-O2`.
+- Added tests for scene compilation, scene runtimes, scene store behavior, terminal app behavior, windowed layouts, touch handling, palette rendering, and ESP32 store scanning.
+- Improved backend test isolation for parallel test runs.
+- Sped up CI by splitting jobs, using warmed self-hosted runners, adding changed-file job selection, and improving build caches.
+- Improved release and package publishing automation so queued release runs are accepted correctly.
+- Updated generated docs/contracts for events, scene guides, layouts, scene store, terminal usage, and real-time rendering.
+
+### FrameOS Cloud
+
+- Cloud-linked frames can use the on-frame Scene store flow to preview, install, update, and remove public store scenes through cloud.frameos.net.
+- Cloud store scene covers are handled for device-facing scene listings.
+
 ## 2026.11.7 (2026-11-13)
 
 ### New features
