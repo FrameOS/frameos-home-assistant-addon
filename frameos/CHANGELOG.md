@@ -2,6 +2,50 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.10 (2026-11-17)
+
+### New features
+- Added new desktop/layout options: Classic Mac, NeXTSTEP, Commander, Teletext, and E-reader, with desktop layouts now separated from full-screen layouts in layout pickers and the Frame page.
+- Desktop scene lists are easier to use: long lists scroll, scenes are grouped by category, scene icons are shown, and the NeXTSTEP-style Dock tracks scenes that have run.
+- Scenes can now define their own icon, category, and desktop window size, so the scene switcher, desktop layouts, store listings, and admin UI can show clearer scene lists.
+- JavaScript scenes can now use more browser-like async features on Raspberry Pi and ESP32 runtimes, including `fetch` with `AbortSignal`, timers, `<img src>`, and async `init()`.
+- Touch and preview input now support two-finger pinch gestures for scenes, enabling zoom-style interactions on e-paper and board previews.
+- Pixel Toys and Color Cycling gained an on-frame footer with Previous/Next controls, the current scene name, frame rate, and a Hide option; they can also advance with a tap or key.
+- The Files sample replaces the old Asset browser, adds a desktop-style look, list view, and New folder support.
+- The bundled samples now more closely match the Scene Store, with many additional ready-to-run scenes and layout demos included in the repo.
+- The scene switcher now has a gear button in its header that opens the Frame page.
+- The Frame page and preview UI now show layout settings beside the layout selector, group layouts by category, and open layout-specific fields in a dialog.
+- ESP32 firmware can fetch large backend scene sets in smaller pieces and store each scene separately, improving support for large scene sets on 8 MB boards.
+- ESP32 color e-paper boards can pack the panel image into the scene canvas instead of keeping a separate panel buffer, freeing memory on boards such as the reTerminal E1004.
+
+### Bug fixes
+- Rendering on several e-paper paths is faster and less likely to stall: automatic fit, dithering/packing, gradients, gray canvases, palette packing, and bilinear zoom/pan paths were optimized.
+- Slideshow with motion now decodes each photo once at the size it needs, and repeated renders or desktop repaints no longer advance to the next photo unexpectedly.
+- Local image error frames on memory-limited devices are now small standalone images instead of large full-canvas allocations that could abort a render or be cached as the photo.
+- Windowed scenes render more reliably: dragged windows keep their picture, SVG scenes draw at the window size, new windows try to open where there is room, and memory checks happen before allocating a window image.
+- A frame-level layout that no longer applies to the current scene now stands down correctly so the scene’s own layout can be used.
+- Server-rendered color e-paper frames are no longer told to refresh sooner than the panel can reasonably refresh.
+- ESP32 scene syncing is more robust: large scene sets fit again on 8 MB boards, oversized patches fall back to a full scene list, scene sets are not applied while a store-first write is in progress, and flash-cached scenes are replaced correctly when a new set arrives.
+- ESP32 memory handling was hardened to avoid out-of-memory aborts during scene loading, degradation, whole-set loads, and windowed desktop rendering.
+- ESP32 backend communication is less disruptive: backend round trips move off the render path where appropriate, only one scene fetch runs at a time, ETags are reused correctly, and short connection timeouts avoid long render stalls.
+- ESP32 OTA checks that find no update no longer skip a render.
+- ESP32 long renders now yield to the idle task to avoid task watchdog resets.
+- ESP32 image pushes that are superseded by a newer picture now report that clearly instead of a generic HTTP 0 failure.
+- Pico firmware keeps the USB console alive through panel refreshes and holds panel commands until the refresh pass is ready.
+- The self-hosted backend no longer reports a server error when a client disconnects mid-upload.
+
+### Maintenance
+- Added hardware benchmarking tools under `tools/frame-bench` for running render and firmware performance checks across attached frames.
+- Added and expanded tests for ESP32 scene storage, HTTP body reading, scene-piece parsing, OOM policy, refresh timing floors, async JavaScript, scene icons, desktop layouts, Files, Theme roles, and touch behavior.
+- Updated documentation for async JavaScript, scene icons, scene layouts, scene settings, scene store behavior, realtime rendering, ESP32 memory/image size, and server rendering.
+- Strengthened CI coverage for ESP32 host tests, browser preview image loading, panel information in preview, and memory-constrained sample playback.
+- Updated generated contracts, frontend/iOS layout data, sample fixtures, and visual snapshots for the new layouts, icons, categories, and events.
+
+### FrameOS Cloud
+- FrameOS Cloud now includes a browser playground at `playground.frameos.net` for trying FrameOS scenes without flashing a device.
+- Cloud scene store listings can show scene icons/covers for easier browsing.
+- Cloud-rendered e-paper frames now respect panel refresh floors so they are not asked to refresh too quickly.
+
 ## 2026.11.9 (2026-11-15)
 
 ### New features
