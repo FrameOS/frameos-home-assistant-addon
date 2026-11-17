@@ -2,6 +2,49 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.11 (2026-11-17)
+
+### New features
+
+- Added a **Books** sample scene: an EPUB reader for books stored on the frame’s card, including embedded pictures.
+- Added a **Code editor** sample scene: edit a scene’s code directly on the frame screen, ask the connected control plane for AI help, and save the result back to the frame without widening scene permissions.
+- Added new desktop-style sample layouts: **OS/2 Warp** and **Omarchy**.
+- Added JavaScript clock apps to replace the retired native `data/clock` app, including a `std/times`-style port for existing scenes and a chrono-format clock for new ones.
+- The **Files** scene and the admin UI **Assets** panel can now show multiple storage locations, including an ESP32’s TF card and internal storage.
+- Scene live preview can now reach the same LAN services the real frame would be allowed to reach, while still blocking backend-local and link-local addresses.
+- Live preview and playground input behave more like the real frame: the frame clipboard is shared with the computer, keyboard input is captured for the frame, and links open as a QR code on a frame or a browser tab in preview.
+- JSX text fields now support selection, handles, and Cut / Copy / Paste by touch, mouse, and keyboard.
+- Store scene tiles now show when a scene is already installed on one of your frames.
+- The iOS app now offers **Add server** and **Add cloud** from the Frames tab account menu.
+
+### Bug fixes
+
+- Fixed 1-bit dithering/packing after the first byte of a row, which could cause incorrect pixels on monochrome displays.
+- Fixed ESP32 asset listings for unmounted TF cards: an unmounted card is no longer cached as “empty”, so files reappear immediately after reinserting the card.
+- Fixed OTA downgrade and restart tasks for ESP32 frames.
+- Fixed E1004 behavior so it runs one scene at a time.
+- Fixed JSX flex sizing so flex items keep their content’s minimum size, matching CSS `min-width/min-height: auto`.
+- Fixed terminal text sizing so terminal letters use desktop text size instead of being scaled up with the frame.
+- Fixed desktop layouts so windows keep their positions when render scale changes.
+- Fixed Pi mouse cursor rendering so the cursor is drawn directly on the framebuffer overlay instead of becoming part of the frame image.
+- Improved Omarchy keyboard handling: the Super key can be sent as Super or Ctrl.
+- Fixed scene duplication/install behavior for scenes whose app names match scene IDs.
+
+### Maintenance
+
+- Reduced ESP32 firmware size through app/runtime changes, the clock app retirement, JavaScript program apps, and QuickJS size optimizations.
+- Moved several small built-in apps to run as JavaScript program apps instead of native firmware registry entries.
+- Added migrations and compatibility handling for retired native apps, including the old clock app.
+- Expanded tests for the code editor, books scene, storage handling, preview proxying, cursor rendering, JSX input events, layouts, and ESP32 storage behavior.
+- Improved CI asset caching so compiled assets are keyed from the git index instead of slower glob hashing.
+- Updated documentation for the code editor, JSX UI, LAN access, realtime rendering, scene layouts, scene settings, terminal behavior, and ESP32 image size.
+
+### FrameOS Cloud
+
+- Cloud-managed frames can use the new on-frame Code editor workflow.
+- Cloud asset access now supports separate ESP32 storage locations such as TF card and internal storage.
+- Cloud live preview follows the same LAN-access behavior as the frame where allowed.
+
 ## 2026.11.10 (2026-11-17)
 
 ### New features
