@@ -2,6 +2,48 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.12 (2026-11-19)
+
+### New features
+- Added many new sample scenes: 13 board/card/puzzle games, 8 retro arcade scenes, 6 tool scenes, plus Home Assistant and Homey remote samples.
+- Scene Store browsing is reorganized around **Scenes** and **Layouts**, with clearer topic/needs labels such as keyboard, mouse, buttons, and file access.
+- Layouts can now be tried from the frame’s on-screen store panel and, when installed, are applied around the frame’s existing scenes instead of being shown as a standalone scene.
+- JavaScript apps can now read HTTP response headers, write text files, use `btoa`/`atob`, `TextEncoder`, and `TextDecoder`, and clean up empty folders when deleting assets.
+- JavaScript apps now run in their scene’s context, so apps in the same scene can share runtime state more naturally.
+- The scene code editor is now a real scrolling, syntax-colored editor that stays responsive with larger files.
+- Live preview uses the backend proxy first for scene HTTP requests, making browser previews behave more like the actual frame for APIs that block browser CORS.
+- ESP32 scene storage now has many more slots on 2026.11.12 firmware, allowing larger scene updates to be sent as smaller patches instead of full scene lists.
+- ESP32 firmware can store scene updates much faster and supports larger scene sets within the available `/state` partition.
+- The admin UI adds frame actions directly in the scenes row and new battery wake/sleep settings.
+- The frame-wide background color and refresh interval settings were removed; refresh timing now comes from the scene/render state itself.
+
+### Bug fixes
+- Fixed gradients rendering over pages without a mask.
+- Fixed an animation/rendering case where a frame could render without the scene list.
+- Fixed large map-style scenes drawing on the 13.3" E1004 panel; oversized HTTP bodies now fail cleanly instead of aborting firmware.
+- Fixed deep-sleep timing on ESP32 so a one-day interval stays one day, along with related zero-interval/check-in issues.
+- Fixed charging on the reTerminal Sticky so its charger is allowed to charge.
+- Fixed large ESP32 scene sets sent through cloud/backends by splitting them into parts when they exceed the 512 KiB message cap.
+- Fixed scene state writes on ESP32 so scenes without state do not consume flash space, and state is written more efficiently.
+- Fixed live preview refusals so blocked LAN/host requests explain what was refused instead of appearing as a generic 403.
+- Fixed virtual frames so their web page refreshes based on the scene’s requested next render time, falling back to one minute when the scene does not specify one.
+- Fixed the “Webcam RSTP” sample naming/URL typo to “Webcam (RTSP)”.
+- Fixed Bird field journal so it renders one plate at a time and works on 8 MB ESP32 boards.
+- Fixed store-panel layout previews so trying a layout does not switch away from the currently shown scene.
+
+### Maintenance
+- Reduced ESP32 firmware size substantially through image layout, link-order, string folding, and console changes.
+- Added ESP32 tests for scene storage, scene metadata extraction, HTTP chunking, SPIFFS garbage collection, animation, and firmware size/layout behavior.
+- Added backend tests for ESP32 scene patch slot compatibility across firmware versions.
+- Added migrations for self-hosted backends to drop the obsolete frame refresh interval and background color fields.
+- Updated documentation for JavaScript apps, live previews, ESP32 memory/image size, scene layouts, the scene store, server rendering, and LAN access.
+- Updated visual/e2e snapshots for the revised frame admin, workspace, battery, settings, and store screens.
+
+### FrameOS Cloud
+- Linked ESP32 frames can receive larger scene sets in chunks instead of failing at the 512 KiB message limit.
+- Cloud-linked frame workspaces now show the same improved battery wake/sleep controls and clearer saved-key prompts.
+- Cloud Store browsing uses the new Scenes/Layouts organization and clearer scene capability labels.
+
 ## 2026.11.11 (2026-11-17)
 
 ### New features
