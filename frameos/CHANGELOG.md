@@ -2,6 +2,34 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.13 (2026-11-20)
+
+### New features
+- Text rendering now uses a compact glyph-mask cache and an indexed built-in Ubuntu font, reducing repeated font work during UI renders on frames.
+- The sample **Books** scene is now presented as **ePub reader**, making its purpose clearer in the scene store and sample library.
+- Button actions can now select a scene together with that scene’s settings, so a button can jump straight to a configured scene variant.
+- The scene store and layout lists now describe their shelves more clearly, with layout categories renamed to **Multi app layouts** and **Single app layouts**.
+
+### Bug fixes
+- Fixed a JSX rendering lifetime bug that could crash ESP32 frames, especially in desktop layouts with interactive scenes.
+- Desktop layouts now avoid unnecessary work for hidden or covered windows: covered windows draw nothing, unchanged pictures leave the surrounding chrome alone, and background windows are throttled when only a few scenes can run at once.
+- Frames with very low memory now clean up parked layouts and old windows more reliably when switching layouts or scenes.
+- ESP32 frames now check for OTA updates daily as intended, instead of about every 8 minutes.
+- Fixed an ESP32 touch LCD update path that could reboot repeatedly instead of running the early updater.
+- ESP32 render logs now name the scene being rendered, and releasing an old picture during a push is no longer treated as a failed push.
+- Scene preview now stops cleanly and reports the problem when simulated memory runs out.
+- The browser playground no longer reuses a cached WASM runtime JavaScript file from another FrameOS release.
+
+### Maintenance
+- Added a scored, versioned Frame Bench suite covering base rendering, UI, raster, image, animation, and CPU benchmarks across boards.
+- Improved benchmark reliability around scene switching, OTA-triggered reboots, stale ports, frame-rate regressions, renamed scenes, and noisy console output.
+- Expanded tests for glyph caching, indexed fonts, scene layouts, single-scene hosting, the scene store, Books/ePub reader, button mappings, and backend behavior.
+- Reworked iOS CI so shared-contract tests, app builds, and simulator UI tests run in separate jobs for faster and more reliable checks.
+- Updated documentation for JSX UI, events, scene layouts, scene store categories, icons, ESP32 image size, and ESP32 memory behavior.
+
+### FrameOS Cloud
+- No user-visible cloud changes in this release.
+
 ## 2026.11.12 (2026-11-19)
 
 ### New features
