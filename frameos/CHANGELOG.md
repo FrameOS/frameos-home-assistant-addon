@@ -2,6 +2,51 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.14 (2026-11-22)
+
+### New features
+
+- Added a **Browser** sample scene that renders web pages on the frame, starting with Hacker News.
+- Added a **PDF viewer** scene for PDFs stored on the frame’s card.
+- Added **on-screen keyboard** support on the frame, either under the whole layout or as a desktop window.
+- Added new **reTerminal** and **reTerminal Sticky** layout templates, with key actions shown beside the layout.
+- Added a **Fonts** sample scene and improved ESP32 font handling so fonts, including colour emoji, can be read directly from the SD card.
+- Added emoji support in JSX and SVG text across hosts.
+- Improved the **Files** workflow: file upload/download is now available in the browser preview, and the frame workspace’s “Assets” panel is now labelled **Files** / “Upload & download”.
+- Photos and file uploads in the admin UI can now resize images in the browser before upload.
+- The Scene Store on the frame has a refreshed layout with category sections, consistent tile sizes, back navigation, and remembers where you were.
+- Solitaire now has a Windows-style win cascade animation.
+- ESP32 colour e-paper panels now render into RGB565 canvases, reducing memory use on colour displays.
+- Home Assistant add-on users can use virtual frame and share links through the add-on’s frames port.
+
+### Bug fixes
+
+- Switching to an e-paper scene now uses a partial update instead of a full flash where supported.
+- reTerminal Sticky panels respond faster to taps, with startup time reduced by avoiding a battery read before opening the panel.
+- On reTerminal E-series boards, SD card reads such as font loading no longer have to wait for an entire long e-paper refresh when the panel and card share the SPI bus.
+- ESP32 colour panels only pack the display picture into the canvas where memory requires it, avoiding unnecessary render waits while the display is refreshing.
+- Frame buttons and keyboards now behave more consistently: Tab walks through UI controls, Enter presses, and Escape backs out; the reTerminal green key is primary and menu acts as Escape.
+- The Code editor no longer scrolls the file while typing.
+- Desktop scenes behave more predictably: closing a window no longer opens another one, one-scene mode follows the same rules, and scene lists scroll by category.
+- Program/category pickers on desktop layouts stay open after selecting a program, and store covers no longer disappear while scrolling.
+- A semibold label no longer turns regular after several taps.
+- Text borders and some rasterized edges are more stable and memory-efficient, reducing rendering glitches on small devices.
+- ESP32 scene updates are safer: a one-scene change now waits for a backend scene set to finish writing before applying.
+- Saving a scene from the frame’s own Code editor now preserves the app’s test files that were omitted from the copy sent to the frame.
+
+### Maintenance
+
+- Reduced ESP32 firmware size by removing unused dependency payload and by reading fonts from SD card instead of bundling more font data into flash.
+- Reduced runtime memory use: loaded scenes keep less compiled app source and metadata, text/layout memo storage is smaller, and glyph cache budgets now adapt to the board.
+- Improved ESP32 rendering throughput with dual-core colour e-paper dithering/packing and more efficient gradient rendering.
+- Updated backend dependencies and frontend tooling, including TypeScript tooling and formatting.
+- Added and expanded tests for ESP32 bus sharing, scene storage, file transfer preview, keyboard navigation, PDF viewer, Browser scene, Solitaire, glyph cache budgets, and rendering benchmarks.
+- Updated documentation for ESP32 fonts, memory limits, image sizing, JSX UI, scene layouts, scene store, and scene switcher behavior.
+
+### FrameOS Cloud
+
+- No user-visible cloud changes in this release.
+
 ## 2026.11.13 (2026-11-20)
 
 ### New features
