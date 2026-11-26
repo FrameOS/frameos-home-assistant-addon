@@ -2,6 +2,45 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.15 (2026-11-26)
+
+### New features
+- Pi/Linux frames can now play video in scenes, including new video samples and the `frameos.video` JavaScript API. On Raspberry Pi, videos can use the VideoCore decoder and display planes for smoother playback.
+- New sample scenes were added across video, weather, clocks, calendars, Spotify remote control, Hacker News, daily story/tarot/word/news/weather, and more.
+- Scenes can request a **Full screen** layout, and scene configuration can now expose a background color field.
+- Round-screen frames get better support in built-in scenes, samples, and the Scene store.
+- The Fonts scene can browse a catalog of 205 font families fetched from the frame itself, without requiring new firmware.
+- The Browser scene now has a slimmer text-browser mode, making large pages such as GitHub and Hacker News practical on small ESP32 frames.
+- The Files scene adds reload support, clearer TF-card read errors, and a way for scenes to open files from the frame.
+- The Code editor can open folders from the frame’s files and edit text files directly.
+- Voice chat now shows progress while it is working, including transcription, tool use, and “still working” states.
+- New hardware presets were added for Guition ESP32-4848S040, Sunton ESP32-8048S070, and Waveshare ESP32-S3-Touch-AMOLED-1.75 round AMOLED boards.
+- ESP32 setup now shows the hotspot QR code in the runtime font, and touch frames no longer have to wait for Wi‑Fi before booting.
+- ESP32 sleep/wake behavior is more visible and configurable: sleeping frames show that they are asleep, wake to a tap with a spinner, and the frame page can set how long a tap keeps the frame awake.
+- reTerminal Sticky frames gain battery power-latch support, Action/AI key mappings, and triple-press shortcuts.
+- Raspberry Pi frames now apply the CPU speed setting through the Linux CPU governor.
+- The frame admin UI can update installed scenes one at a time or all at once, shows more useful Scene store previews, and keeps add-scene drawers easier to browse with Latest, Read more, and Starred sections.
+- The flasher can install selected scene categories with pictures and real scene names, choose a layout with a preview image, and push large scene sets in batches.
+- Frame linking now has a unified Connect flow with a QR code for FrameOS Cloud and self-hosted backends.
+- Frames can type service/API keys directly on the frame itself when a scene needs them.
+
+### Bug fixes
+- Video playback is smoother: fixes include fewer dropped frames, no once-per-second stutter on display planes, real-time playback for rotated phone videos, and clearer fallback logging.
+- ESP32 touch and button response is faster: taps are handled from the touch task, LCD presses show immediately, and e-paper presses start inking sooner.
+- ESP32 rendering is less likely to stall during taps, scene switches, deployments, and schedule pushes.
+- ESP32 memory use was reduced in several places, fixing low-memory discards on E1004 frames and the E1002 metrics-ring memory issue.
+- ESP32 first-run Wi‑Fi scanning from the frame page no longer restarts the board.
+- ESP32 Scene store update badges no longer appear falsely when a scene’s version is stored in a different origin field.
+- E-paper frames now flash based on actual tile wear, avoid grey pictures after unplug/wake, and log each update kind and wear state.
+- reTerminal E1003 glass no longer wakes the frame immediately after it goes to sleep.
+- The Sketchbook scene avoids out-of-memory failures from round joins and large strokes.
+- The Form showcase scrolls again.
+- The Browser scene can open larger pages on 8 MB ESP32 boards.
+- JavaScript `fetch` handling is stricter: string bodies are treated correctly, and oversized response bodies reject instead of overrunning memory.
+- The palette pack no longer hangs in the two-core test case.
+- A tap on the voice chat answer can dismiss it again.
+- Pi frames no longer hit a
+
 ## 2026.11.14 (2026-11-22)
 
 ### New features
