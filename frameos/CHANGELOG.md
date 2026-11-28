@@ -2,6 +2,47 @@
 
 Release notes for the FrameOS Home Assistant add-on. Each add-on version ships the matching [FrameOS release](https://github.com/FrameOS/frameos/releases).
 
+## 2026.11.16 (2026-11-28)
+
+### New features
+
+- Automatic render scaling now applies consistently across scenes, built-in pages, previews, and server-rendered ESP32/thin-client frames. Dense and large panels should show more readable UIs, and the frame page now accepts render scales from 0.25× to 4×.
+- Many bundled sample scenes were updated to fit more panels, including small, round, 1-bit e-paper, Spectra/color e-paper, and wide landscape displays. Games and several apps also gained better button-key navigation and Back behavior.
+- Retro desktop layouts, including Windows 98, BeOS, Classic Mac, and OS/2 Warp, now support selecting icons with a rectangle and dragging them.
+- Board buttons now follow a shared standard across supported boards: short presses go to the scene, holds perform frame actions, directional roles follow rotation, and boards without a Back key can use a two-key Back shortcut.
+- New ESP32 board/panel support:
+  - Elecrow CrowPanel 2.01" watch
+  - Elecrow CrowPanel 1.46" rotary
+  - Elecrow CrowPanel Advance 7.0"
+  - Elecrow CrowPanel Advance 2.8"
+  - Elecrow CrowPanel 4.2" black-and-white e-paper
+  - Improved Elecrow CrowPanel 5.79" black-and-white e-paper support
+- Supported ESP32 LCD/AMOLED boards can now report and control display brightness, including idle dimming on supported glass. Brightness is available on the frame page and in Power settings.
+- The frame page now includes an About card with host, chip/board/display, memory, storage, uptime, network, and plane details where available.
+- Flashing flow improvements include clearer messaging when the embedded-device setup goes through the browser web flasher, and better default layout selection for newly flashed touch boards.
+
+### Bug fixes
+
+- A dark screen now wakes cleanly from a key, touch, or edge swipe without also sending that first input into the scene or opening a panel.
+- Text rendering is more reliable: fitted text keeps words whole, oversized words shrink instead of overflowing, centered/right-aligned truncation no longer disappears, and text stays inside round panels.
+- Layout and image rendering fixes include better color fitting, correct SVG `viewBox` placement when resized, pixel apps covering scaled panels again, and Gallery showing photos on the reTerminal E1004.
+- Scene list and built-in UI pages were tightened up on landscape, round, and reTerminal Sticky layouts, including whole-row opening, centered round-panel columns, better key paging, and landscape Sticky home/list layout fixes.
+- Scene settings behaves better on desktop layouts: the code button keeps settings open as a desktop window, while it still leaves the full frame page.
+- A scene that fails to build or start now shows its error on the device canvas and no longer steals the frame’s keys or swipes.
+- ESP32 scene switching is more robust when memory is tight: if loading the next scene cannot reserve room, the old scene is dropped first.
+- ESP32 animations and fast-panel rendering received fixes, including correct requested animation periods, reused recent battery readings, and faster AMOLED updates.
+- Drawing on e-paper while moving a finger now keeps all points instead of dropping strokes.
+- Raspberry Pi frames avoid a crash after a backend pushes scenes a second time, and requested restarts now wait until the request has been answered.
+- The Sudoku sample now draws on ESP32 boards by avoiding recursive solution counting.
+- The self-hosted backend avoids a race when returning frame state while a background refresh is starting.
+- Cloud-linked frames now end the management session cleanly if they are unlinked during the handshake.
+
+### Maintenance
+
+- ESP32 firmware size was reduced by about 5 KB without dropping features.
+- A new UX bench exercises samples across panel sizes, keys, taps, swipes, scroll boxes, and built-in pages; many bundled scenes were adjusted based on those checks.
+- Button maps, event contracts, render-scale fixtures, and related docs were regenerated and expanded so firmware, the web admin UI, and Pi/runtime behavior stay in sync.
+
 ## 2026.11.15 (2026-11-26)
 
 ### New features
